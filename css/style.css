@@ -1,0 +1,23 @@
+/* reset styles */
+@import url(reset.css);
+
+/* game styles */
+body {
+  height: 100vh;
+
+  background-color: #01353c;
+}
+
+canvas {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #61CDFD;
+  background: linear-gradient(180deg, rgba(97, 205, 253, 1) 0%, rgba(32, 171, 254, 1) 29%, rgba(8, 158, 254, 1) 73%, rgba(1, 73, 82, 1) 88%);
+}
+
+#canvas-container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
