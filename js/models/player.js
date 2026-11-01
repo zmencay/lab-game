@@ -1,4 +1,4 @@
-class Mario {
+class Player {
   constructor(ctx, x, y) {
     this.ctx = ctx
 
@@ -16,23 +16,46 @@ class Mario {
     this.isJumping = false
 
     // sprite setup
-    this.sprite = new Image()
-    this.sprite.src = './assets/player/sprite-player.png'
+    this.spriteRight = new Image()
+    this.spriteRight.src = PLAYER_SPRITE_RIGHT
     // cols and rows
-    this.sprite.cols = 5 // how many cols have sprite
-    this.sprite.rows = 2 // how many rows have sprite
+    this.spriteRight.cols = 5 // how many cols have sprite
+    this.spriteRight.rows = 2 // how many rows have sprite
     // sprite init position
-    this.sprite.colIndex = 0
-    this.sprite.rowIndex = 1
+    this.spriteRight.colIndex = 0
+    this.spriteRight.rowIndex = 1
 
-    this.sprite.onload = () => {
-      this.sprite.isReady = true
+    this.spriteRight.onload = () => {
+      this.spriteRight.isReady = true
 
-      this.sprite.frameW = Math.floor(this.sprite.width / this.sprite.cols)
-      this.sprite.frameH = Math.floor(this.sprite.height / this.sprite.rows)
+      this.spriteRight.frameW = Math.floor(this.spriteRight.width / this.spriteRight.cols)
+      this.spriteRight.frameH = Math.floor(this.spriteRight.height / this.spriteRight.rows)
     }
 
+    // sprite setup
+    this.spriteLeft = new Image()
+    this.spriteLeft.src = PLAYER_SPRITE_LEFT
+    // cols and rows
+    this.spriteLeft.cols = 5 // how many cols have sprite
+    this.spriteLeft.rows = 2 // how many rows have sprite
+    // sprite init position
+    this.spriteLeft.colIndex = 0
+    this.spriteLeft.rowIndex = 1
+
+    this.spriteLeft.onload = () => {
+      this.spriteLeft.isReady = true
+
+      this.spriteLeft.frameW = Math.floor(this.spriteLeft.width / this.spriteLeft.cols)
+      this.spriteLeft.frameH = Math.floor(this.spriteLeft.height / this.spriteLeft.rows)
+    }
+
+    this.sprite = this.spriteRight
+
     this.drawCount = 0
+    
+    // audio
+    this.jumpAudio = new Audio('./assets/audio/jump.mp3')
+    this.jumpAudio.volume = AUDIO_VOL
   }
 
   groundTo(groundY) {
@@ -101,8 +124,9 @@ class Mario {
           this.vx = 0
         }
         break
-      case KEY_UP:
+      case KEY_SPACE:
         if (!this.isJumping) {
+          this.jumpAudio.play()
           this.isJumping = true
           this.vy = -PLAYER_VY
           this.ay = PLAYER_AY
@@ -132,5 +156,12 @@ class Mario {
       this.drawCount = 0
       this.sprite.colIndex = (this.sprite.colIndex + 1) % spriteFrames
     }
+  }
+
+  collidesWith(element) {
+    return (this.x + this.w > element.x) &&
+      (this.x < element.x + element.w) &&
+      (this.y + this.h > element.y) &&
+      (this.y < element.y + element.h)
   }
 }

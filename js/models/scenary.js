@@ -1,4 +1,4 @@
-class Bgnscenary {
+class Scenary {
   constructor(ctx, src, x, y, imgW, imgH, fps) {
     this.ctx = ctx
 
