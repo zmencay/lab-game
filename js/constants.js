@@ -60,38 +60,38 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 5
-  // coin score
-  const COIN_SCORE = 5
+  const COINS_MAX_IN_GAME = 10
 
 // ---------------------
 // ENEMIES
 // ---------------------
   // speed
-  const ENEMY_VX = PLAYER_VX - 3
-  const ENEMY_SPRITE_FREQUENCY = 5
+  const ENEMY_VX = PLAYER_VX - 2
+  const ENEMY_SPRITE_FREQUENCY = 6
   // setup
   const ENEMY_W = 218 / 2
   const ENEMY_H = 159 / 2
   const ENEMY_SPRITE = './assets/enemies/enemy1.png'
   const ENEMY_SPRITE_COLS = 6
-  const ENEMY_SPRITE_ROWS = 1
-  // enemy score
-  const ENEMY_SCORE = 20
+  const ENEMY_SPRITE_ROWS = 2
 
 // ---------------------
 // HUD
 // ---------------------
   // hud ui
-  const HUD_W = 196
-  const HUD_H = 87
+  const HUD_W = 598
+  const HUD_H = 108
   const HUD_IMG = './assets/ui/hud/hud.png'
-  // hud ui
-  const COLLECTIBLES_W = 200
-  const COLLECTIBLES_H = 66
-  const COLLECTIBLES_IMG = './assets/ui/hud/collectibles.png'
   // hearts
-  const HEARTS_W = 23
-  const HEARTS_H = 23
+  const HEARTS_W = 30
+  const HEARTS_H = 30
   const HEARTS_IMG = './assets/ui/hud/heart.png'
+// ---------------------
+
+// ---------------------
+// GAME OVER
+// ---------------------
+  const GAMEOVERWINDOW_W = 1280
+  const GAMEOVERWINDOW_H = 780
+  const GAMEOVERWINDOW_IMG = './assets/ui/window/bgn-game-over.png'
 // ---------------------

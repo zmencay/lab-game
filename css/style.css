@@ -35,22 +35,30 @@ body {
       background-size: contain;
     }
 
-#initBtn {
+.btn {
   position: absolute;
   z-index: 10;
   top: 66vh;
-  background: url(../assets/ui/init/initBtn.png) no-repeat center;
-  width: 275px;
-  height: 82px;
   border: 0;
   outline: 0;
   text-indent: -999999em;
   cursor: pointer;
-  border-radius: 30px;
-  box-shadow: 0 0 20px rgba(0,0,0, .7);
 }
-  #initBtn.hidden {
+  .btn.hidden {
     display: none;
+  }
+
+  .btn.start {
+    background: url(../assets/ui/window/initBtn.png) no-repeat center;
+    width: 275px;
+    height: 82px;
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0, .7);
+  }
+  .btn.reload {
+    background: url(../assets/ui/window/reloadBtn.png) no-repeat center;
+    width: 295px;
+    height: 95px;
   }
 
 #canvas-container {

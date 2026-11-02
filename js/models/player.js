@@ -19,10 +19,10 @@ class Player {
     this.spriteRight = new Image()
     this.spriteRight.src = PLAYER_SPRITE_RIGHT
     // cols and rows
-    this.spriteRight.cols = 5 // how many cols have sprite
+    this.spriteRight.cols = 7 // how many cols have sprite
     this.spriteRight.rows = 2 // how many rows have sprite
     // sprite init position
-    this.spriteRight.colIndex = 0
+    this.spriteRight.colIndex = 6
     this.spriteRight.rowIndex = 1
 
     this.spriteRight.onload = () => {
@@ -36,10 +36,10 @@ class Player {
     this.spriteLeft = new Image()
     this.spriteLeft.src = PLAYER_SPRITE_LEFT
     // cols and rows
-    this.spriteLeft.cols = 5 // how many cols have sprite
+    this.spriteLeft.cols = 7 // how many cols have sprite
     this.spriteLeft.rows = 2 // how many rows have sprite
     // sprite init position
-    this.spriteLeft.colIndex = 0
+    this.spriteLeft.colIndex = 6
     this.spriteLeft.rowIndex = 1
 
     this.spriteLeft.onload = () => {
@@ -112,6 +112,7 @@ class Player {
     switch (event.keyCode) {
       case KEY_RIGHT:
         if (isPressed) {
+          this.sprite = this.spriteRight
           this.vx = PLAYER_VX
         } else {
           this.vx = 0
@@ -119,6 +120,7 @@ class Player {
         break
       case KEY_LEFT:
         if (isPressed) {
+          this.sprite = this.spriteLeft
           this.vx = -PLAYER_VX
         } else {
           this.vx = 0
@@ -140,9 +142,9 @@ class Player {
       this.sprite.colIndex = 0
       this.sprite.rowIndex = 0
     } else if (this.vx !== 0) {
-      this.animateFrame(0, 1, 5, 6)
+      this.animateFrame(5, 1, 6, 4)
     } else {
-      this.sprite.colIndex = 0
+      this.sprite.colIndex = 5
       this.sprite.rowIndex = 1
     }
   }

@@ -8,12 +8,11 @@ class Enemy {
       ENEMY_H,
       ENEMY_SPRITE,
       ENEMY_SPRITE_COLS,
-      ENEMY_SPRITE_ROWS,
-      ENEMY_SCORE
+      ENEMY_SPRITE_ROWS
     )
   }
 
-  constructor(ctx, x, y, w, h, src, cols, rows, score) {
+  constructor(ctx, x, y, w, h, src, cols, rows) {
     this.ctx = ctx
 
     this.x = x
@@ -22,8 +21,6 @@ class Enemy {
     this.h = h
 
     this.vx = -ENEMY_VX
-
-    this.score = score
 
     this.sprite = new Image()
     this.sprite.src = src

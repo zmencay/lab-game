@@ -5,8 +5,7 @@ class Coin {
     y,
     w = COIN_W,
     h = COIN_H,
-    src = COIN_SPRITE,
-    score = COIN_SCORE
+    src = COIN_SPRITE
   ) {
     this.ctx = ctx
     this.x = x
@@ -15,7 +14,7 @@ class Coin {
     this.w = w
     this.h = h
 
-    this.score = score
+    //this.score = score
 
     this.sprite = new Image()
     this.sprite.src = src
