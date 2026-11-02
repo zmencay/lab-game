@@ -12,8 +12,8 @@ class Game {
     this.drawIntervalId = null
 
     this.isStartedClicked = false
-    this.initBtn = initBtn;
-    this.reloadBtn = reloadBtn;
+    this.initBtn = initBtn
+    this.reloadBtn = reloadBtn
 
     this.player = new Player(this.ctx, 20, 20)
     this.player.groundTo(this.canvas.height - BG_FLOOR)
@@ -151,12 +151,12 @@ class Game {
 
   setupListeners() {
     this.initBtn.addEventListener('click', () => {
-      this.isStartedClicked = true;
+      this.isStartedClicked = true
       this.initBtn.classList.add("hidden")
     })
 
     this.reloadBtn.addEventListener('click', () => {
-      window.location.reload();
+      window.location.reload()
     })
     addEventListener('keydown', (event) => {
       this.player.onKeyEvent(event)
@@ -176,7 +176,7 @@ class Game {
             this.canvas.height - BG_FLOOR - COIN_H - randomY),
         )
         this.coinsTimeoutId = null
-      }, 3000);
+      }, 3000)
     }
 
     if (this.enemiesTimeoutId === null) {
@@ -188,7 +188,7 @@ class Game {
           )
         )
         this.enemiesTimeoutId = null
-      }, 4000);
+      }, 4000)
     }
   }
 
@@ -211,7 +211,7 @@ class Game {
         if (this.player.isJumping && this.player.y < enemy.y) {
           enemy.sprite.colIndex = 0
           enemy.sprite.rowIndex = 1
-          enemy.draw()
+          //console.log(enemy.draw())
         } else {
           this.hearts--
         }
@@ -253,13 +253,13 @@ class Game {
     }
   }
   drawCollectedCoins() {
-    this.ctx.lineWidth = 1;
-    this.ctx.strokeStyle = "black";
-    this.ctx.font = "25px impact";
-    this.ctx.fillStyle = "white";
-    this.ctx.textAlign = "right";
-    this.ctx.fillText(this.collectedCoins, 360, 73);
-    this.ctx.strokeText(this.collectedCoins, 360, 73);
+    this.ctx.lineWidth = 1
+    this.ctx.strokeStyle = "black"
+    this.ctx.font = "25px impact"
+    this.ctx.fillStyle = "white"
+    this.ctx.textAlign = "right"
+    this.ctx.fillText(this.collectedCoins, 360, 73)
+    this.ctx.strokeText(this.collectedCoins, 360, 73)
   }
   // -----------------------
 
