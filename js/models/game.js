@@ -103,7 +103,7 @@ class Game {
       
       this.setupListeners()
       
-      // this.audio.play()
+      this.audio.play()
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -115,6 +115,7 @@ class Game {
 
           if (this.checkNextLevel()) {
             this.stop()
+            this.level++
             this.nextLevel()
           }
 
@@ -337,10 +338,7 @@ class Game {
   // -----------------------
   // check
   checkNextLevel() {
-    if(this.collectedCoins == COINS_MAX_IN_GAME) {
-      this.level++
-    }
-    return this.collectedCoins == COINS_MAX_IN_GAME
+    return this.collectedCoins >= COINS_MAX_IN_GAME
   }
   // draw next level window
   drawNextLevel() { 
