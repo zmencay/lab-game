@@ -1,7 +1,7 @@
 // Orquestador de todo lo que pase en mi juego
 
 class Game {
-  constructor(canvasId, initBtn, reloadBtn) {
+  constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn) {
     this.canvas = document.getElementById(canvasId)
     this.canvas.width = CANVAS_W
     this.canvas.height = CANVAS_H
@@ -11,9 +11,14 @@ class Game {
     this.fps = FPS
     this.drawIntervalId = null
 
+    this.level = START_LEVEL
+
     this.isStartedClicked = false
+    this.isNextBtnClicked = false
     this.initBtn = initBtn
     this.reloadBtn = reloadBtn
+    this.soundBtn = soundBtn
+    this.nextBtn = nextBtn
 
     this.player = new Player(this.ctx, 20, 20)
     this.player.groundTo(this.canvas.height - BG_FLOOR)
@@ -75,6 +80,22 @@ class Game {
     this.gameOverWindow.onload = () => {
       this.gameOverWindow.isReady = true
     }
+
+    // ------ Next level
+    this.nextLevelAudio = new Audio('./assets/audio/next-level.mp3')
+    this.nextLevelAudio.volume = AUDIO_VOL
+    // nextLevel window
+    this.nextLevel1 = new Image()
+    this.nextLevel1.src = NEXTLEVEL1_IMG
+    this.nextLevel1.onload = () => {
+      this.nextLevel1.isReady = true
+    }
+    // nextLevel window
+    this.nextLevel2 = new Image()
+    this.nextLevel2.src = NEXTLEVEL2_IMG
+    this.nextLevel2.onload = () => {
+      this.nextLevel2.isReady = true
+    }
   }
 
   start() {
@@ -82,7 +103,7 @@ class Game {
       
       this.setupListeners()
       
-      this.audio.play()
+      // this.audio.play()
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -91,6 +112,16 @@ class Game {
           this.draw()
           this.generateElements()
           this.checkCollisions()
+
+          if (this.checkNextLevel()) {
+            this.stop()
+            this.nextLevel()
+          }
+
+          if(this.isNextBtnClicked) {
+            console.log(this.level)
+            // this.nextLevel()
+          }
 
           if (this.checkGameOver()) {
             this.stop()
@@ -153,14 +184,28 @@ class Game {
     this.reloadBtn.classList.remove("hidden")
   }
 
+  nextLevel() {
+    this.nextLevelAudio.play()
+    this.audio.pause()
+    this.drawNextLevel()
+    this.nextBtn.classList.remove("hidden")
+  }
+
   setupListeners() {
     this.initBtn.addEventListener('click', () => {
       this.isStartedClicked = true
       this.initBtn.classList.add("hidden")
     })
-
     this.reloadBtn.addEventListener('click', () => {
       window.location.reload()
+    })
+    this.soundBtn.addEventListener('click', () => {
+      this.audio.pause()
+      this.soundBtn.classList.remove("active")
+    })
+    this.nextBtn.addEventListener('click', () => {
+      this.isNextBtnClicked = true
+      this.nextBtn.classList.add("hidden")
     })
     addEventListener('keydown', (event) => {
       this.player.onKeyEvent(event)
@@ -287,6 +332,46 @@ class Game {
         GAMEOVERWINDOW_H
       )
     }
+  }
+  // -----------------------
+
+  // -----------------------
+  // NEXT LEVEL
+  // -----------------------
+  // check
+  checkNextLevel() {
+    if(this.collectedCoins == COINS_MAX_IN_GAME) {
+      this.level++
+    }
+    return this.collectedCoins == COINS_MAX_IN_GAME
+  }
+  // draw next level window
+  drawNextLevel() { 
+
+    switch (this.level) {
+      case 2:
+        if (this.nextLevel1.isReady) {
+          this.ctx.drawImage(
+            this.nextLevel1,
+            0,
+            0,
+            NEXTLEVEL_W,
+            NEXTLEVEL_H
+          )
+        }
+        break;
+      case 3:
+        if (this.nextLevel2.isReady) {
+          this.ctx.drawImage(
+            this.nextLevel2,
+            0,
+            0,
+            NEXTLEVEL_W,
+            NEXTLEVEL_H
+          )
+        }
+        break;
+    }   
   }
   // -----------------------
 }

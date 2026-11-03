@@ -15,6 +15,8 @@
   // bgn variables
   const BG_FLOOR = 52
   const BG_VX = 3
+
+  const START_LEVEL = 1
 // ---------------------
 
 // ---------------------
@@ -60,7 +62,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 10
+  const COINS_MAX_IN_GAME = 1
 
 // ---------------------
 // ENEMIES
@@ -94,4 +96,14 @@
   const GAMEOVERWINDOW_W = 1280
   const GAMEOVERWINDOW_H = 780
   const GAMEOVERWINDOW_IMG = './assets/ui/window/bgn-game-over.png'
+// ---------------------
+
+// ---------------------
+// NEXT LEVEL
+// ---------------------
+  const NEXTLEVEL_W = 1280
+  const NEXTLEVEL_H = 780
+  const NEXTLEVEL1_IMG = './assets/ui/window/next-level1.png'
+  const NEXTLEVEL2_IMG = './assets/ui/window/next-level2.png'
+  const NEXTLEVEL3_IMG = './assets/ui/window/next-level3.png'
 // ---------------------
