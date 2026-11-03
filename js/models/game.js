@@ -96,12 +96,12 @@ class Game {
     this.nextLevel2.onload = () => {
       this.nextLevel2.isReady = true
     }
+
+    this.setupListeners()
   }
 
   start() {
     if (this.drawIntervalId === null) {
-      
-      this.setupListeners()
       
       // this.audio.play()
 
@@ -174,15 +174,15 @@ class Game {
   }
 
   stop() {
-    // Detener el bucle principal
+    // stop principal loop
     clearInterval(this.drawIntervalId)
     this.drawIntervalId = null
 
-    // Cancelar la generación de monedas
+    // stop coin generator
     clearTimeout(this.coinsTimeoutId)
     this.coinsTimeoutId = null
 
-    // Cancelar la generación de enemigos
+    // stop enemy generator
     clearTimeout(this.enemiesTimeoutId)
     this.enemiesTimeoutId = null
   }
