@@ -36,6 +36,8 @@ class Game {
     // Enemies
     this.enemies = []
     this.enemiesTimeoutId = null
+    this.enemiesAudio = new Audio('./assets/audio/enemy.mp3')
+    this.enemiesAudio.volume = AUDIO_VOL
 
     // Score
     this.collectedCoins = 0
@@ -59,7 +61,7 @@ class Game {
 
     // Audio
     this.audio = new Audio('./assets/audio/music.mp3')
-    this.audio.volume = AUDIO_VOL
+    this.audio.volume = 0.05
     this.audio.loop = true
     
     // ------ GAME OVER
@@ -209,6 +211,7 @@ class Game {
     this.enemies = this.enemies.filter(enemy => {
       if (this.player.collidesWith(enemy)) {
         if (this.player.isJumping && this.player.y < enemy.y) {
+          this.enemiesAudio.play()
           enemy.sprite.colIndex = 0
           enemy.sprite.rowIndex = 1
           //console.log(enemy.draw())
