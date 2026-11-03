@@ -103,7 +103,7 @@ class Game {
       
       this.setupListeners()
       
-      this.audio.play()
+      // this.audio.play()
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -258,7 +258,15 @@ class Game {
 
     this.enemies = this.enemies.filter(enemy => {
       if (this.player.collidesWith(enemy)) {
-        if (this.player.isJumping && this.player.y < enemy.y) {
+        const playerFeet = this.player.y + this.player.h
+        const previousPlayerFeet = playerFeet - this.player.vy
+
+        const isFalling = this.player.vy > 0
+        const landsOnEnemy =
+          previousPlayerFeet <= enemy.y &&
+          playerFeet >= enemy.y
+
+        if (isFalling && landsOnEnemy) {
           this.enemiesAudio.play()
         } else {
           this.damageAudio.play()
