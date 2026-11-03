@@ -38,6 +38,8 @@ class Game {
     this.enemiesTimeoutId = null
     this.enemiesAudio = new Audio('./assets/audio/enemy.mp3')
     this.enemiesAudio.volume = AUDIO_VOL
+    this.damageAudio = new Audio('./assets/audio/damage.mp3')
+    this.damageAudio.volume = AUDIO_VOL
 
     // Score
     this.collectedCoins = 0
@@ -216,6 +218,7 @@ class Game {
           enemy.sprite.rowIndex = 1
           //console.log(enemy.draw())
         } else {
+          this.damageAudio.play()
           this.hearts--
         }
         return false
