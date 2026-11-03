@@ -174,8 +174,17 @@ class Game {
   }
 
   stop() {
+    // Detener el bucle principal
     clearInterval(this.drawIntervalId)
     this.drawIntervalId = null
+
+    // Cancelar la generación de monedas
+    clearTimeout(this.coinsTimeoutId)
+    this.coinsTimeoutId = null
+
+    // Cancelar la generación de enemigos
+    clearTimeout(this.enemiesTimeoutId)
+    this.enemiesTimeoutId = null
   }
 
   gameOver() {
