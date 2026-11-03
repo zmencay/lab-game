@@ -46,10 +46,8 @@ class Game {
     this.damageAudio = new Audio('./assets/audio/damage.mp3')
     this.damageAudio.volume = AUDIO_VOL
 
-    // Score
+    // Collected coins
     this.collectedCoins = 0
-    // Score
-    this.score = 0
 
     // HUD
     // hud setup
@@ -120,8 +118,6 @@ class Game {
           }
 
           if(this.isNextBtnClicked) {
-            console.log(this.level)
-            // this.nextLevel()
           }
 
           if (this.checkGameOver()) {

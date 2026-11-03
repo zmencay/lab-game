@@ -37,8 +37,6 @@
   const PLAYER_SPRITE_LEFT = './assets/player/sprite-player-left.png'
   const PLAYER_SPRITE_RIGHT = './assets/player/sprite-player-right.png'
 
-  // HUD
-  const PLAYER_HUD = 100
 // ---------------------
 
 // ---------------------
@@ -118,5 +116,4 @@
   const NEXTLEVEL_H = 780
   const NEXTLEVEL1_IMG = './assets/ui/window/next-level1.png'
   const NEXTLEVEL2_IMG = './assets/ui/window/next-level2.png'
-  const NEXTLEVEL3_IMG = './assets/ui/window/next-level3.png'
 // ---------------------

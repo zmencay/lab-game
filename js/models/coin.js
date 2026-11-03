@@ -14,8 +14,6 @@ class Coin {
     this.w = w
     this.h = h
 
-    //this.score = score
-
     this.sprite = new Image()
     this.sprite.src = src
     this.sprite.cols = COIN_SPRITE_COLS
