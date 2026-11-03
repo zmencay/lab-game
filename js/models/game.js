@@ -259,9 +259,6 @@ class Game {
       if (this.player.collidesWith(enemy)) {
         if (this.player.isJumping && this.player.y < enemy.y) {
           this.enemiesAudio.play()
-          enemy.sprite.colIndex = 0
-          enemy.sprite.rowIndex = 1
-          //console.log(enemy.draw())
         } else {
           this.damageAudio.play()
           this.hearts--

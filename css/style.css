@@ -69,13 +69,14 @@ body {
     height: 95px;
   }
   
-  /* .btn.sound {
+  .btn.sound {
     top: 2vh;
     right: 12.5vw;
     width: 60px;
     height: 60px;
+    visibility: hidden;
   }
-    .btn.sound {
+    /* .btn.sound {
       background: url(../assets/ui/audio/soundBtn-on.png) no-repeat center;
     }
     .btn.sound.active {
