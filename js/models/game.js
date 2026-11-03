@@ -199,10 +199,10 @@ class Game {
     this.reloadBtn.addEventListener('click', () => {
       window.location.reload()
     })
-    this.soundBtn.addEventListener('click', () => {
-      this.audio.pause()
-      this.soundBtn.classList.remove("active")
-    })
+    // this.soundBtn.addEventListener('click', () => {
+    //   this.audio.pause()
+    //   this.soundBtn.classList.remove("active")
+    // })
     this.nextBtn.addEventListener('click', () => {
       this.isNextBtnClicked = true
       this.nextBtn.classList.add("hidden")
