@@ -68,14 +68,27 @@
 // ENEMIES
 // ---------------------
   // speed
-  const ENEMY_VX = PLAYER_VX - 2
   const ENEMY_SPRITE_FREQUENCY = 6
   // setup
   const ENEMY_W = 218 / 2
   const ENEMY_H = 159 / 2
-  const ENEMY_SPRITE = './assets/enemies/enemy1.png'
   const ENEMY_SPRITE_COLS = 6
   const ENEMY_SPRITE_ROWS = 2
+  
+  const ENEMY_CONFIG = {
+    1: {
+      speed: PLAYER_VX - 2,
+      sprite: './assets/enemies/enemy1.png'
+    },
+    2: {
+      speed: PLAYER_VX - 4,
+      sprite: './assets/enemies/enemy2.png'
+    },
+    3: {
+      speed: PLAYER_VX - 6,
+      sprite: './assets/enemies/enemy3.png'
+    }
+  }
 
 // ---------------------
 // HUD

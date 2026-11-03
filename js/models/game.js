@@ -244,6 +244,7 @@ class Game {
           Enemy.generateEnemy(
             this.ctx,
             this.canvas.width,
+            ENEMY_CONFIG[this.level]
           )
         )
         this.enemiesTimeoutId = null

@@ -1,18 +1,19 @@
 class Enemy {
-  static generateEnemy(ctx, x, y) {
+  static generateEnemy(ctx, x, config) {
     return new Enemy(
       ctx,
       x,
       ctx.canvas.height - BG_FLOOR - ENEMY_H,
       ENEMY_W,
       ENEMY_H,
-      ENEMY_SPRITE,
+      config.sprite,
       ENEMY_SPRITE_COLS,
-      ENEMY_SPRITE_ROWS
+      ENEMY_SPRITE_ROWS,
+      config.speed
     )
   }
 
-  constructor(ctx, x, y, w, h, src, cols, rows) {
+  constructor(ctx, x, y, w, h, src, cols, rows, speed) {
     this.ctx = ctx
 
     this.x = x
@@ -20,7 +21,7 @@ class Enemy {
     this.w = w
     this.h = h
 
-    this.vx = -ENEMY_VX
+    this.vx = -speed
 
     this.sprite = new Image()
     this.sprite.src = src
