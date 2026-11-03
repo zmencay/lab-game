@@ -14,7 +14,6 @@ class Game {
     this.level = START_LEVEL
 
     this.isStartedClicked = false
-    this.isNextBtnClicked = false
     this.initBtn = initBtn
     this.reloadBtn = reloadBtn
     this.soundBtn = soundBtn
@@ -26,28 +25,17 @@ class Game {
     // wellcome window
     this.initWindow = new Scenary(this.ctx, './assets/ui/window/bgn-init.png', 0, 0, 1280, 720, 0)
 
-    // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
-    this.clouds = new Scenary(this.ctx, './assets/bgn/levels/bgn-clouds.png', 0, 0, 1280, 427, 0.3)
-    this.mountains = new Scenary(this.ctx, './assets/bgn/levels/bgn-mountains.png', 0, 320, 1280, 235, 0.1)
-    this.aqua = new Scenary(this.ctx, './assets/bgn/levels/bgn-aqua.png', 0, 290, 1280, 427, 0.1)
-    this.floor = new Scenary(this.ctx, './assets/bgn/levels/bgn-floor.png', 0, this.canvas.height - 133, 1280, 133, 0)
-    
     // Collectibles
-    this.coins = []
     this.coinsTimeoutId = null
     this.coinAudio = new Audio('./assets/audio/coin.mp3')
     this.coinAudio.volume = AUDIO_VOL
 
     // Enemies
-    this.enemies = []
     this.enemiesTimeoutId = null
     this.enemiesAudio = new Audio('./assets/audio/enemy.mp3')
     this.enemiesAudio.volume = AUDIO_VOL
     this.damageAudio = new Audio('./assets/audio/damage.mp3')
     this.damageAudio.volume = AUDIO_VOL
-
-    // Collected coins
-    this.collectedCoins = 0
 
     // HUD
     // hud setup
@@ -96,6 +84,8 @@ class Game {
     }
 
     this.setupListeners()
+
+    this.setupLevel()
   }
 
   start() {
@@ -112,13 +102,14 @@ class Game {
           this.checkCollisions()
 
           if (this.checkNextLevel()) {
-            this.stop()
-            this.level++
-            this.nextLevel()
-          }
+          this.stop()
 
-          if(this.isNextBtnClicked) {
+          if (this.level < MAX_LEVEL) {
+            this.nextLevel()
+          } else {
+            this.gameCompleted()
           }
+        }
 
           if (this.checkGameOver()) {
             this.stop()
@@ -183,20 +174,6 @@ class Game {
     this.enemiesTimeoutId = null
   }
 
-  gameOver() {
-    this.gameOverAudio.play()
-    this.audio.pause()
-    this.drawGameOver()
-    this.reloadBtn.classList.remove("hidden")
-  }
-
-  nextLevel() {
-    this.nextLevelAudio.play()
-    this.audio.pause()
-    this.drawNextLevel()
-    this.nextBtn.classList.remove("hidden")
-  }
-
   setupListeners() {
     this.initBtn.addEventListener('click', () => {
       this.isStartedClicked = true
@@ -210,8 +187,10 @@ class Game {
     //   this.soundBtn.classList.remove("active")
     // })
     this.nextBtn.addEventListener('click', () => {
-      this.isNextBtnClicked = true
       this.nextBtn.classList.add("hidden")
+      this.level++
+      this.setupLevel()
+      this.start()
     })
     addEventListener('keydown', (event) => {
       this.player.onKeyEvent(event)
@@ -345,6 +324,12 @@ class Game {
       )
     }
   }
+  gameOver() {
+    this.gameOverAudio.play()
+    this.audio.pause()
+    this.drawGameOver()
+    this.reloadBtn.classList.remove("hidden")
+  }
   // -----------------------
 
   // -----------------------
@@ -356,9 +341,8 @@ class Game {
   }
   // draw next level window
   drawNextLevel() { 
-
     switch (this.level) {
-      case 2:
+      case 1:
         if (this.nextLevel1.isReady) {
           this.ctx.drawImage(
             this.nextLevel1,
@@ -369,7 +353,7 @@ class Game {
           )
         }
         break;
-      case 3:
+      case 2:
         if (this.nextLevel2.isReady) {
           this.ctx.drawImage(
             this.nextLevel2,
@@ -381,6 +365,50 @@ class Game {
         }
         break;
     }   
+  }
+  nextLevel() {
+    this.nextLevelAudio.play()
+    this.audio.pause()
+    this.drawNextLevel()
+    this.nextBtn.classList.remove("hidden")
+  }
+  setupLevel() {
+    this.coins = []
+    this.enemies = []
+    this.collectedCoins = 0
+
+    // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
+    this.clouds = new Scenary(this.ctx, './assets/bgn/levels/bgn-clouds.png', 0, 0, 1280, 427, 0.3)
+    this.mountains = new Scenary(this.ctx, './assets/bgn/levels/bgn-mountains.png', 0, 320, 1280, 235, 0.1)
+    this.aqua = new Scenary(this.ctx, './assets/bgn/levels/bgn-aqua.png', 0, 290, 1280, 427, 0.1)
+    this.floor = new Scenary(this.ctx, './assets/bgn/levels/bgn-floor.png', 0, this.canvas.height - 133, 1280, 133, 0)
+    
+    this.player.reset()
+  }
+
+  // -----------------------
+  // THE END
+  // -----------------------
+  drawGameCompleted() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+
+    this.ctx.fillStyle = '#000'
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+
+    this.ctx.fillStyle = '#fff'
+    this.ctx.font = 'bold 80px Arial'
+    this.ctx.textAlign = 'center'
+    this.ctx.textBaseline = 'middle'
+
+    this.ctx.fillText(
+      'THE END',
+      this.canvas.width / 2,
+      this.canvas.height / 2
+    )
+  }
+  gameCompleted() {
+    this.audio.pause()
+    this.drawGameCompleted()
   }
   // -----------------------
 }

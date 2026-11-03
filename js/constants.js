@@ -3,6 +3,9 @@
 // ---------------------
   const FPS = 1000 / 60
   const AUDIO_VOL = 1
+
+  const START_LEVEL = 1
+  const MAX_LEVEL = 3
 // ---------------------
 
 // ---------------------
@@ -15,8 +18,6 @@
   // bgn variables
   const BG_FLOOR = 52
   const BG_VX = 3
-
-  const START_LEVEL = 1
 // ---------------------
 
 // ---------------------
@@ -60,7 +61,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 3
+  const COINS_MAX_IN_GAME = 1
 
 // ---------------------
 // ENEMIES
@@ -75,15 +76,15 @@
   
   const ENEMY_CONFIG = {
     1: {
-      speed: PLAYER_VX - 2,
+      speed: 3,
       sprite: './assets/enemies/enemy1.png'
     },
     2: {
-      speed: PLAYER_VX - 4,
+      speed: 4,
       sprite: './assets/enemies/enemy2.png'
     },
     3: {
-      speed: PLAYER_VX - 6,
+      speed: 5,
       sprite: './assets/enemies/enemy3.png'
     }
   }

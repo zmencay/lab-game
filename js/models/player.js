@@ -63,6 +63,22 @@ class Player {
     this.ground = groundY
   }
 
+  reset() {
+    this.x = 20
+
+    this.vx = 0
+    this.vy = 0
+    this.ay = 0
+    this.isJumping = false
+
+    this.sprite = this.spriteRight
+    this.sprite.colIndex = 5
+    this.sprite.rowIndex = 1
+    this.drawCount = 0
+
+    this.groundTo(this.ground)
+  }
+
   draw() {
     if (this.sprite.isReady) {
       this.ctx.drawImage(
