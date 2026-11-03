@@ -69,18 +69,18 @@ body {
     height: 95px;
   }
   
-  .btn.sound {
+  /* .btn.sound {
     top: 2vh;
     right: 12.5vw;
     width: 60px;
     height: 60px;
   }
-    .btn.sound.active {
+    .btn.sound {
       background: url(../assets/ui/audio/soundBtn-on.png) no-repeat center;
     }
-    .btn.sound {
+    .btn.sound.active {
       background: url(../assets/ui/audio/soundBtn-off.png) no-repeat center;
-    }
+    } */
 
 #canvas-container {
   position: relative;
