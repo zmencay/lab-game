@@ -172,7 +172,13 @@ class Game {
     this.enemiesTimeoutId = null
   }
 
+  // -----------------------
+  // LISTENERS
+  // buttons &
+  // keys
+  // -----------------------
   setupListeners() {
+    
     this.initBtn.addEventListener('click', () => {
       this.isStartedClicked = true
       this.initBtn.classList.add("hidden")
@@ -190,13 +196,17 @@ class Game {
       this.setupLevel()
       this.start()
     })
+
     addEventListener('keydown', (event) => {
-      this.player.onKeyEvent(event)
+      if (this.drawIntervalId !== null && this.isStartedClicked) {
+        this.player.onKeyEvent(event)
+      }
     })
     addEventListener('keyup', (event) => {
       this.player.onKeyEvent(event)
     })
   }
+  // -----------------------
 
   // -----------------------
   // ELEMENTS
