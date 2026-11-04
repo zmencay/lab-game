@@ -71,17 +71,16 @@ body {
   
   .btn.sound {
     top: 2vh;
-    right: 12.5vw;
+    right: 13vw;
     width: 60px;
     height: 60px;
-    visibility: hidden;
   }
-    /* .btn.sound {
-      background: url(../assets/ui/audio/soundBtn-on.png) no-repeat center;
-    }
     .btn.sound.active {
-      background: url(../assets/ui/audio/soundBtn-off.png) no-repeat center;
-    } */
+      background: url(../assets/ui/audio/soundBtn-on.png) no-repeat top right;
+    }
+    .btn.sound {
+      background: url(../assets/ui/audio/soundBtn-off.png) no-repeat top right;
+    }
 
 #canvas-container {
   position: relative;

@@ -13,10 +13,14 @@ class Game {
 
     this.level = START_LEVEL
 
-    this.isStartedClicked = false
     this.initBtn = initBtn
+    this.isStartedClicked = false
+
     this.reloadBtn = reloadBtn
+    
     this.soundBtn = soundBtn
+    this.isSoundEnabled = true
+    
     this.nextBtn = nextBtn
 
     this.player = new Player(this.ctx, 20, 20)
@@ -91,7 +95,9 @@ class Game {
   start() {
     if (this.drawIntervalId === null) {
       
-      // this.audio.play()
+      if (this.isSoundEnabled) {
+        this.audio.play()
+      }
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -186,10 +192,10 @@ class Game {
     this.reloadBtn.addEventListener('click', () => {
       window.location.reload()
     })
-    // this.soundBtn.addEventListener('click', () => {
-    //   this.audio.pause()
-    //   this.soundBtn.classList.remove("active")
-    // })
+    this.soundBtn.addEventListener('click', () => {
+      this.toggleSound()
+      this.soundBtn.classList.toggle('active', this.isSoundEnabled)
+    })
     this.nextBtn.addEventListener('click', () => {
       this.nextBtn.classList.add("hidden")
       this.level++
@@ -431,6 +437,8 @@ class Game {
     
     this.player.reset()
   }
+  // -----------------------
+
 
   // -----------------------
   // THE END
@@ -455,6 +463,25 @@ class Game {
   gameCompleted() {
     this.audio.pause()
     this.drawGameCompleted()
+  }
+  // -----------------------
+
+  // -----------------------
+  // SOUND ON/OFF
+  // -----------------------
+  toggleSound() {
+    this.isSoundEnabled = !this.isSoundEnabled
+
+    const volume = this.isSoundEnabled ? AUDIO_VOL : 0
+
+    this.coinAudio.volume = volume
+    this.enemiesAudio.volume = volume
+    this.damageAudio.volume = volume
+    this.gameOverAudio.volume = volume
+    this.nextLevelAudio.volume = volume
+    this.player.jumpAudio.volume = volume
+
+    this.audio.volume = this.isSoundEnabled ? 0.05 : 0
   }
   // -----------------------
 }
