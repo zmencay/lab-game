@@ -102,16 +102,14 @@ class Game {
           this.checkCollisions()
 
           if (this.checkNextLevel()) {
-          this.stop()
+            this.stop()
 
-          if (this.level < MAX_LEVEL) {
-            this.nextLevel()
-          } else {
-            this.gameCompleted()
-          }
-        }
-
-          if (this.checkGameOver()) {
+            if (this.level < MAX_LEVEL) {
+              this.nextLevel()
+            } else {
+              this.gameCompleted()
+            }
+          } else if (this.checkGameOver()) {
             this.stop()
             this.gameOver()
           }
@@ -200,6 +198,11 @@ class Game {
     })
   }
 
+  // -----------------------
+  // ELEMENTS
+  // coins &
+  // enemies
+  // -----------------------
   generateElements() {
     if (this.coinsTimeoutId === null) {
       this.coinsTimeoutId = setTimeout(() => {
@@ -226,13 +229,32 @@ class Game {
       }, 4000)
     }
   }
+  // -----------------------
 
+  // -----------------------
+  // When we collect a coin, 
+  // we filter that coin over 
+  // the coin array
+  // -----------------------
   checkBounds() {
     this.coins = this.coins.filter(coin => coin.x + coin.w >= 0)
   }
+  // -----------------------
 
+  // -----------------------
+  // check collisions between
+  // coins & enemies
+  // zmc: posible iterations
+  //      -> pintar el enemigo muerto
+  //      -> disparar
+  //      -> sonido disparar
+  //      -> recoger moneda cuando caigo encima, no cuando colisono con ella
+  // -----------------------
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
+      if (this.checkNextLevel()) {
+        return
+      }
       if (this.player.collidesWith(coin)) {
         this.coinAudio.play()
         this.collectedCoins++
@@ -241,8 +263,10 @@ class Game {
       return true
     })
 
+    let hasTakenDamage = false
     this.enemies = this.enemies.filter(enemy => {
       if (this.player.collidesWith(enemy)) {
+
         const playerFeet = this.player.y + this.player.h
         const previousPlayerFeet = playerFeet - this.player.vy
 
@@ -252,22 +276,28 @@ class Game {
           playerFeet >= enemy.y
 
         if (isFalling && landsOnEnemy) {
+
           this.enemiesAudio.play()
-        } else {
+
+        } else if (!hasTakenDamage) {
+
           this.damageAudio.play()
-          this.hearts--
+          this.hearts = Math.max(0, this.hearts - 1)
+          hasTakenDamage = true
+
         }
         return false
       }
+      
       return true
     })
   }
+  // -----------------------
   
   // -----------------------
   // HUD ELEMENTS
-  // Health bgn,
+  // Health, coins and level bgn,
   // health hearts,
-  // coins score bgn,
   // coins score
   // -----------------------
   drawHud() {

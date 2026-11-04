@@ -61,7 +61,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 1
+  const COINS_MAX_IN_GAME = 5
 
 // ---------------------
 // ENEMIES
