@@ -81,7 +81,7 @@ class Enemy {
 
   animate() {
     if (this.isDead) {
-      if (this.drawCount % ENEMY_SPRITE_FREQUENCY === 0) {
+      if (this.drawCount % ENEMY_DIED_SPRITE_FREQUENCY === 0) {
         this.deathSprite.colIndex = Math.min(
           this.deathSprite.colIndex + 1,
           this.deathSprite.cols - 1

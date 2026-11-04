@@ -68,6 +68,8 @@
 // ---------------------
   // speed
   const ENEMY_SPRITE_FREQUENCY = 6
+  const ENEMY_DIED_SPRITE_FREQUENCY = 10
+  
   // setup
   const ENEMY_W = 218 / 2
   const ENEMY_H = 159 / 2

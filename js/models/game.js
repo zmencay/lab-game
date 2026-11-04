@@ -274,7 +274,6 @@ class Game {
     })
 
     let hasTakenDamage = false
-
     this.enemies = this.enemies.filter(enemy => {
       if (enemy.isDead) {
         return true
