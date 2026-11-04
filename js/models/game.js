@@ -189,13 +189,16 @@ class Game {
       this.isStartedClicked = true
       this.initBtn.classList.add("hidden")
     })
+
     this.reloadBtn.addEventListener('click', () => {
       window.location.reload()
     })
+
     this.soundBtn.addEventListener('click', () => {
       this.toggleSound()
       this.soundBtn.classList.toggle('active', this.isSoundEnabled)
     })
+
     this.nextBtn.addEventListener('click', () => {
       this.nextBtn.classList.add("hidden")
       this.level++
@@ -260,11 +263,6 @@ class Game {
   // -----------------------
   // check collisions between
   // coins & enemies
-  // zmc: posible iterations
-  //      -> pintar el enemigo muerto
-  //      -> disparar
-  //      -> sonido disparar
-  //      -> recoger moneda cuando caigo encima, no cuando colisono con ella
   // -----------------------
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
