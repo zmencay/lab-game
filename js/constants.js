@@ -72,20 +72,23 @@
   const ENEMY_W = 218 / 2
   const ENEMY_H = 159 / 2
   const ENEMY_SPRITE_COLS = 6
-  const ENEMY_SPRITE_ROWS = 2
+  const ENEMY_SPRITE_ROWS = 1
   
   const ENEMY_CONFIG = {
     1: {
       speed: 3,
-      sprite: './assets/enemies/enemy1.png'
+      sprite: './assets/enemies/enemy1.png',
+      deathSprite: './assets/enemies/enemy1-death.png'
     },
     2: {
       speed: 4,
-      sprite: './assets/enemies/enemy2.png'
+      sprite: './assets/enemies/enemy2.png',
+      deathSprite: './assets/enemies/enemy2-death.png'
     },
     3: {
       speed: 5,
-      sprite: './assets/enemies/enemy3.png'
+      sprite: './assets/enemies/enemy3.png',
+      deathSprite: './assets/enemies/enemy3-death.png'
     }
   }
 

@@ -9,11 +9,12 @@ class Enemy {
       config.sprite,
       ENEMY_SPRITE_COLS,
       ENEMY_SPRITE_ROWS,
-      config.speed
+      config.speed,
+      config.deathSprite
     )
   }
 
-  constructor(ctx, x, y, w, h, src, cols, rows, speed) {
+  constructor(ctx, x, y, w, h, src, cols, rows, speed, deathSrc) {
     this.ctx = ctx
 
     this.x = x
@@ -22,30 +23,51 @@ class Enemy {
     this.h = h
 
     this.vx = -speed
-
+    // enemy sprite
     this.sprite = new Image()
     this.sprite.src = src
     this.sprite.cols = cols
     this.sprite.rows = rows
+
     this.sprite.colIndex = 0
     this.sprite.rowIndex = 0
+
     this.sprite.onload = () => {
       this.sprite.isReady = true
       this.sprite.frameW = this.sprite.width / this.sprite.cols
       this.sprite.frameH = this.sprite.height / this.sprite.rows
     }
 
+    // death enemy sprite
+    this.deathSprite = new Image()
+    this.deathSprite.src = deathSrc
+
+    this.deathSprite.cols = 4
+    this.deathSprite.rows = 1
+    this.deathSprite.colIndex = 0
+    this.deathSprite.rowIndex = 0
+
+    this.deathSprite.onload = () => {
+      this.deathSprite.isReady = true
+      this.deathSprite.frameW = this.deathSprite.width / this.deathSprite.cols
+      this.deathSprite.frameH = this.deathSprite.height / this.deathSprite.rows
+    }
+
     this.drawCount = 0
+
+    this.isDead = false
   }
 
   draw() {
-    if (this.sprite.isReady) {
+    const currentSprite = this.isDead ? this.deathSprite : this.sprite
+
+    if (currentSprite.isReady) {
       this.ctx.drawImage(
-        this.sprite,
-        this.sprite.colIndex * this.sprite.frameW,
-        this.sprite.rowIndex * this.sprite.frameH,
-        this.sprite.frameW,
-        this.sprite.frameH,
+        currentSprite,
+        currentSprite.colIndex * currentSprite.frameW,
+        currentSprite.rowIndex * currentSprite.frameH,
+        currentSprite.frameW,
+        currentSprite.frameH,
         this.x,
         this.y,
         this.w,
@@ -58,6 +80,15 @@ class Enemy {
   }
 
   animate() {
+    if (this.isDead) {
+      if (this.drawCount % ENEMY_SPRITE_FREQUENCY === 0) {
+        this.deathSprite.colIndex = Math.min(
+          this.deathSprite.colIndex + 1,
+          this.deathSprite.cols - 1
+        )
+      }
+      return
+    }
     if (this.drawCount >= ENEMY_SPRITE_FREQUENCY) {
       this.drawCount = 0
       this.sprite.colIndex = (this.sprite.colIndex + 1) % this.sprite.cols
@@ -65,6 +96,16 @@ class Enemy {
   }
 
   move() {
+    if (this.isDead) {
+      return
+    }
     this.x += this.vx
+  }
+  
+  die() {
+    this.isDead = true
+    this.vx = 0
+    this.drawCount = 0
+    this.deathSprite.colIndex = 0
   }
 }

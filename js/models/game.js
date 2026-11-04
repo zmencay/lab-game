@@ -274,7 +274,12 @@ class Game {
     })
 
     let hasTakenDamage = false
+
     this.enemies = this.enemies.filter(enemy => {
+      if (enemy.isDead) {
+        return true
+      }
+
       if (this.player.collidesWith(enemy)) {
 
         const playerFeet = this.player.y + this.player.h
@@ -288,6 +293,8 @@ class Game {
         if (isFalling && landsOnEnemy) {
 
           this.enemiesAudio.play()
+          enemy.die()
+          return true
 
         } else if (!hasTakenDamage) {
 
