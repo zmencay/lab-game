@@ -74,17 +74,18 @@ class Game {
     // ------ Next level
     this.nextLevelAudio = new Audio('./assets/audio/next-level.mp3')
     this.nextLevelAudio.volume = AUDIO_VOL
-    // nextLevel window
-    this.nextLevel1 = new Image()
-    this.nextLevel1.src = NEXTLEVEL1_IMG
-    this.nextLevel1.onload = () => {
-      this.nextLevel1.isReady = true
-    }
-    // nextLevel window
-    this.nextLevel2 = new Image()
-    this.nextLevel2.src = NEXTLEVEL2_IMG
-    this.nextLevel2.onload = () => {
-      this.nextLevel2.isReady = true
+    
+    this.nextLevelImages = []
+    for (let level = 1; level < MAX_LEVEL; level++) {
+      const image = new Image()
+
+      image.src = `${NEXTLEVEL_PATH}level${level}/next-level${level}.png`
+
+      image.onload = () => {
+        image.isReady = true
+      }
+
+      this.nextLevelImages.push(image)
     }
 
     this.setupListeners()
@@ -390,31 +391,18 @@ class Game {
     return this.collectedCoins >= COINS_MAX_IN_GAME
   }
   // draw next level window
-  drawNextLevel() { 
-    switch (this.level) {
-      case 1:
-        if (this.nextLevel1.isReady) {
-          this.ctx.drawImage(
-            this.nextLevel1,
-            0,
-            0,
-            NEXTLEVEL_W,
-            NEXTLEVEL_H
-          )
-        }
-        break;
-      case 2:
-        if (this.nextLevel2.isReady) {
-          this.ctx.drawImage(
-            this.nextLevel2,
-            0,
-            0,
-            NEXTLEVEL_W,
-            NEXTLEVEL_H
-          )
-        }
-        break;
-    }   
+  drawNextLevel() {
+    const image = this.nextLevelImages[this.level - 1]
+
+    if (image && image.isReady) {
+      this.ctx.drawImage(
+        image, 
+        0, 
+        0, 
+        NEXTLEVEL_W, 
+        NEXTLEVEL_H
+      )
+    }
   }
   nextLevel() {
     this.nextLevelAudio.play()

@@ -120,6 +120,5 @@
 // ---------------------
   const NEXTLEVEL_W = 1280
   const NEXTLEVEL_H = 780
-  const NEXTLEVEL1_IMG = './assets/bgn/level1/next-level1.png'
-  const NEXTLEVEL2_IMG = './assets/bgn/level2/next-level2.png'
+  const NEXTLEVEL_PATH = './assets/bgn/'
 // ---------------------
