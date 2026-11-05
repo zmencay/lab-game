@@ -4,7 +4,7 @@
   const FPS = 1000 / 60
   const AUDIO_VOL = 1
 
-  const START_LEVEL = 1
+  const START_LEVEL = 3
   const MAX_LEVEL = 3
 // ---------------------
 

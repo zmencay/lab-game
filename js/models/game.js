@@ -147,6 +147,8 @@ class Game {
     this.drawHearts()
     // draw coins
     this.drawCollectedCoins()
+    // draw level 
+    this.drawLevelStatus()
   }
 
   move() {
@@ -354,6 +356,16 @@ class Game {
     this.ctx.fillText(this.collectedCoins, 360, 73)
     this.ctx.strokeText(this.collectedCoins, 360, 73)
   }
+  drawLevelStatus() {
+    this.ctx.lineWidth = 2
+    this.ctx.strokeStyle = "black"
+    this.ctx.font = "27px impact"
+    this.ctx.fillStyle = "#FCAB3A"
+    this.ctx.textAlign = "right"
+    this.ctx.fillText(this.level, 543, 73)
+    this.ctx.strokeText(this.level, 543, 73)
+    console.log(this.level);
+  }
   // -----------------------
 
   // -----------------------
@@ -384,8 +396,24 @@ class Game {
   // -----------------------
 
   // -----------------------
-  // NEXT LEVEL
+  // LEVEL
   // -----------------------
+  setupLevel() {
+    this.coins = []
+    this.enemies = []
+    this.collectedCoins = 0
+
+    this.ctx.canvas.classList.add(`level${this.level}`)
+
+    const levelPath = `./assets/bgn/level${this.level}/`
+    // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
+    this.clouds = new Scenary(this.ctx, `${levelPath}bgn-clouds.png`, 0, 0, 1280, 427, 0.3)
+    this.mountains = new Scenary(this.ctx, `${levelPath}bgn-mountains.png`, 0, 320, 1280, 235, 0.1)
+    this.aqua = new Scenary(this.ctx, `${levelPath}bgn-aqua.png`, 0, 290, 1280, 427, 0.1)
+    this.floor = new Scenary(this.ctx, `${levelPath}bgn-floor.png`, 0, this.canvas.height - 240, 1280, 240, 0)
+    
+    this.player.reset()
+  }
   // check
   checkNextLevel() {
     return this.collectedCoins >= COINS_MAX_IN_GAME
@@ -410,20 +438,7 @@ class Game {
     this.drawNextLevel()
     this.nextBtn.classList.remove("hidden")
   }
-  setupLevel() {
-    this.coins = []
-    this.enemies = []
-    this.collectedCoins = 0
 
-    const levelPath = `./assets/bgn/level${this.level}/`
-    // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
-    this.clouds = new Scenary(this.ctx, `${levelPath}bgn-clouds.png`, 0, 0, 1280, 427, 0.3)
-    this.mountains = new Scenary(this.ctx, `${levelPath}bgn-mountains.png`, 0, 320, 1280, 235, 0.1)
-    this.aqua = new Scenary(this.ctx, `${levelPath}bgn-aqua.png`, 0, 290, 1280, 427, 0.1)
-    this.floor = new Scenary(this.ctx, `${levelPath}bgn-floor.png`, 0, this.canvas.height - 133, 1280, 133, 0)
-    
-    this.player.reset()
-  }
   // -----------------------
 
 
