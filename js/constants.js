@@ -4,7 +4,7 @@
   const FPS = 1000 / 60
   const AUDIO_VOL = 1
 
-  const START_LEVEL = 3
+  const START_LEVEL = 1
   const MAX_LEVEL = 3
 // ---------------------
 
@@ -61,7 +61,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 5
+  const COINS_MAX_IN_GAME = 10
 
 // ---------------------
 // ENEMIES
