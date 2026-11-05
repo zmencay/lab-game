@@ -69,7 +69,7 @@
   // speed
   const ENEMY_SPRITE_FREQUENCY = 6
   const ENEMY_DIED_SPRITE_FREQUENCY = 10
-  
+
   // setup
   const ENEMY_W = 218 / 2
   const ENEMY_H = 159 / 2
@@ -120,6 +120,6 @@
 // ---------------------
   const NEXTLEVEL_W = 1280
   const NEXTLEVEL_H = 780
-  const NEXTLEVEL1_IMG = './assets/ui/window/next-level1.png'
-  const NEXTLEVEL2_IMG = './assets/ui/window/next-level2.png'
+  const NEXTLEVEL1_IMG = './assets/bgn/level1/next-level1.png'
+  const NEXTLEVEL2_IMG = './assets/bgn/level2/next-level2.png'
 // ---------------------

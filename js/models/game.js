@@ -96,7 +96,7 @@ class Game {
     if (this.drawIntervalId === null) {
       
       if (this.isSoundEnabled) {
-        this.audio.play()
+        // this.audio.play()
       }
 
       this.drawIntervalId = setInterval(() => {
@@ -427,11 +427,12 @@ class Game {
     this.enemies = []
     this.collectedCoins = 0
 
+    const levelPath = `./assets/bgn/level${this.level}/`
     // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
-    this.clouds = new Scenary(this.ctx, './assets/bgn/levels/bgn-clouds.png', 0, 0, 1280, 427, 0.3)
-    this.mountains = new Scenary(this.ctx, './assets/bgn/levels/bgn-mountains.png', 0, 320, 1280, 235, 0.1)
-    this.aqua = new Scenary(this.ctx, './assets/bgn/levels/bgn-aqua.png', 0, 290, 1280, 427, 0.1)
-    this.floor = new Scenary(this.ctx, './assets/bgn/levels/bgn-floor.png', 0, this.canvas.height - 133, 1280, 133, 0)
+    this.clouds = new Scenary(this.ctx, `${levelPath}bgn-clouds.png`, 0, 0, 1280, 427, 0.3)
+    this.mountains = new Scenary(this.ctx, `${levelPath}bgn-mountains.png`, 0, 320, 1280, 235, 0.1)
+    this.aqua = new Scenary(this.ctx, `${levelPath}bgn-aqua.png`, 0, 290, 1280, 427, 0.1)
+    this.floor = new Scenary(this.ctx, `${levelPath}bgn-floor.png`, 0, this.canvas.height - 133, 1280, 133, 0)
     
     this.player.reset()
   }
