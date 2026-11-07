@@ -5,7 +5,7 @@
   const AUDIO_VOL = 1
 
   const START_LEVEL = 1
-  const MAX_LEVEL = 1
+  const MAX_LEVEL = 2
 // ---------------------
 
 // ---------------------

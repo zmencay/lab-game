@@ -401,6 +401,7 @@ class Game {
     this.enemies = []
     this.collectedCoins = 0
 
+    this.ctx.canvas.className = ''
     this.ctx.canvas.classList.add(`level${this.level}`)
 
     const levelPath = `./assets/bgn/level${this.level}/`
