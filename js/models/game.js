@@ -362,7 +362,6 @@ class Game {
     this.ctx.textAlign = "right"
     this.ctx.fillText(this.level, 543, 73)
     this.ctx.strokeText(this.level, 543, 73)
-    console.log(this.level);
   }
   // -----------------------
 
