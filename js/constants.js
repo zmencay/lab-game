@@ -5,7 +5,7 @@
   const AUDIO_VOL = 1
 
   const START_LEVEL = 1
-  const MAX_LEVEL = 1
+  const MAX_LEVEL = 3
 // ---------------------
 
 // ---------------------
@@ -64,7 +64,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 10
+  const COINS_MAX_IN_GAME = 2
 
 // ---------------------
 // ENEMIES
@@ -86,12 +86,12 @@
       deathSprite: './assets/enemies/enemy1-death.png'
     },
     2: {
-      speed: 4,
+      speed: 6,
       sprite: './assets/enemies/enemy2.png',
       deathSprite: './assets/enemies/enemy2-death.png'
     },
     3: {
-      speed: 5,
+      speed: 8,
       sprite: './assets/enemies/enemy3.png',
       deathSprite: './assets/enemies/enemy3-death.png'
     }

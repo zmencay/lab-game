@@ -109,7 +109,7 @@ class Game {
     if (this.drawIntervalId === null) {
       
       if (this.isSoundEnabled) {
-        // this.audio.play()
+        this.audio.play()
       }
 
       this.drawIntervalId = setInterval(() => {
