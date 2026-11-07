@@ -19,11 +19,21 @@ class Game {
     this.reloadBtn = reloadBtn
     
     this.soundBtn = soundBtn
-    this.isSoundEnabled = true
     
     this.nextBtn = nextBtn
 
-    this.player = new Player(this.ctx, 20, 20)
+    // audio manager
+    this.audioManager = new AudioManager()
+    this.audioManager.addSound('coin', './assets/audio/coin.mp3', AUDIO_VOL)
+    this.audioManager.addSound('damage', './assets/audio/damage.mp3', AUDIO_VOL)
+    this.audioManager.addSound('enemy', './assets/audio/enemy.mp3', AUDIO_VOL)
+    this.audioManager.addSound('gameOver', './assets/audio/game-over.mp3', AUDIO_VOL)
+    this.audioManager.addSound('nextLevel', './assets/audio/next-level.mp3', AUDIO_VOL)
+    this.audioManager.addSound('victory', './assets/audio/victory.wav', AUDIO_VOL)
+    this.audioManager.addSound('music', './assets/audio/music.mp3', 0.05, true)
+    this.audioManager.addSound( 'jump', './assets/audio/jump.mp3', AUDIO_VOL)
+
+    this.player = new Player(this.ctx, 20, 20, this.audioManager)
     this.player.groundTo(this.canvas.height - BG_FLOOR)
     
     // wellcome window
@@ -31,15 +41,9 @@ class Game {
 
     // Collectibles
     this.coinsTimeoutId = null
-    this.coinAudio = new Audio('./assets/audio/coin.mp3')
-    this.coinAudio.volume = AUDIO_VOL
 
     // Enemies
     this.enemiesTimeoutId = null
-    this.enemiesAudio = new Audio('./assets/audio/enemy.mp3')
-    this.enemiesAudio.volume = AUDIO_VOL
-    this.damageAudio = new Audio('./assets/audio/damage.mp3')
-    this.damageAudio.volume = AUDIO_VOL
 
     // HUD
     // hud setup
@@ -55,15 +59,8 @@ class Game {
     this.heart.onload = () => {
       this.heart.isReady = true
     }
-
-    // Audio
-    this.audio = new Audio('./assets/audio/music.mp3')
-    this.audio.volume = 0.05
-    this.audio.loop = true
     
     // ------ GAME OVER
-    this.gameOverAudio = new Audio('./assets/audio/game-over.mp3')
-    this.gameOverAudio.volume = AUDIO_VOL
     // gameOver window
     this.gameOverWindow = new Image()
     this.gameOverWindow.src = GAMEOVERWINDOW_IMG
@@ -72,8 +69,6 @@ class Game {
     }
 
     // ------ Next level
-    this.nextLevelAudio = new Audio('./assets/audio/next-level.mp3')
-    this.nextLevelAudio.volume = AUDIO_VOL
     // next level image loader
     this.nextLevelImages = []
     for (let level = 1; level < MAX_LEVEL; level++) {
@@ -89,9 +84,6 @@ class Game {
     }
 
     // ------ The End
-    // ------ Victory audio
-    this.victoryAudio = new Audio('./assets/audio/victory.wav')
-    this.victoryAudio.volume = AUDIO_VOL
     //  the image
     this.theEndImg = new Image()
     this.theEndImg.onload = () => {
@@ -108,9 +100,7 @@ class Game {
   start() {
     if (this.drawIntervalId === null) {
       
-      if (this.isSoundEnabled) {
-        this.audio.play()
-      }
+      this.audioManager.play('music', false)
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -211,7 +201,7 @@ class Game {
 
     this.soundBtn.addEventListener('click', () => {
       this.toggleSound()
-      this.soundBtn.classList.toggle('active', this.isSoundEnabled)
+      this.soundBtn.classList.toggle('active', !this.audioManager.isMuted)
     })
 
     this.nextBtn.addEventListener('click', () => {
@@ -286,7 +276,7 @@ class Game {
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
       if (this.player.collidesWith(coin)) {
-        this.coinAudio.play()
+        this.audioManager.play('coin')
         this.collectedCoins++
         return false
       }
@@ -305,19 +295,17 @@ class Game {
         const previousPlayerFeet = playerFeet - this.player.vy
 
         const isFalling = this.player.vy > 0
-        const landsOnEnemy =
-          previousPlayerFeet <= enemy.y &&
-          playerFeet >= enemy.y
+        const landsOnEnemy = previousPlayerFeet <= enemy.y && playerFeet >= enemy.y
 
         if (isFalling && landsOnEnemy) {
-
-          this.enemiesAudio.play()
+      
+          this.audioManager.play('enemy')
           enemy.die()
           return true
 
         } else if (!hasTakenDamage && !this.player.isInvulnerable) {
 
-          this.damageAudio.play()
+          this.audioManager.play('damage')
           this.hearts = Math.max(0, this.hearts - 1)
           hasTakenDamage = true
           this.player.activateInvulnerability()
@@ -401,8 +389,8 @@ class Game {
     }
   }
   gameOver() {
-    this.gameOverAudio.play()
-    this.audio.pause()
+    this.audioManager.play('gameOver')
+    this.audioManager.pause('music')
     this.drawGameOver()
     this.reloadBtn.classList.remove("hidden")
   }
@@ -447,8 +435,8 @@ class Game {
     }
   }
   nextLevel() {
-    this.nextLevelAudio.play()
-    this.audio.pause()
+    this.audioManager.play('nextLevel')
+    this.audioManager.pause('music')
     this.drawNextLevel()
     this.nextBtn.classList.remove("hidden")
   }
@@ -467,9 +455,8 @@ class Game {
     }
   }
   gameCompleted() {
-    this.audio.pause()
-    this.victoryAudio.currentTime = 0
-    this.victoryAudio.play()
+    this.audioManager.pause('music')
+    this.audioManager.play('victory')
     this.drawGameCompleted()
   }
   // -----------------------
@@ -478,19 +465,7 @@ class Game {
   // SOUND ON/OFF
   // -----------------------
   toggleSound() {
-    this.isSoundEnabled = !this.isSoundEnabled
-
-    const volume = this.isSoundEnabled ? AUDIO_VOL : 0
-
-    this.coinAudio.volume = volume
-    this.enemiesAudio.volume = volume
-    this.damageAudio.volume = volume
-    this.gameOverAudio.volume = volume
-    this.nextLevelAudio.volume = volume
-    this.player.jumpAudio.volume = volume
-
-    this.audio.volume = this.isSoundEnabled ? 0.05 : 0
-    this.victoryAudio.volume = this.isSoundEnabled ? AUDIO_VOL : 0
+    this.audioManager.toggleMute()
   }
   // -----------------------
 }

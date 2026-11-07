@@ -1,5 +1,5 @@
 class Player {
-  constructor(ctx, x, y) {
+  constructor(ctx, x, y, audioManager) {
     this.ctx = ctx
 
     this.x = x
@@ -12,6 +12,8 @@ class Player {
     this.vx = 0
     this.vy = 0
     this.ay = 0
+
+    this.audioManager = audioManager
 
     this.isJumping = false
     this.isInvulnerable = false
@@ -53,10 +55,6 @@ class Player {
     this.sprite = this.spriteRight
 
     this.drawCount = 0
-    
-    // audio
-    this.jumpAudio = new Audio('./assets/audio/jump.mp3')
-    this.jumpAudio.volume = AUDIO_VOL
   }
 
   activateInvulnerability() {
@@ -156,7 +154,7 @@ class Player {
         break
       case KEY_SPACE:
         if (isPressed && !event.repeat && !this.isJumping) {
-          this.jumpAudio.play()
+          this.audioManager.play('jump')
           this.isJumping = true
           this.vy = -PLAYER_VY
           this.ay = PLAYER_AY
