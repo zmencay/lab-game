@@ -64,7 +64,7 @@ class Player {
 
     setTimeout(() => {
       this.isInvulnerable = false
-    }, 3000)
+    }, PLAYER_INVULNERABILITY_DURATION)
   }
 
   groundTo(groundY) {
