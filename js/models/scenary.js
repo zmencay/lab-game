@@ -1,5 +1,5 @@
 class Scenary {
-  constructor(ctx, src, x, y, imgW, imgH, fps) {
+  constructor(ctx, src, x, y, imgW, imgH, speed) {
     this.ctx = ctx
 
     // canvas bgn position and size
@@ -7,14 +7,10 @@ class Scenary {
     this.y = y
     this.w = imgW
     this.h = imgH
-    this.fps = fps
+    this.speed = speed
 
-    // create the image for canvas
-    this.image = new Image()
-    this.image.src = src
-    this.image.onload = () => {
-      this.image.isReady = true
-    }
+    // Load scenery image
+    this.image = loadImage(src)
 
     // set the player speed
     this.vx = -PLAYER_VX
@@ -41,7 +37,7 @@ class Scenary {
   }
 
   move() {
-    this.x += Math.floor(this.vx * this.fps)
+    this.x += Math.floor(this.vx * this.speed)
 
     if (this.x < -this.w) {
       this.x = 0

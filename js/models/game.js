@@ -9,20 +9,22 @@ class Game {
     this.ctx = this.canvas.getContext('2d')
 
     this.fps = FPS
-    this.drawIntervalId = null
-
     this.level = START_LEVEL
 
-    this.initBtn = initBtn
+    this.drawIntervalId = null
+    this.coinsTimeoutId = null
+    this.enemiesTimeoutId = null
     this.isStartedClicked = false
 
-    this.reloadBtn = reloadBtn
-    
-    this.soundBtn = soundBtn
-    
+    this.initBtn = initBtn
+    this.reloadBtn = reloadBtn    
+    this.soundBtn = soundBtn    
     this.nextBtn = nextBtn
 
-    // audio manager
+    // -------------------------------------------------------------------------------
+    // AUDIO MANAGER
+    // -------------------------------------------------------------------------------
+    // setup
     this.audioManager = new AudioManager()
     this.audioManager.addSound('coin', './assets/audio/coin.mp3', AUDIO_VOL)
     this.audioManager.addSound('damage', './assets/audio/damage.mp3', AUDIO_VOL)
@@ -35,62 +37,51 @@ class Game {
 
     this.player = new Player(this.ctx, 20, 20, this.audioManager)
     this.player.groundTo(this.canvas.height - BG_FLOOR)
+    // -------------------------------------------------------------------------------
     
-    // wellcome window
-    this.initWindow = new Scenary(this.ctx, './assets/ui/window/bgn-init.png', 0, 0, 1280, 720, 0)
+    // -------------------------------------------------------------------------------
+    // Welcome window
+    // -------------------------------------------------------------------------------
+    this.initWindow = loadImage('./assets/ui/window/bgn-init.png')
+    // -------------------------------------------------------------------------------
 
-    // Collectibles
-    this.coinsTimeoutId = null
-
-    // Enemies
-    this.enemiesTimeoutId = null
-
+    // -------------------------------------------------------------------------------
     // HUD
-    // hud setup
-    this.hud = new Image()
-    this.hud.src = HUD_IMG
-    this.hud.onload = () => {
-      this.hud.isReady = true
-    }
-    // Hud hearts
-    this.hearts = 3
-    this.heart = new Image()
-    this.heart.src = HEARTS_IMG
-    this.heart.onload = () => {
-      this.heart.isReady = true
-    }
-    
-    // ------ GAME OVER
-    // gameOver window
-    this.gameOverWindow = new Image()
-    this.gameOverWindow.src = GAMEOVERWINDOW_IMG
-    this.gameOverWindow.onload = () => {
-      this.gameOverWindow.isReady = true
-    }
+    // -------------------------------------------------------------------------------
+    // setup
+    this.hud = loadImage(HUD_IMG)
+    // hearts
+    this.hearts = MAX_HEARTS
+    this.heart = loadImage(HEARTS_IMG)
+    // -------------------------------------------------------------------------------
 
-    // ------ Next level
-    // next level image loader
+    // -------------------------------------------------------------------------------
+    // GAME OVER
+    // -------------------------------------------------------------------------------
+    // setup
+    this.gameOverWindow = loadImage(GAMEOVERWINDOW_IMG)
+    // -------------------------------------------------------------------------------
+
+    // -------------------------------------------------------------------------------
+    // NEXT LEVEL
+    // -------------------------------------------------------------------------------
+    // setup
     this.nextLevelImages = []
     for (let level = 1; level < MAX_LEVEL; level++) {
-      const image = new Image()
-
-      image.src = `${NEXTLEVEL_PATH}level${level}/next-level${level}.png`
-
-      image.onload = () => {
-        image.isReady = true
-      }
+      const image = loadImage(
+        `${NEXTLEVEL_PATH}level${level}/next-level${level}.png`
+      )
 
       this.nextLevelImages.push(image)
     }
+    // -------------------------------------------------------------------------------
 
-    // ------ The End
-    //  the image
-    this.theEndImg = new Image()
-    this.theEndImg.onload = () => {
-      this.theEndImg.isReady = true
-    }
-    this.theEndImg.src = THE_END_IMG
-
+    // -------------------------------------------------------------------------------
+    // THE END
+    // -------------------------------------------------------------------------------
+    // setup
+    this.theEndImg = loadImage(THE_END_IMG)
+    // -------------------------------------------------------------------------------
 
     this.setupListeners()
 
@@ -124,7 +115,7 @@ class Game {
           }
           
         } else {
-          this.initWindow.draw()
+          this.drawWelcome()
         }
       }, this.fps)
     }
@@ -318,6 +309,17 @@ class Game {
     })
   }
   // -----------------------
+
+  // -----------------------
+  // SCREENS
+  // -----------------------
+  // Welcome
+  drawWelcome() {
+    if (this.initWindow.isReady) {
+      this.ctx.drawImage(this.initWindow, 0, 0, CANVAS_W, CANVAS_H)
+    }
+  }
+  // -----------------------
   
   // -----------------------
   // HUD ELEMENTS
@@ -379,13 +381,7 @@ class Game {
   // draw game over window
   drawGameOver() {
     if (this.gameOverWindow.isReady) {
-      this.ctx.drawImage(
-        this.gameOverWindow,
-        0,
-        0,
-        GAMEOVERWINDOW_W,
-        GAMEOVERWINDOW_H
-      )
+      this.ctx.drawImage(this.gameOverWindow, 0, 0, CANVAS_W, CANVAS_H)
     }
   }
   gameOver() {
@@ -408,7 +404,10 @@ class Game {
     this.ctx.canvas.classList.add(`level${this.level}`)
 
     const levelPath = `./assets/bgn/level${this.level}/`
-    // Scenary -> canvas, imgUrl, xPosition, yPosition, imgW, imgH, fps(motion)
+    // -------------------------------------------------------------------------------
+    // Scenary(canva, image url, xPosition, yPosition, imageWidth, imageHeight, speed)
+    // speed = 0 -> static image
+    // -------------------------------------------------------------------------------
     this.clouds = new Scenary(this.ctx, `${levelPath}bgn-clouds.png`, 0, 0, 1280, 427, 0.3)
     this.mountains = new Scenary(this.ctx, `${levelPath}bgn-mountains.png`, 0, 320, 1280, 235, 0.1)
     this.aqua = new Scenary(this.ctx, `${levelPath}bgn-aqua.png`, 0, 290, 1280, 427, 0.1)
@@ -425,13 +424,7 @@ class Game {
     const image = this.nextLevelImages[this.level - 1]
 
     if (image && image.isReady) {
-      this.ctx.drawImage(
-        image, 
-        0, 
-        0, 
-        NEXTLEVEL_W, 
-        NEXTLEVEL_H
-      )
+      this.ctx.drawImage(image,  0,  0,  CANVAS_W,  CANVAS_H)
     }
   }
   nextLevel() {
@@ -440,9 +433,7 @@ class Game {
     this.drawNextLevel()
     this.nextBtn.classList.remove("hidden")
   }
-
   // -----------------------
-
 
   // -----------------------
   // THE END
@@ -450,7 +441,7 @@ class Game {
   drawGameCompleted() {
     if (this.theEndImg.isReady) {
       this.ctx.drawImage(
-        this.theEndImg, 0, 0, THE_END_W, THE_END_H
+        this.theEndImg, 0, 0, CANVAS_W, CANVAS_H
       )
     }
   }

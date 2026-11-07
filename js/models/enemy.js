@@ -23,35 +23,37 @@ class Enemy {
     this.h = h
 
     this.vx = -speed
-    // enemy sprite
-    this.sprite = new Image()
-    this.sprite.src = src
+    
+    // -------------------------------------------------------------------------------
+    // SPRITE
+    // -------------------------------------------------------------------------------
+    // ENEMY ALIVE
+    // setup
+    this.sprite = loadImage(src, image => {
+      image.frameW = Math.floor(image.width / image.cols)
+      image.frameH = Math.floor(image.height / image.rows)
+    })
+
     this.sprite.cols = cols
     this.sprite.rows = rows
 
     this.sprite.colIndex = 0
     this.sprite.rowIndex = 0
+    // -------------------------------------------------------------------------------
+    // ENEMY DEATH
+    // setup
+    // -------------------------------------------------------------------------------
+    this.deathSprite = loadImage(deathSrc, image => {
+      image.frameW = Math.floor(image.width / image.cols)
+      image.frameH = Math.floor(image.height / image.rows)
+    })
 
-    this.sprite.onload = () => {
-      this.sprite.isReady = true
-      this.sprite.frameW = this.sprite.width / this.sprite.cols
-      this.sprite.frameH = this.sprite.height / this.sprite.rows
-    }
+    this.deathSprite.cols = ENEMY_DEATH_SPRITE_COLS
+    this.deathSprite.rows = ENEMY_DEATH_SPRITE_ROWS
 
-    // death enemy sprite
-    this.deathSprite = new Image()
-    this.deathSprite.src = deathSrc
-
-    this.deathSprite.cols = 4
-    this.deathSprite.rows = 1
     this.deathSprite.colIndex = 0
     this.deathSprite.rowIndex = 0
-
-    this.deathSprite.onload = () => {
-      this.deathSprite.isReady = true
-      this.deathSprite.frameW = this.deathSprite.width / this.deathSprite.cols
-      this.deathSprite.frameH = this.deathSprite.height / this.deathSprite.rows
-    }
+    // -------------------------------------------------------------------------------
 
     this.drawCount = 0
 

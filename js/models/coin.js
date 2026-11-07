@@ -1,12 +1,5 @@
 class Coin {
-  constructor(
-    ctx,
-    x,
-    y,
-    w = COIN_W,
-    h = COIN_H,
-    src = COIN_SPRITE
-  ) {
+  constructor(ctx, x, y, w = COIN_W, h = COIN_H, src = COIN_SPRITE) {
     this.ctx = ctx
     this.x = x
     this.y = y
@@ -14,18 +7,20 @@ class Coin {
     this.w = w
     this.h = h
 
-    this.sprite = new Image()
-    this.sprite.src = src
+    // -------------------------------------------------------------------------------
+    // SPRITE
+    // -------------------------------------------------------------------------------
+    // setup
+    this.sprite = loadImage(src, image => {
+      image.frameW = Math.floor(image.width / image.cols)
+      image.frameH = Math.floor(image.height / image.rows)
+    })
+
     this.sprite.cols = COIN_SPRITE_COLS
     this.sprite.rows = COIN_SPRITE_ROWS
     this.sprite.colIndex = 0
     this.sprite.rowIndex = 0
-    this.sprite.onload = () => {
-      this.sprite.isReady = true
-
-      this.sprite.frameW = Math.floor(this.sprite.width / this.sprite.cols)
-      this.sprite.frameH = Math.floor(this.sprite.height / this.sprite.rows)
-    }
+    // -------------------------------------------------------------------------------
 
     this.vx = -COIN_VX
 

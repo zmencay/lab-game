@@ -18,41 +18,40 @@ class Player {
     this.isJumping = false
     this.isInvulnerable = false
 
-    // sprite setup
-    this.spriteRight = new Image()
-    this.spriteRight.src = PLAYER_SPRITE_RIGHT
+    // -------------------------------------------------------------------------------
+    // SPRITE
+    // -------------------------------------------------------------------------------
+    // RIGHT
+    // setup
+    this.spriteRight = loadImage(PLAYER_SPRITE_RIGHT, image => {
+      image.frameW = Math.floor(image.width / image.cols)
+      image.frameH = Math.floor(image.height / image.rows)
+    })
     // cols and rows
-    this.spriteRight.cols = 7 // how many cols have sprite
-    this.spriteRight.rows = 2 // how many rows have sprite
+    this.spriteRight.cols = PLAYER_SPRITE_COLS
+    this.spriteRight.rows = PLAYER_SPRITE_ROWS
     // sprite init position
-    this.spriteRight.colIndex = 6
+    this.spriteRight.colIndex = 5
     this.spriteRight.rowIndex = 1
-
-    this.spriteRight.onload = () => {
-      this.spriteRight.isReady = true
-
-      this.spriteRight.frameW = Math.floor(this.spriteRight.width / this.spriteRight.cols)
-      this.spriteRight.frameH = Math.floor(this.spriteRight.height / this.spriteRight.rows)
-    }
-
-    // sprite setup
-    this.spriteLeft = new Image()
-    this.spriteLeft.src = PLAYER_SPRITE_LEFT
+    // -------------------------------------------------------------------------------
+    // LEFT
+    // setup
+    // -------------------------------------------------------------------------------
+    this.spriteLeft = loadImage(PLAYER_SPRITE_LEFT, image => {
+      image.frameW = Math.floor(image.width / image.cols)
+      image.frameH = Math.floor(image.height / image.rows)
+    })
     // cols and rows
-    this.spriteLeft.cols = 7 // how many cols have sprite
-    this.spriteLeft.rows = 2 // how many rows have sprite
+    this.spriteLeft.cols = PLAYER_SPRITE_COLS
+    this.spriteLeft.rows = PLAYER_SPRITE_ROWS
     // sprite init position
-    this.spriteLeft.colIndex = 6
+    this.spriteLeft.colIndex = 5
     this.spriteLeft.rowIndex = 1
-
-    this.spriteLeft.onload = () => {
-      this.spriteLeft.isReady = true
-
-      this.spriteLeft.frameW = Math.floor(this.spriteLeft.width / this.spriteLeft.cols)
-      this.spriteLeft.frameH = Math.floor(this.spriteLeft.height / this.spriteLeft.rows)
-    }
-
+    // -------------------------------------------------------------------------------
+    // assignament
+    // -------------------------------------------------------------------------------
     this.sprite = this.spriteRight
+    // -------------------------------------------------------------------------------
 
     this.drawCount = 0
   }
@@ -168,7 +167,7 @@ class Player {
       this.sprite.colIndex = 0
       this.sprite.rowIndex = 0
     } else if (this.vx !== 0) {
-      this.animateFrame(5, 1, 6, 4)
+      this.animateFrame(5, 1, 6, PLAYER_ANIMATION_FREQ)
     } else {
       this.sprite.colIndex = 5
       this.sprite.rowIndex = 1

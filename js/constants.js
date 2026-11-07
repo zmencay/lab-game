@@ -35,9 +35,13 @@
   // setup
   const PLAYER_W = 138
   const PLAYER_H = 162
+
   const PLAYER_SPRITE_LEFT = './assets/player/sprite-player-left.png'
   const PLAYER_SPRITE_RIGHT = './assets/player/sprite-player-right.png'
-  
+  const PLAYER_SPRITE_COLS = 6
+  const PLAYER_SPRITE_ROWS = 2
+
+  const PLAYER_ANIMATION_FREQ = 4
   const PLAYER_BLINK_INTERVAL = 150
   const PLAYER_INVULNERABILITY_DURATION = 3000
 
@@ -64,7 +68,7 @@
   const COIN_SPRITE_COLS = 11
   const COIN_SPRITE_ROWS = 1
   
-  const COINS_MAX_IN_GAME = 3
+  const COINS_MAX_IN_GAME = 10
   const COIN_MAX_RANDOM_HEIGHT = 220
   const COIN_SPAWN_MIN_TIME = 1500
   const COIN_SPAWN_MAX_TIME = 4000
@@ -77,11 +81,6 @@
   const ENEMY_DIED_SPRITE_FREQUENCY = 10
 
   // setup
-  const ENEMY_W = 225 / 2
-  const ENEMY_H = 160 / 2
-  const ENEMY_SPRITE_COLS = 6
-  const ENEMY_SPRITE_ROWS = 1
-  
   const ENEMY_CONFIG = {
     1: {
       speed: 3,
@@ -100,6 +99,15 @@
     }
   }
 
+  const ENEMY_W = 225 / 2
+  const ENEMY_H = 160 / 2
+
+  const ENEMY_SPRITE_COLS = 6
+  const ENEMY_SPRITE_ROWS = 1
+  
+  const ENEMY_DEATH_SPRITE_COLS = 4
+  const ENEMY_DEATH_SPRITE_ROWS = 1
+
 // ---------------------
 // HUD
 // ---------------------
@@ -107,7 +115,9 @@
   const HUD_W = 598
   const HUD_H = 108
   const HUD_IMG = './assets/ui/hud/hud.png'
+  
   // hearts
+  const MAX_HEARTS = 3
   const HEARTS_W = 30
   const HEARTS_H = 30
   const HEARTS_IMG = './assets/ui/hud/heart.png'
@@ -116,23 +126,17 @@
 // ---------------------
 // GAME OVER
 // ---------------------
-  const GAMEOVERWINDOW_W = 1280
-  const GAMEOVERWINDOW_H = 780
   const GAMEOVERWINDOW_IMG = './assets/ui/window/bgn-game-over.png'
 // ---------------------
 
 // ---------------------
 // NEXT LEVEL
 // ---------------------
-  const NEXTLEVEL_W = 1280
-  const NEXTLEVEL_H = 780
   const NEXTLEVEL_PATH = './assets/bgn/'
 // ---------------------
 
 // ---------------------
 // THE END
 // ---------------------
-  const THE_END_W = 1280
-  const THE_END_H = 780
   const THE_END_IMG = './assets/ui/window/bgn-the-end.png'
 // ---------------------
