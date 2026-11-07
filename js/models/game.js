@@ -269,9 +269,6 @@ class Game {
   // -----------------------
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
-      if (this.checkNextLevel()) {
-        return
-      }
       if (this.player.collidesWith(coin)) {
         this.coinAudio.play()
         this.collectedCoins++
