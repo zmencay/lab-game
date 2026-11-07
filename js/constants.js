@@ -4,7 +4,7 @@
   const FPS = 1000 / 60
   const AUDIO_VOL = 1
 
-  const START_LEVEL = 1
+  const START_LEVEL = 3
   const MAX_LEVEL = 1
 // ---------------------
 
@@ -77,8 +77,8 @@
   const ENEMY_DIED_SPRITE_FREQUENCY = 10
 
   // setup
-  const ENEMY_W = 218 / 2
-  const ENEMY_H = 159 / 2
+  const ENEMY_W = 225 / 2
+  const ENEMY_H = 160 / 2
   const ENEMY_SPRITE_COLS = 6
   const ENEMY_SPRITE_ROWS = 1
   
