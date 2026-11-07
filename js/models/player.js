@@ -155,7 +155,7 @@ class Player {
         }
         break
       case KEY_SPACE:
-        if (!this.isJumping) {
+        if (isPressed && !event.repeat && !this.isJumping) {
           this.jumpAudio.play()
           this.isJumping = true
           this.vy = -PLAYER_VY
