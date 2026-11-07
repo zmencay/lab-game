@@ -239,15 +239,19 @@ class Game {
   // -----------------------
   generateElements() {
     if (this.coinsTimeoutId === null) {
+      const randomTime = Math.floor(
+        Math.random() * (COIN_SPAWN_MAX_TIME - COIN_SPAWN_MIN_TIME + 1)
+      ) + COIN_SPAWN_MIN_TIME
+
       this.coinsTimeoutId = setTimeout(() => {
-        const randomY = Math.floor(Math.random() * 101)
+        const randomY = Math.floor(Math.random() * (COIN_MAX_RANDOM_HEIGHT + 1))
         this.coins.push(
           new Coin(
             this.ctx, this.canvas.width + 100,
             this.canvas.height - BG_FLOOR - COIN_H - randomY),
         )
         this.coinsTimeoutId = null
-      }, 3000)
+      }, randomTime)
     }
 
     if (this.enemiesTimeoutId === null) {

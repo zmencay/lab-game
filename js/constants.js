@@ -5,7 +5,7 @@
   const AUDIO_VOL = 1
 
   const START_LEVEL = 1
-  const MAX_LEVEL = 3
+  const MAX_LEVEL = 1
 // ---------------------
 
 // ---------------------
@@ -65,6 +65,9 @@
   const COIN_SPRITE_ROWS = 1
   
   const COINS_MAX_IN_GAME = 2
+  const COIN_MAX_RANDOM_HEIGHT = 220
+  const COIN_SPAWN_MIN_TIME = 1500
+  const COIN_SPAWN_MAX_TIME = 4000
 
 // ---------------------
 // ENEMIES
