@@ -88,6 +88,18 @@ class Game {
       this.nextLevelImages.push(image)
     }
 
+    // ------ The End
+    // ------ Victory audio
+    this.victoryAudio = new Audio('./assets/audio/victory.wav')
+    this.victoryAudio.volume = AUDIO_VOL
+    //  the image
+    this.theEndImg = new Image()
+    this.theEndImg.onload = () => {
+      this.theEndImg.isReady = true
+    }
+    this.theEndImg.src = THE_END_IMG
+
+
     this.setupListeners()
 
     this.setupLevel()
@@ -444,24 +456,16 @@ class Game {
   // THE END
   // -----------------------
   drawGameCompleted() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-
-    this.ctx.fillStyle = '#000'
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
-
-    this.ctx.fillStyle = '#fff'
-    this.ctx.font = 'bold 80px Arial'
-    this.ctx.textAlign = 'center'
-    this.ctx.textBaseline = 'middle'
-
-    this.ctx.fillText(
-      'THE END',
-      this.canvas.width / 2,
-      this.canvas.height / 2
-    )
+    if (this.theEndImg.isReady) {
+      this.ctx.drawImage(
+        this.theEndImg, 0, 0, THE_END_W, THE_END_H
+      )
+    }
   }
   gameCompleted() {
     this.audio.pause()
+    this.victoryAudio.currentTime = 0
+    this.victoryAudio.play()
     this.drawGameCompleted()
   }
   // -----------------------
@@ -482,6 +486,7 @@ class Game {
     this.player.jumpAudio.volume = volume
 
     this.audio.volume = this.isSoundEnabled ? 0.05 : 0
+    this.victoryAudio.volume = this.isSoundEnabled ? AUDIO_VOL : 0
   }
   // -----------------------
 }

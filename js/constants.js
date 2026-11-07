@@ -5,7 +5,7 @@
   const AUDIO_VOL = 1
 
   const START_LEVEL = 1
-  const MAX_LEVEL = 2
+  const MAX_LEVEL = 1
 // ---------------------
 
 // ---------------------
@@ -124,4 +124,12 @@
   const NEXTLEVEL_W = 1280
   const NEXTLEVEL_H = 780
   const NEXTLEVEL_PATH = './assets/bgn/'
+// ---------------------
+
+// ---------------------
+// THE END
+// ---------------------
+  const THE_END_W = 1280
+  const THE_END_H = 780
+  const THE_END_IMG = './assets/ui/window/bgn-the-end.png'
 // ---------------------
