@@ -5,7 +5,7 @@
   const AUDIO_VOL = 1
 
   const START_LEVEL = 1
-  const MAX_LEVEL = 3
+  const MAX_LEVEL = 1
 // ---------------------
 
 // ---------------------
@@ -37,6 +37,7 @@
   const PLAYER_H = 162
   const PLAYER_SPRITE_LEFT = './assets/player/sprite-player-left.png'
   const PLAYER_SPRITE_RIGHT = './assets/player/sprite-player-right.png'
+  const PLAYER_BLINK_INTERVAL = 150
 
 // ---------------------
 

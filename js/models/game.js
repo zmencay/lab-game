@@ -74,7 +74,7 @@ class Game {
     // ------ Next level
     this.nextLevelAudio = new Audio('./assets/audio/next-level.mp3')
     this.nextLevelAudio.volume = AUDIO_VOL
-    
+    // next level image loader
     this.nextLevelImages = []
     for (let level = 1; level < MAX_LEVEL; level++) {
       const image = new Image()
@@ -97,7 +97,7 @@ class Game {
     if (this.drawIntervalId === null) {
       
       if (this.isSoundEnabled) {
-        this.audio.play()
+        // this.audio.play()
       }
 
       this.drawIntervalId = setInterval(() => {
@@ -265,7 +265,7 @@ class Game {
 
   // -----------------------
   // check collisions between
-  // coins & enemies
+  // coins & enemies with player
   // -----------------------
   checkCollisions() {
     this.coins = this.coins.filter(coin => {
@@ -302,14 +302,15 @@ class Game {
           enemy.die()
           return true
 
-        } else if (!hasTakenDamage) {
+        } else if (!hasTakenDamage && !this.player.isInvulnerable) {
 
           this.damageAudio.play()
           this.hearts = Math.max(0, this.hearts - 1)
           hasTakenDamage = true
+          this.player.activateInvulnerability()
 
         }
-        return false
+        return true
       }
       
       return true

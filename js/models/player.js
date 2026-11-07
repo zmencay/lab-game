@@ -14,6 +14,7 @@ class Player {
     this.ay = 0
 
     this.isJumping = false
+    this.isInvulnerable = false
 
     // sprite setup
     this.spriteRight = new Image()
@@ -58,6 +59,14 @@ class Player {
     this.jumpAudio.volume = AUDIO_VOL
   }
 
+  activateInvulnerability() {
+    this.isInvulnerable = true
+
+    setTimeout(() => {
+      this.isInvulnerable = false
+    }, 3000)
+  }
+
   groundTo(groundY) {
     this.y = groundY - this.h
     this.ground = groundY
@@ -80,7 +89,10 @@ class Player {
   }
 
   draw() {
-    if (this.sprite.isReady) {
+    const blinkTime = Math.floor(Date.now() / PLAYER_BLINK_INTERVAL)
+    const isVisible = blinkTime % 2 === 0
+
+    if (this.sprite.isReady && (!this.isInvulnerable || isVisible)) {
       this.ctx.drawImage(
         this.sprite,
         this.sprite.colIndex * this.sprite.frameW,
