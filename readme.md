@@ -1,4 +1,5 @@
-# El escudo LDA — Los detectives de mascotas
+# El escudo LDA
+## Los detectives de mascotas
 
 **Videojuego de plataformas 2D desarrollado con JavaScript vanilla y HTML5 Canvas.**
 
