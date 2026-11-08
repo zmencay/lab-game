@@ -1,4 +1,17 @@
+/**
+ * Represents the player character.
+ * Handles movement, jumping, sprite animations,
+ * collision detection, and temporary invulnerability.
+ */
 class Player {
+  /**
+   * Creates a player with an initial position and audio manager.
+   *
+   * @param {CanvasRenderingContext2D} ctx - Canvas rendering context.
+   * @param {number} x - Initial horizontal position.
+   * @param {number} y - Initial vertical position.
+   * @param {AudioManager} audioManager - Shared game audio manager.
+   */
   constructor(ctx, x, y, audioManager) {
     this.ctx = ctx
 
@@ -21,41 +34,49 @@ class Player {
     // -------------------------------------------------------------------------------
     // SPRITE
     // -------------------------------------------------------------------------------
-    // RIGHT
-    // setup
+
+    // Right-facing sprite and animation frame dimensions
     this.spriteRight = loadImage(PLAYER_SPRITE_RIGHT, image => {
       image.frameW = Math.floor(image.width / image.cols)
       image.frameH = Math.floor(image.height / image.rows)
     })
-    // cols and rows
+
     this.spriteRight.cols = PLAYER_SPRITE_COLS
     this.spriteRight.rows = PLAYER_SPRITE_ROWS
-    // sprite init position
+    
+    // Initial idle frame
     this.spriteRight.colIndex = 5
     this.spriteRight.rowIndex = 1
+
     // -------------------------------------------------------------------------------
-    // LEFT
-    // setup
-    // -------------------------------------------------------------------------------
+
+    // Left-facing sprite and animation frame dimensions
     this.spriteLeft = loadImage(PLAYER_SPRITE_LEFT, image => {
       image.frameW = Math.floor(image.width / image.cols)
       image.frameH = Math.floor(image.height / image.rows)
     })
-    // cols and rows
+    
     this.spriteLeft.cols = PLAYER_SPRITE_COLS
     this.spriteLeft.rows = PLAYER_SPRITE_ROWS
-    // sprite init position
+    
+    // Initial idle frame
     this.spriteLeft.colIndex = 5
     this.spriteLeft.rowIndex = 1
+
     // -------------------------------------------------------------------------------
-    // assignament
-    // -------------------------------------------------------------------------------
+
+    // Default facing direction
     this.sprite = this.spriteRight
+    
     // -------------------------------------------------------------------------------
 
     this.drawCount = 0
   }
 
+  /**
+   * Enables temporary invulnerability after taking damage.
+   * The state is automatically disabled after the configured duration.
+   */
   activateInvulnerability() {
     this.isInvulnerable = true
 
@@ -64,11 +85,20 @@ class Player {
     }, PLAYER_INVULNERABILITY_DURATION)
   }
 
+  /**
+   * Positions the player on the specified ground level.
+   *
+   * @param {number} groundY - Vertical position of the ground.
+   */
   groundTo(groundY) {
     this.y = groundY - this.h
     this.ground = groundY
   }
 
+  /**
+   * Resets the player's position, movement, and animation state.
+   * Preserves the current ground level.
+   */
   reset() {
     this.x = 20
 
@@ -85,6 +115,10 @@ class Player {
     this.groundTo(this.ground)
   }
 
+  /**
+   * Renders the current sprite frame and updates the animation.
+   * Applies a blinking effect while the player is invulnerable.
+   */
   draw() {
     const blinkTime = Math.floor(Date.now() / PLAYER_BLINK_INTERVAL)
     const isVisible = blinkTime % 2 === 0
@@ -107,6 +141,10 @@ class Player {
     this.drawCount++
   }
 
+  /**
+   * Updates player position using velocity and gravity.
+   * Keeps the player within the canvas boundaries.
+   */
   move() {
     this.vy += this.ay
 
@@ -131,6 +169,11 @@ class Player {
     }
   }
 
+  /**
+   * Handles keyboard input for horizontal movement and jumping.
+   *
+   * @param {KeyboardEvent} event - Keyboard keydown or keyup event.
+   */
   onKeyEvent(event) {
     const isPressed = event.type === 'keydown'
 
@@ -162,6 +205,10 @@ class Player {
     }
   }
 
+  /**
+   * Selects the appropriate sprite animation
+   * based on the player's movement state.
+   */
   animate() {
     if (this.isJumping) {
       this.sprite.colIndex = 0
@@ -174,9 +221,17 @@ class Player {
     }
   }
 
+  /**
+   * Advances the sprite animation at the specified frequency.
+   *
+   * @param {number} colIndexFrame - Initial column of the animation.
+   * @param {number} rowIndexFrame - Row containing the animation.
+   * @param {number} spriteFrames - Number of frames in the animation cycle.
+   * @param {number} frequency - Number of draw calls between frame updates.
+   */
   animateFrame(colIndexFrame, rowIndexFrame, spriteFrames, frequency) {
     if (this.sprite.rowIndex !== rowIndexFrame) { 
-      // Comprueba si vengo de otra animacion, por ejemplo de jumping que la rowIndex seria 0
+      // Reset the frame when switching between animation rows
       this.sprite.colIndex = colIndexFrame
       this.sprite.rowIndex = rowIndexFrame
     } else if (this.drawCount % frequency === 0) {
@@ -185,6 +240,12 @@ class Player {
     }
   }
 
+  /**
+   * Checks whether the player overlaps another rectangular entity.
+   *
+   * @param {{x: number, y: number, w: number, h: number}} element - Entity to check.
+   * @returns {boolean} Whether the bounding rectangles overlap.
+   */
   collidesWith(element) {
     return (this.x + this.w > element.x) &&
       (this.x < element.x + element.w) &&
