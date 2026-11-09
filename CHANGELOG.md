@@ -4,6 +4,16 @@ Historial de cambios y evolución de **El escudo LDA — Los detectives de masco
 
 Este documento recoge las principales funcionalidades, mejoras y refactorizaciones incorporadas en las diferentes versiones del videojuego.
 
+## [Unreleased]
+
+### Documentation
+- Added JSDoc documentation to JavaScript classes and methods.
+- Improved inline comments across the game codebase.
+- Documented game lifecycle, collision detection, entity generation,
+  level progression, audio management, and rendering.
+- Standardized technical documentation in English.
+- No functional changes introduced.
+
 ## [3.0.0] — Refactorización y organización de recursos
 
 ### Changed
