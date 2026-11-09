@@ -15,7 +15,7 @@ class Game {
    * @param {HTMLElement} soundBtn - Button used to toggle audio.
    * @param {HTMLElement} nextBtn - Button used to advance to the next level.
    */
-  constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn) {
+  constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn, player1Btn, player2Btn) {
     this.canvas = document.getElementById(canvasId)
     this.canvas.width = CANVAS_W
     this.canvas.height = CANVAS_H
@@ -29,11 +29,14 @@ class Game {
     this.coinsTimeoutId = null
     this.enemiesTimeoutId = null
     this.isStartedClicked = false
+    this.isSelectingPlayer = false
 
     this.initBtn = initBtn
     this.reloadBtn = reloadBtn    
     this.soundBtn = soundBtn    
     this.nextBtn = nextBtn
+    this.player1Btn = player1Btn
+    this.player2Btn = player2Btn
 
     // -------------------------------------------------------------------------------
     // AUDIO MANAGER
@@ -49,9 +52,8 @@ class Game {
     this.audioManager.addSound('music', './assets/audio/music.mp3', 0.05, true)
     this.audioManager.addSound( 'jump', './assets/audio/jump.mp3', AUDIO_VOL)
 
-    // Initialize the player and position it on the ground.
-    this.player = new Player(this.ctx, 20, 20, this.audioManager)
-    this.player.groundTo(this.canvas.height - BG_FLOOR)
+    // Player will be initialized after character selection
+    this.player = null
     // -------------------------------------------------------------------------------
     
     // -------------------------------------------------------------------------------
@@ -136,6 +138,8 @@ class Game {
             this.gameOver()
           }
           
+        } else if (this.isSelectingPlayer) {
+          this.drawPlayerSelection()
         } else {
           this.drawWelcome()
         }
@@ -219,8 +223,10 @@ class Game {
   setupListeners() {
     
     this.initBtn.addEventListener('click', () => {
-      this.isStartedClicked = true
+      this.isSelectingPlayer = true
       this.initBtn.classList.add("hidden")
+      this.player1Btn.classList.remove('hidden')
+      this.player2Btn.classList.remove('hidden')
     })
 
     this.reloadBtn.addEventListener('click', () => {
@@ -239,6 +245,14 @@ class Game {
       this.start()
     })
 
+    this.player1Btn.addEventListener('click', () => {
+      this.selectPlayer('player1')
+    })
+
+    this.player2Btn.addEventListener('click', () => {
+      this.selectPlayer('player2')
+    })
+
     // Keydown input is accepted only during active gameplay.
     addEventListener('keydown', (event) => {
       if (this.drawIntervalId !== null && this.isStartedClicked) {
@@ -248,7 +262,9 @@ class Game {
 
     // Keyup input is always forwarded to release movement controls.
     addEventListener('keyup', (event) => {
-      this.player.onKeyEvent(event)
+      if (this.drawIntervalId !== null && this.isStartedClicked) {
+        this.player.onKeyEvent(event)
+      }
     })
   }
   // -----------------------
@@ -385,6 +401,14 @@ class Game {
       this.ctx.drawImage(this.initWindow, 0, 0, CANVAS_W, CANVAS_H)
     }
   }
+  /**
+   * Draws a temporary character selection screen.
+   * The final artwork will replace this placeholder.
+   */
+  drawPlayerSelection() {
+    this.ctx.fillStyle = '#000'
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+  }
   // -----------------------
   
   // -----------------------
@@ -514,7 +538,7 @@ class Game {
     this.aqua = new Scenary(this.ctx, `${levelPath}bgn-aqua.png`, 0, 290, 1280, 427, 0.1)
     this.floor = new Scenary(this.ctx, `${levelPath}bgn-floor.png`, 0, this.canvas.height - 240, 1280, 240, 0)
     
-    this.player.reset()
+    if (this.player) this.player.reset()
   }
 
   /**
@@ -589,4 +613,24 @@ class Game {
     this.audioManager.toggleMute()
   }
   // -----------------------
+
+  /**
+   * Stores the selected character and starts the game.
+   *
+   * @param {string} playerId - Selected character identifier.
+   */
+  selectPlayer(playerId) {
+    this.selectedPlayer = playerId
+
+    // Create the selected character using its configured sprites.
+    this.player = new Player(this.ctx, 20, 20, this.audioManager, playerId)
+    this.player.groundTo(this.canvas.height - BG_FLOOR)
+
+    this.isSelectingPlayer = false
+    this.isStartedClicked = true
+
+    this.player1Btn.classList.add('hidden')
+    this.player2Btn.classList.add('hidden')
+  }
+
 }

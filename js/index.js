@@ -12,9 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const reloadBtn = document.getElementById("reloadBtn")
   const soundBtn = document.getElementById("soundBtn")
   const nextBtn = document.getElementById("nextBtn")
+  const player1Btn = document.getElementById('player1Btn')
+  const player2Btn = document.getElementById('player2Btn')
 
   // Create and start the game instance
-  const game = new Game('lda-game', initBtn, reloadBtn, soundBtn, nextBtn)
+  const game = new Game('lda-game', initBtn, reloadBtn, soundBtn, nextBtn, player1Btn, player2Btn)
   game.start()
 })
 // ---------------------

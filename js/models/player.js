@@ -11,8 +11,9 @@ class Player {
    * @param {number} x - Initial horizontal position.
    * @param {number} y - Initial vertical position.
    * @param {AudioManager} audioManager - Shared game audio manager.
+   * @param {string} playerId - Selected playable character identifier.
    */
-  constructor(ctx, x, y, audioManager) {
+  constructor(ctx, x, y, audioManager, playerId = 'player1') {
     this.ctx = ctx
 
     this.x = x
@@ -34,9 +35,10 @@ class Player {
     // -------------------------------------------------------------------------------
     // SPRITE
     // -------------------------------------------------------------------------------
+    this.playerConfig = PLAYER_CONFIG[playerId]
 
     // Right-facing sprite and animation frame dimensions
-    this.spriteRight = loadImage(PLAYER_SPRITE_RIGHT, image => {
+    this.spriteRight = loadImage(this.playerConfig.right, image => {
       image.frameW = Math.floor(image.width / image.cols)
       image.frameH = Math.floor(image.height / image.rows)
     })
@@ -51,7 +53,7 @@ class Player {
     // -------------------------------------------------------------------------------
 
     // Left-facing sprite and animation frame dimensions
-    this.spriteLeft = loadImage(PLAYER_SPRITE_LEFT, image => {
+    this.spriteLeft = loadImage(this.playerConfig.left, image => {
       image.frameW = Math.floor(image.width / image.cols)
       image.frameH = Math.floor(image.height / image.rows)
     })

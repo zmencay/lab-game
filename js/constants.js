@@ -43,8 +43,6 @@
   // Player dimensions and directional sprite assets
   const PLAYER_W = 138
   const PLAYER_H = 162
-  const PLAYER_SPRITE_LEFT = './assets/player/sprite-player-left.png'
-  const PLAYER_SPRITE_RIGHT = './assets/player/sprite-player-right.png'
   const PLAYER_SPRITE_COLS = 6
   const PLAYER_SPRITE_ROWS = 2
 
@@ -52,6 +50,24 @@
   const PLAYER_ANIMATION_FREQ = 4
   const PLAYER_BLINK_INTERVAL = 150
   const PLAYER_INVULNERABILITY_DURATION = 3000
+
+  /**
+   * Available playable characters and their sprite assets.
+   * Both characters share the same movement and gameplay mechanics.
+   *
+  * @type {Object.<string, {right: string, left: string}>}
+   */
+  const PLAYER_CONFIG = {
+    player1: {
+      right: './assets/player/sprite-player1-right.png',
+      left: './assets/player/sprite-player1-left.png'
+    },
+    player2: {
+      right: './assets/player/sprite-player2-right.png',
+      left: './assets/player/sprite-player2-left.png'
+    }
+  }
+
 
 // ---------------------
 
