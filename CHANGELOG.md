@@ -6,13 +6,29 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.1.0] — Selección de personajes
+
+### Added
+- Incorporación de una pantalla de selección de personaje entre la bienvenida y el inicio de la partida.
+- Posibilidad de elegir entre dos personajes jugables, cada uno con sus propios sprites de movimiento.
+- Incorporación del diseño gráfico definitivo de la pantalla de selección.
+- Configuración de los recursos gráficos de ambos personajes mediante `PLAYER_CONFIG` en `constants.js`.
+
+### Changed
+- Inicialización de `Player` al seleccionar personaje, evitando crear una instancia provisional al cargar el juego.
+- Conservación del personaje seleccionado durante los tres niveles, reutilizando la misma instancia al reiniciar cada nivel.
+- Adaptación de los controles de teclado para que solo se procesen durante la partida activa.
+- Actualización del README para documentar la selección de personajes y la versión `3.1.0`.
+
 ### Documentation
-- Added JSDoc documentation to JavaScript classes and methods.
-- Improved inline comments across the game codebase.
-- Documented game lifecycle, collision detection, entity generation,
-  level progression, audio management, and rendering.
-- Standardized technical documentation in English.
-- No functional changes introduced.
+- Incorporación de documentación JSDoc a clases y métodos de JavaScript.
+- Mejora de comentarios en el código y estandarización de la documentación técnica en inglés.
+- Documentación del ciclo de juego, las colisiones, la generación de entidades, la progresión entre niveles, el audio y el renderizado.
+
+### Validation
+- Comprobación de la selección de ambos personajes y sus animaciones de movimiento y salto.
+- Verificación de la persistencia del personaje seleccionado al avanzar entre niveles.
+- Validación de la pantalla de selección definitiva y de la navegación hasta el inicio de la partida.
 
 ## [3.0.0] — Refactorización y organización de recursos
 

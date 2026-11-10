@@ -14,6 +14,8 @@ class Game {
    * @param {HTMLElement} reloadBtn - Button used to restart the game.
    * @param {HTMLElement} soundBtn - Button used to toggle audio.
    * @param {HTMLElement} nextBtn - Button used to advance to the next level.
+   * @param {HTMLElement} player1Btn - Button used to select player 1.
+   * @param {HTMLElement} player2Btn - Button used to select player 2.
    */
   constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn, player1Btn, player2Btn) {
     this.canvas = document.getElementById(canvasId)
@@ -38,9 +40,9 @@ class Game {
     this.player1Btn = player1Btn
     this.player2Btn = player2Btn
 
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // AUDIO MANAGER
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // Register sound effects and looping background music.
     this.audioManager = new AudioManager()
     this.audioManager.addSound('coin', './assets/audio/coin.mp3', AUDIO_VOL)
@@ -51,36 +53,42 @@ class Game {
     this.audioManager.addSound('victory', './assets/audio/victory.wav', AUDIO_VOL)
     this.audioManager.addSound('music', './assets/audio/music.mp3', 0.05, true)
     this.audioManager.addSound( 'jump', './assets/audio/jump.mp3', AUDIO_VOL)
-
+    // -------------------------------
+    
+    // -------------------------------
+    // WELCOME WINDOW
+    // -------------------------------
+    this.initWindow = loadImage('./assets/ui/window/bgn-init.png')
+    // -------------------------------
+    
+    // -------------------------------
+    // PLAYER SELECTION
+    // -------------------------------
     // Player will be initialized after character selection
     this.player = null
-    // -------------------------------------------------------------------------------
-    
-    // -------------------------------------------------------------------------------
-    // WELCOME WINDOW
-    // -------------------------------------------------------------------------------
-    this.initWindow = loadImage('./assets/ui/window/bgn-init.png')
-    // -------------------------------------------------------------------------------
 
-    // -------------------------------------------------------------------------------
+    this.playerSelectionWindow = loadImage('./assets/player/ui/bgn-player-selection.png')
+    // -------------------------------
+
+    // -------------------------------
     // HUD
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // Load the HUD background and initialize player health.
     this.hud = loadImage(HUD_IMG)
     // Hearts persist between levels.
     this.hearts = MAX_HEARTS
     this.heart = loadImage(HEARTS_IMG)
-    // -------------------------------------------------------------------------------
+    // -------------------------------
 
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // GAME OVER
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     this.gameOverWindow = loadImage(GAMEOVERWINDOW_IMG)
-    // -------------------------------------------------------------------------------
+    // -------------------------------
 
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // NEXT LEVEL
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // Preload transition screens for all non-final levels.
     this.nextLevelImages = []
     for (let level = 1; level < MAX_LEVEL; level++) {
@@ -90,13 +98,13 @@ class Game {
 
       this.nextLevelImages.push(image)
     }
-    // -------------------------------------------------------------------------------
+    // -------------------------------
 
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     // THE END
-    // -------------------------------------------------------------------------------
+    // -------------------------------
     this.theEndImg = loadImage(THE_END_IMG)
-    // -------------------------------------------------------------------------------
+    // -------------------------------
 
     this.setupListeners()
 
@@ -390,7 +398,7 @@ class Game {
   // -----------------------
 
   // -----------------------
-  // WELCOME SCREEN
+  // SCREENS
   // -----------------------
 
   /**
@@ -401,13 +409,14 @@ class Game {
       this.ctx.drawImage(this.initWindow, 0, 0, CANVAS_W, CANVAS_H)
     }
   }
+
   /**
-   * Draws a temporary character selection screen.
-   * The final artwork will replace this placeholder.
+   * Renders the character selection screen once its image is loaded.
    */
   drawPlayerSelection() {
-    this.ctx.fillStyle = '#000'
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
+    if (this.playerSelectionWindow.isReady) {
+      this.ctx.drawImage(this.playerSelectionWindow, 0, 0, CANVAS_W, CANVAS_H)
+    }
   }
   // -----------------------
   
@@ -614,6 +623,10 @@ class Game {
   }
   // -----------------------
 
+
+  // -----------------------
+  // PLAYER SELECTION
+  // -----------------------
   /**
    * Stores the selected character and starts the game.
    *
@@ -632,5 +645,6 @@ class Game {
     this.player1Btn.classList.add('hidden')
     this.player2Btn.classList.add('hidden')
   }
+  // -----------------------
 
 }

@@ -46,68 +46,66 @@ body {
   outline: 0;
   text-indent: -999999em;
   cursor: pointer;
-}
-
-.btn.hidden {
-  display: none;
-}
-
-.btn.start {
-  background: url(../assets/ui/window/initBtn.png) no-repeat center;
-  width: 275px;
-  height: 82px;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(0, 0, 0, .7);
 }
 
-.btn.reload {
-  background: url(../assets/ui/window/reloadBtn.png) no-repeat center;
-  width: 295px;
-  height: 95px;
-}
+  .btn:hover {
+    filter: brightness(1.2);
+  } 
 
-.btn.next {
-  top: 73vh;
-  background: url(../assets/ui/window/nextBtn.png) no-repeat center;
-  width: 412px;
-  height: 95px;
-}
+  .btn.hidden {
+    display: none;
+  }
 
-.btn.sound {
-  top: 2vh;
-  right: 13vw;
-  width: 60px;
-  height: 60px;
-}
+  .btn.start {
+    background: url(../assets/ui/window/initBtn.png) no-repeat center;
+    width: 275px;
+    height: 82px;
+  }
 
-.btn.sound.active {
-  background: url(../assets/ui/audio/soundBtn-on.png) no-repeat top right;
-}
+  .btn.reload {
+    background: url(../assets/ui/window/reloadBtn.png) no-repeat center;
+    width: 295px;
+    height: 95px;
+  }
 
-.btn.sound {
-  background: url(../assets/ui/audio/soundBtn-off.png) no-repeat top right;
-}
+  .btn.next {
+    top: 73vh;
+    background: url(../assets/ui/window/nextBtn.png) no-repeat center;
+    width: 412px;
+    height: 95px;
+  }
 
-.btn.player {
-  top: 73vh;
-  background: url(../assets/ui/window/PlayerBtn.png) no-repeat center;
-  width: 412px;
-  height: 95px;
+  .btn.sound {
+    top: 2vh;
+    right: 13vw;
+    width: 60px;
+    height: 60px;
+    border-radius: 0;
+  }
 
-  background: #222;
-  border: 2px solid #fff;
-  border-radius: 10px;
+  .btn.sound.active {
+    background: url(../assets/ui/audio/soundBtn-on.png) no-repeat top right;
+  }
 
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  text-indent: 0;
+  .btn.sound {
+    background: url(../assets/ui/audio/soundBtn-off.png) no-repeat top right;
+  }
 
-}
+  .btn.player {
+    width: 253px;
+    height: 70px;
+  }
 
-.btn.player+.btn.player {
-  transform: translate(10%, -50%);
-}
+    #player1Btn {
+      left: 300px;
+      background: url(../assets/player/ui/player1Btn.png) no-repeat center;
+    }
+    #player2Btn {
+      right: 300px;
+      background: url(../assets/player/ui/player2Btn.png) no-repeat center;
+    }
 
 #canvas-container {
   position: relative;

@@ -3,7 +3,7 @@
 
 **Videojuego de plataformas 2D desarrollado con JavaScript vanilla y HTML5 Canvas.**
 
-El escudo LDA es un videojuego de plataformas de desplazamiento lateral en el que acompañamos a un pequeño zorro detective a través de tres escenarios: una jungla, un desierto y una montaña nevada.
+El escudo LDA es un videojuego de plataformas de desplazamiento lateral en el que elegimos entre dos mascotas detectives para recorrer tres escenarios: una jungla, un desierto y una montaña nevada.
 
 El objetivo es recoger las diez huellas doradas de cada nivel, esquivar o derrotar a los enemigos y completar la aventura conservando al menos uno de los tres corazones disponibles.
 
@@ -11,6 +11,7 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 
 ### Características principales
 
+- Selección entre dos personajes jugables con animaciones propias y las mismas mecánicas.
 - Tres niveles con escenarios, enemigos y dificultad progresiva.
 - Movimiento lateral, salto y colisiones.
 - Sistema de vidas persistentes entre niveles.
@@ -52,7 +53,11 @@ El proyecto utiliza una arquitectura basada en clases, con responsabilidades dif
 
 ## Cómo jugar
 
-Ayuda al pequeño zorro detective a superar los tres niveles de la aventura, recogiendo huellas doradas y evitando los peligros de cada escenario.
+Elige entre las dos mascotas detectives antes de comenzar la partida y supera los tres niveles de la aventura, recogiendo huellas doradas y evitando los peligros de cada escenario.
+
+### Selección de personaje
+
+Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar la aventura. Ambos personajes comparten los mismos controles y mecánicas, pero tienen sprites y animaciones propios. La elección se mantiene durante los tres niveles.
 
 ### Controles
 
@@ -91,8 +96,8 @@ El videojuego utiliza una arquitectura basada en programación orientada a objet
 
 | Clase | Responsabilidad |
 |---|---|
-| `Game` | Coordina el ciclo principal del juego, los niveles, las colisiones y las transiciones entre estados. |
-| `Player` | Gestiona el movimiento del protagonista, los saltos, las animaciones y los estados de invulnerabilidad. |
+| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones y las transiciones entre estados. |
+| `Player` | Gestiona el movimiento del personaje seleccionado, los saltos, las animaciones y los estados de invulnerabilidad. |
 | `Enemy` | Controla el movimiento, las animaciones y el estado de los enemigos de cada nivel. |
 | `Coin` | Representa los coleccionables y gestiona su movimiento y animación. |
 | `Scenary` | Renderiza las capas de los escenarios y gestiona su desplazamiento para crear el efecto parallax. |
@@ -142,7 +147,11 @@ Durante el desarrollo del videojuego se han aplicado diferentes soluciones para 
 
 La clase `Game` centraliza el ciclo principal de ejecución, encargado de actualizar y dibujar los elementos, generar enemigos y coleccionables, comprobar colisiones y gestionar las transiciones entre niveles.
 
-El juego contempla diferentes estados, como la pantalla de inicio, la partida activa, los niveles completados, Game Over y el final de la aventura.
+El juego contempla diferentes estados, como la pantalla de inicio, la selección de personaje, la partida activa, los niveles completados, Game Over y el final de la aventura.
+
+### Selección y reutilización de personajes
+
+`Game` crea la instancia de `Player` cuando se elige un personaje. Las rutas de los sprites de cada opción se definen en `PLAYER_CONFIG`, dentro de `constants.js`, y se pasan al constructor de `Player`. Ambos personajes comparten la lógica de movimiento, salto y colisiones. La misma instancia se reutiliza entre niveles, conservando la elección inicial.
 
 ### Animaciones mediante spritesheets
 
@@ -194,7 +203,7 @@ Los escenarios se componen de diferentes capas gráficas preparadas para su desp
 
 ### Personajes y animaciones
 
-El protagonista, los enemigos y los coleccionables cuentan con recursos gráficos adaptados a sus diferentes estados y movimientos.
+Los dos personajes jugables, los enemigos y los coleccionables cuentan con recursos gráficos adaptados a sus diferentes estados y movimientos.
 
 Las animaciones se organizan mediante spritesheets, integrados posteriormente en el sistema de renderizado del videojuego.
 
@@ -203,6 +212,7 @@ Las animaciones se organizan mediante spritesheets, integrados posteriormente en
 La interfaz mantiene la misma identidad visual que los escenarios y personajes, incluyendo:
 
 - Pantalla de bienvenida y presentación del juego.
+- Pantalla de selección entre los dos personajes jugables.
 - HUD con indicador de vidas y puntuación.
 - Pantallas de nivel completado, Game Over y final de partida.
 - Botones y controles gráficos.
@@ -255,7 +265,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.0.0`
+**Versión actual:** `3.1.0`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 
