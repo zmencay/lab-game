@@ -15,6 +15,8 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 - Tres niveles con escenarios, enemigos y dificultad progresiva.
 - Movimiento lateral, salto y colisiones.
 - Sistema de vidas persistentes entre niveles.
+- Registro de enemigos derrotados con estadísticas acumuladas y desglose por nivel.
+- HUD actualizado con miniaturas de enemigos y contador de derrotas del nivel activo.
 - Coleccionables y progresión por objetivos.
 - Animaciones de personajes y enemigos mediante spritesheets.
 - Escenarios multicapa con efecto parallax.
@@ -71,6 +73,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 
 - Recoge **10 huellas doradas** para completar cada nivel.
 - Esquiva a los enemigos o derrótalos saltando sobre ellos.
+- Consulta en el HUD cuántos enemigos del nivel actual has derrotado.
 - Dispones de **3 corazones** para completar toda la aventura.
 - Cada golpe recibido resta un corazón y proporciona unos segundos de invulnerabilidad.
 - Los corazones restantes se conservan al avanzar al siguiente nivel.
@@ -84,7 +87,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 | 2 | Desierto | Monstruo verde |
 | 3 | Montaña nevada | Pájaro rojo |
 
-Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores.
+Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores. La miniatura del HUD y el contador de derrotas se actualizan según el enemigo de cada nivel.
 
 Completa los tres niveles para llegar al final de la aventura.
 
@@ -96,7 +99,7 @@ El videojuego utiliza una arquitectura basada en programación orientada a objet
 
 | Clase | Responsabilidad |
 |---|---|
-| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones y las transiciones entre estados. |
+| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones, el registro de enemigos derrotados y las transiciones entre estados. |
 | `Player` | Gestiona el movimiento del personaje seleccionado, los saltos, las animaciones y los estados de invulnerabilidad. |
 | `Enemy` | Controla el movimiento, las animaciones y el estado de los enemigos de cada nivel. |
 | `Coin` | Representa los coleccionables y gestiona su movimiento y animación. |
@@ -173,6 +176,16 @@ El resultado depende del tipo de interacción: recoger una huella, recibir daño
 
 El sistema también contempla periodos de invulnerabilidad tras recibir daño y la persistencia de las vidas entre niveles.
 
+### Estadísticas de enemigos derrotados
+
+La clase `Game` registra cada enemigo derrotado mediante un salto, incrementando tanto el total acumulado de la partida como el contador correspondiente al nivel activo. Los enemigos esquivados o los golpes recibidos no suman derrotas.
+
+Las estadísticas se almacenan en `defeatedEnemies`, con un valor `total` y un desglose `byLevel`. Se inicializan al crear la partida y se conservan al cambiar de nivel, ya que `setupLevel()` no las reinicia.
+
+El HUD muestra **solo las derrotas del nivel actual**. La miniatura correspondiente se obtiene desde la propiedad `hudIcon` de `ENEMY_CONFIG`, y las imágenes se cargan mediante `loadImage()`. El total global y el desglose por nivel permanecen disponibles para futuras funcionalidades, pero no se muestran simultáneamente en el HUD.
+
+No se utiliza `localStorage`: estas estadísticas pertenecen a la partida en curso y no se conservan al recargar la página.
+
 ### Gestión centralizada de recursos
 
 La carga de imágenes se realiza mediante la utilidad `loadImage()`, que unifica su inicialización y permite comprobar cuándo están disponibles para dibujarse.
@@ -213,7 +226,8 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 
 - Pantalla de bienvenida y presentación del juego.
 - Pantalla de selección entre los dos personajes jugables.
-- HUD con indicador de vidas y puntuación.
+- HUD actualizado con indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
+- Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
 - Pantallas de nivel completado, Game Over y final de partida.
 - Botones y controles gráficos.
 
@@ -265,7 +279,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.1.0`
+**Versión actual:** `3.2.0`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 

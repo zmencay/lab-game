@@ -6,6 +6,24 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.2.0] — Contador de enemigos derrotados y nuevo HUD
+
+### Added
+- Incorporación del registro de enemigos derrotados, con contador total y desglose por nivel durante la partida.
+- Visualización en el HUD de las derrotas correspondientes exclusivamente al enemigo del nivel activo.
+- Incorporación de miniaturas específicas de los tres enemigos al HUD mediante la propiedad `hudIcon` de `ENEMY_CONFIG`.
+- Carga de miniaturas a través de `loadImage()` y representación condicionada a su disponibilidad.
+
+### Changed
+- Rediseño e integración del recurso gráfico del HUD para mostrar vidas, huellas recogidas, nivel y enemigos derrotados.
+- Conservación de las estadísticas de derrotas al avanzar entre niveles, sin reiniciarlas en `setupLevel()`.
+- Actualización del README para documentar el contador, la integración del HUD y la versión `3.2.0`.
+
+### Validation
+- Comprobación del incremento del contador al derrotar enemigos mediante salto, sin contabilizar enemigos esquivados ni golpes recibidos.
+- Verificación del cambio de icono y contador al avanzar de nivel, manteniendo los registros de niveles anteriores.
+- Pruebas de regresión completadas con ambos personajes y los tres niveles.
+
 ## [3.1.0] — Selección de personajes
 
 ### Added

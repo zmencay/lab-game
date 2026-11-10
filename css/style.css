@@ -94,16 +94,17 @@ body {
   }
 
   .btn.player {
+    top: 71vh;
     width: 253px;
     height: 70px;
   }
 
     #player1Btn {
-      left: 300px;
+      left: 27vw;
       background: url(../assets/player/ui/player1Btn.png) no-repeat center;
     }
     #player2Btn {
-      right: 300px;
+      right: 27vw;
       background: url(../assets/player/ui/player2Btn.png) no-repeat center;
     }
 

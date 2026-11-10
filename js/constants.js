@@ -119,24 +119,28 @@
    * @type {Object<number, {
    *   speed: number,
    *   sprite: string,
-   *   deathSprite: string
+   *   deathSprite: string,
+   *   hudIcon: string | null
    * }>}
    */
   const ENEMY_CONFIG = {
     1: {
       speed: 3,
       sprite: './assets/enemies/enemy1.png',
-      deathSprite: './assets/enemies/enemy1-death.png'
+      deathSprite: './assets/enemies/enemy1-death.png',
+      hudIcon: './assets/ui/hud/enemies/enemy1-ico.png'
     },
     2: {
       speed: 6,
       sprite: './assets/enemies/enemy2.png',
-      deathSprite: './assets/enemies/enemy2-death.png'
+      deathSprite: './assets/enemies/enemy2-death.png',
+      hudIcon: './assets/ui/hud/enemies/enemy2-ico.png'
     },
     3: {
       speed: 8,
       sprite: './assets/enemies/enemy3.png',
-      deathSprite: './assets/enemies/enemy3-death.png'
+      deathSprite: './assets/enemies/enemy3-death.png',
+      hudIcon: './assets/ui/hud/enemies/enemy3-ico.png'
     }
   }
 
@@ -157,8 +161,8 @@
 // ---------------------
   
   // HUD dimensions and background asset
-  const HUD_W = 598
-  const HUD_H = 108
+  const HUD_W = 810
+  const HUD_H = 130
   const HUD_IMG = './assets/ui/hud/hud.png'
   
   // Maximum player health and heart icon configuration

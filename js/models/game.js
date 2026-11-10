@@ -26,6 +26,14 @@ class Game {
 
     this.fps = FPS
     this.level = START_LEVEL
+    this.defeatedEnemies = {
+      total: 0,
+      byLevel: {
+        1: 0,
+        2: 0,
+        3: 0
+      }
+    }
 
     this.drawIntervalId = null
     this.coinsTimeoutId = null
@@ -78,6 +86,14 @@ class Game {
     // Hearts persist between levels.
     this.hearts = MAX_HEARTS
     this.heart = loadImage(HEARTS_IMG)
+    // Load available enemy HUD icons for each level.
+    this.enemyHudIcons = {}
+
+    for (const level in ENEMY_CONFIG) {
+      const iconPath = ENEMY_CONFIG[level].hudIcon
+
+      this.enemyHudIcons[level] = iconPath ? loadImage(iconPath) : null
+    }
     // -------------------------------
 
     // -------------------------------
@@ -176,6 +192,7 @@ class Game {
     this.drawHearts()
     this.drawCollectedCoins()
     this.drawLevelStatus()
+    this.drawDefeatedEnemies()
   }
 
   /**
@@ -376,11 +393,14 @@ class Game {
         const landsOnEnemy = previousPlayerFeet <= enemy.y && playerFeet >= enemy.y
 
         if (isFalling && landsOnEnemy) {
-      
           this.audioManager.play('enemy')
           enemy.die()
-          return true
 
+          this.defeatedEnemies.total++
+          this.defeatedEnemies.byLevel[this.level]++          
+
+          return true
+          
         } else if (!hasTakenDamage && !this.player.isInvulnerable) {
 
           this.audioManager.play('damage')
@@ -447,8 +467,8 @@ class Game {
       for (let i = 0; i < this.hearts; i++) {
         this.ctx.drawImage(
           this.heart,
-          ((HEARTS_W - 2) * i) + 117,
-          48,
+          ((HEARTS_W - 4) * i) + 127,
+          56,
           HEARTS_W,
           HEARTS_H
         )
@@ -466,8 +486,30 @@ class Game {
     this.ctx.font = "25px impact"
     this.ctx.fillStyle = "white"
     this.ctx.textAlign = "right"
-    this.ctx.fillText(this.collectedCoins, 360, 73)
-    this.ctx.strokeText(this.collectedCoins, 360, 73)
+    this.ctx.fillText(this.collectedCoins, 360, 82)
+    this.ctx.strokeText(this.collectedCoins, 360, 82)
+  }
+
+  /**
+   * Renders the defeated enemy counter for the current level.
+   */
+  drawDefeatedEnemies() {
+    const count = this.defeatedEnemies.byLevel[this.level]
+    const icon = this.enemyHudIcons[this.level]
+
+    if (icon && icon.isReady) {
+      // Render the enemy icon.
+      this.ctx.drawImage(icon, 635, 53, 50, 35)
+    } 
+    // Defeated enemies in the current level.
+    this.ctx.lineWidth = 1
+    this.ctx.strokeStyle = "black"
+    this.ctx.font = "27px impact"
+    this.ctx.fillStyle = "white"
+    this.ctx.textAlign = "right"
+    this.ctx.fillText(`${count}`, 740, 82)
+    this.ctx.strokeText(`${count}`, 740, 82)
+
   }
 
   /**
@@ -479,8 +521,8 @@ class Game {
     this.ctx.font = "27px impact"
     this.ctx.fillStyle = "#FCAB3A"
     this.ctx.textAlign = "right"
-    this.ctx.fillText(this.level, 543, 73)
-    this.ctx.strokeText(this.level, 543, 73)
+    this.ctx.fillText(this.level, 550, 82)
+    this.ctx.strokeText(this.level, 550, 82)
   }
   // -----------------------
 
