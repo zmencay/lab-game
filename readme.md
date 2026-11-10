@@ -17,6 +17,7 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 - Sistema de vidas persistentes entre niveles.
 - Registro de enemigos derrotados con estadísticas acumuladas y desglose por nivel.
 - HUD actualizado con miniaturas de enemigos y contador de derrotas del nivel activo.
+- Estadísticas finales de enemigos derrotados por tipo y total acumulado en THE END.
 - Coleccionables y progresión por objetivos.
 - Animaciones de personajes y enemigos mediante spritesheets.
 - Escenarios multicapa con efecto parallax.
@@ -74,6 +75,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 - Recoge **10 huellas doradas** para completar cada nivel.
 - Esquiva a los enemigos o derrótalos saltando sobre ellos.
 - Consulta en el HUD cuántos enemigos del nivel actual has derrotado.
+- Al completar los tres niveles, consulta en THE END las derrotas de cada tipo de enemigo y el total acumulado.
 - Dispones de **3 corazones** para completar toda la aventura.
 - Cada golpe recibido resta un corazón y proporciona unos segundos de invulnerabilidad.
 - Los corazones restantes se conservan al avanzar al siguiente nivel.
@@ -89,7 +91,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 
 Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores. La miniatura del HUD y el contador de derrotas se actualizan según el enemigo de cada nivel.
 
-Completa los tres niveles para llegar al final de la aventura.
+Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados durante la partida.
 
 ## Arquitectura y organización del código
 
@@ -182,9 +184,15 @@ La clase `Game` registra cada enemigo derrotado mediante un salto, incrementando
 
 Las estadísticas se almacenan en `defeatedEnemies`, con un valor `total` y un desglose `byLevel`. Se inicializan al crear la partida y se conservan al cambiar de nivel, ya que `setupLevel()` no las reinicia.
 
-El HUD muestra **solo las derrotas del nivel actual**. La miniatura correspondiente se obtiene desde la propiedad `hudIcon` de `ENEMY_CONFIG`, y las imágenes se cargan mediante `loadImage()`. El total global y el desglose por nivel permanecen disponibles para futuras funcionalidades, pero no se muestran simultáneamente en el HUD.
+El HUD muestra **solo las derrotas del nivel actual**. La miniatura correspondiente se obtiene desde la propiedad `hudIcon` de `ENEMY_CONFIG`, y las imágenes se cargan mediante `loadImage()`. El total global y el desglose por nivel se reutilizan en la pantalla THE END, que presenta las derrotas de los tres tipos de enemigos y el total acumulado. En el HUD únicamente se muestra el contador del nivel activo.
 
 No se utiliza `localStorage`: estas estadísticas pertenecen a la partida en curso y no se conservan al recargar la página.
+
+### Estadísticas en la pantalla final
+
+Cuando se completa el tercer nivel, `gameCompleted()` muestra la pantalla THE END. El método `drawFinalEnemyStats()` dibuja sobre ella las miniaturas de los tres enemigos, sus respectivos valores de `defeatedEnemies.byLevel` y el total de `defeatedEnemies.total`.
+
+Las miniaturas se reutilizan desde `enemyHudIcons`, sin duplicar la carga de imágenes ni alterar la contabilización de derrotas. Las estadísticas se representan con los resultados de la partida que acaba de terminar. El registro de tiempos no forma parte de esta versión.
 
 ### Gestión centralizada de recursos
 
@@ -229,6 +237,7 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 - HUD actualizado con indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
 - Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
 - Pantallas de nivel completado, Game Over y final de partida.
+- Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados y total acumulado.
 - Botones y controles gráficos.
 
 El diseño de estos elementos busca mantener una experiencia visual consistente a lo largo de toda la aventura.
@@ -279,7 +288,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.2.0`
+**Versión actual:** `3.3.0`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 

@@ -6,6 +6,23 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.3.0] — Estadísticas de enemigos en THE END
+
+### Added
+- Visualización en THE END del número de enemigos derrotados de cada tipo: arañas, monstruos y pájaros.
+- Incorporación del total de enemigos eliminados durante la partida en la pantalla final.
+- Implementación de `drawFinalEnemyStats()` para representar los resultados al completar los tres niveles.
+
+### Changed
+- Actualización del recurso gráfico de THE END para integrar las estadísticas de enemigos derrotados.
+- Reutilización de las miniaturas previamente cargadas en `enemyHudIcons` y de los contadores existentes en `defeatedEnemies`, sin duplicar datos ni modificar las colisiones.
+- Actualización del README para documentar las estadísticas finales y la versión `3.3.0`.
+
+### Validation
+- Comprobación de la visualización de los tres contadores individuales y del total acumulado al completar la aventura.
+- Verificación de la correspondencia entre las derrotas registradas durante la partida y los resultados de THE END.
+- Pruebas de regresión completadas correctamente con ambos personajes y los tres niveles.
+
 ## [3.2.0] — Contador de enemigos derrotados y nuevo HUD
 
 ### Added

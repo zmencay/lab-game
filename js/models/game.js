@@ -635,10 +635,43 @@ class Game {
    */
   drawGameCompleted() {
     if (this.theEndImg.isReady) {
-      this.ctx.drawImage(
-        this.theEndImg, 0, 0, CANVAS_W, CANVAS_H
-      )
+      this.ctx.drawImage(this.theEndImg, 0, 0, CANVAS_W, CANVAS_H)
     }
+  }
+
+  /**
+   * Renders the final enemy defeat statistics.
+   * Displays each enemy icon, its defeat count, and the total.
+   */
+  drawFinalEnemyStats() {
+    const stats = this.defeatedEnemies
+
+    for (let level = 1; level <= MAX_LEVEL; level++) {
+      const icon = this.enemyHudIcons[level]
+      const count = stats.byLevel[level]
+
+      const x = 310 + (level - 1) * 235
+
+      if (icon && icon.isReady) {
+        this.ctx.drawImage(icon, x, 400, 80, 56)
+      }
+
+      this.ctx.lineWidth = 1
+      this.ctx.strokeStyle = "black"
+      this.ctx.font = "60px impact"
+      this.ctx.fillStyle = "white"
+      this.ctx.textAlign = "right"
+      this.ctx.fillText(`${count}`, x + 180, 450)
+      this.ctx.strokeText(`${count}`, x + 180, 450)
+    }
+
+    this.ctx.lineWidth = 1
+    this.ctx.strokeStyle = "black"
+    this.ctx.font = "60px impact"
+    this.ctx.fillStyle = "white"
+    this.ctx.textAlign = "right"
+    this.ctx.fillText(`${stats.total}`, 594, 568)
+    this.ctx.strokeText(`${stats.total}`, 594, 568)
   }
 
   /**
@@ -650,6 +683,7 @@ class Game {
     this.audioManager.pause('music')
     this.audioManager.play('victory')
     this.drawGameCompleted()
+    this.drawFinalEnemyStats()
   }
   // -----------------------
 
