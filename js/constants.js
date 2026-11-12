@@ -83,10 +83,25 @@
 // GAME CONTROLS
 // ---------------------
 
-  // Keyboard key codes for movement and jumping
+  // Keyboard key codes for movement, jumping, and shooting
   const KEY_RIGHT = 39
   const KEY_LEFT = 37
-  const KEY_SPACE = 32
+  const KEY_UP = 38
+  const KEY_SHOOT = 32
+
+// ---------------------
+
+// ---------------------
+// PROJECTILES
+// ---------------------
+
+  // Projectile dimensions and horizontal velocity
+  const PROJECTILE_W = 100
+  const PROJECTILE_H = 67
+  const PROJECTILE_VX = 10
+
+  // Projectile sprite asset
+  const PROJECTILE_SPRITE = './assets/ui/projectile.png'
 
 // ---------------------
 

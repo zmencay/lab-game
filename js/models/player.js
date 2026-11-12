@@ -196,7 +196,7 @@ class Player {
           this.vx = 0
         }
         break
-      case KEY_SPACE:
+      case KEY_UP:
         if (isPressed && !event.repeat && !this.isJumping) {
           this.audioManager.play('jump')
           this.isJumping = true

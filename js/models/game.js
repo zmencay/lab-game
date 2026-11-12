@@ -130,6 +130,12 @@ class Game {
     this.theEndImg = loadImage(THE_END_IMG)
     // -------------------------------
 
+    // -------------------------------
+    // PROJECTILES
+    // -------------------------------
+    this.projectileSprite = loadImage(PROJECTILE_SPRITE)
+    // -------------------------------
+
     this.setupListeners()
 
     this.setupLevel()
@@ -185,7 +191,7 @@ class Game {
 
   /**
    * Renders the scenery, player, collectibles, enemies,
-   * and HUD elements in their display order.
+   * projectiles, and HUD elements in their display order.
    */
   draw() {
     // Draw scenery layers from background to foreground.
@@ -198,6 +204,7 @@ class Game {
     this.player.draw()
     this.coins.forEach(coin => coin.draw())
     this.enemies.forEach(enemy => enemy.draw())
+    this.projectiles.forEach(projectile => projectile.draw())
 
     // Draw the HUD above the game scene.
     this.drawHud()
@@ -210,7 +217,7 @@ class Game {
 
   /**
    * Updates the positions of scenery layers and game entities.
-   * Removes collectible coins that have left the visible area.
+   * Removes collectibles and projectiles outside the canvas.
    */
   move() {
     this.clouds.move()
@@ -220,6 +227,7 @@ class Game {
     this.player.move()
     this.coins.forEach(coin => coin.move())
     this.enemies.forEach(enemy => enemy.move())
+    this.projectiles.forEach(projectile => projectile.move())
 
     this.checkBounds()
   }
@@ -302,7 +310,25 @@ class Game {
     // Keydown input is accepted only during active gameplay.
     addEventListener('keydown', (event) => {
       if (this.drawIntervalId !== null && this.isStartedClicked) {
+        
+        if (event.keyCode === KEY_SHOOT) {
+          event.preventDefault()
+        }
+
         this.player.onKeyEvent(event)
+
+        if (event.keyCode === KEY_SHOOT && !event.repeat) {
+          const isFacingRight = this.player.sprite === this.player.spriteRight
+          const direction = isFacingRight ? 1 : -1
+
+          const x = direction === 1
+            ? this.player.x + (this.player.w / 1.5)
+            : this.player.x - (PROJECTILE_W / 1.5)
+
+          const y = this.player.y + (this.player.h - PROJECTILE_H) / 1.5
+
+          this.projectiles.push(new Projectile(this.ctx, x, y, direction, this.projectileSprite))
+        }
       }
     })
 
@@ -363,11 +389,15 @@ class Game {
   // -----------------------
 
   /**
-   * Removes coins that have completely moved
-   * beyond the left boundary of the canvas.
+   * Removes coins outside the left canvas boundary
+   * and projectiles outside either horizontal boundary.
    */
   checkBounds() {
     this.coins = this.coins.filter(coin => coin.x + coin.w >= 0)
+    this.projectiles = this.projectiles.filter(projectile =>
+      projectile.x + projectile.w >= 0 &&
+      projectile.x <= this.canvas.width
+    )
   }
   // -----------------------
 
@@ -376,13 +406,15 @@ class Game {
   // -----------------------
 
   /**
-   * Checks player collisions with coins and enemies.
+   * Checks player collisions with coins and enemies,
+   * and projectile collisions with active enemies.
    *
-   * Collecting a coin removes it and increases the score.
-   * Landing on an enemy defeats it, while other collisions
-   * may damage the player.
+   * Collecting a coin increases the score.
+   * Landing on an enemy or hitting it with a projectile
+   * defeats it and updates the enemy statistics.
    *
-   * Damage is limited to one hit per collision check,
+   * Projectiles are removed after hitting an enemy.
+   * Player damage is limited to one hit per collision check,
    * and temporary invulnerability prevents additional damage.
    */
   checkCollisions() {
@@ -433,6 +465,29 @@ class Game {
         return true
       }
       
+      return true
+    })
+
+    // Check projectile collisions with active enemies.
+    this.projectiles = this.projectiles.filter(projectile => {
+      const enemyHit = this.enemies.find(enemy =>
+        !enemy.isDead &&
+        projectile.x < enemy.x + enemy.w &&
+        projectile.x + projectile.w > enemy.x &&
+        projectile.y < enemy.y + enemy.h &&
+        projectile.y + projectile.h > enemy.y
+      )
+
+      if (enemyHit) {
+        this.audioManager.play('enemy')
+        enemyHit.die()
+
+        this.defeatedEnemies.total++
+        this.defeatedEnemies.byLevel[this.level]++
+
+        return false
+      }
+
       return true
     })
   }
@@ -614,6 +669,7 @@ class Game {
     this.coins = []
     this.enemies = []
     this.collectedCoins = 0
+    this.projectiles = []
 
     this.ctx.canvas.className = ''
     this.ctx.canvas.classList.add(`level${this.level}`)
@@ -807,6 +863,8 @@ class Game {
 
     this.player1Btn.classList.add('hidden')
     this.player2Btn.classList.add('hidden')
+    
+    this.canvas.focus()
   }
   // -----------------------
 

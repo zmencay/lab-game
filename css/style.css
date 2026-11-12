@@ -89,21 +89,24 @@ body {
     aspect-ratio: 16 / 9;
   }
 
-  /* Decorative keyboard-controls guide. */
-  #canvas-container::before {
-    /* layout */
-    content: "";
-    position: absolute;
-    bottom: 0;
+    /* Decorative keyboard-controls guide. */
+    .game-frame::before {
+      /* layout */
+      content: "";
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: -10%;
 
-    /* box-model */
-    width: 30vw;
-    height: 14vh;
+      /* box-model */
+      width: 40%;
+      aspect-ratio: 600 / 56;
+      height: auto;
 
-    /* presentation */
-    background: url(../assets/ui/interface/controls.png) no-repeat center;
-    background-size: cover;
-  }
+      /* presentation */
+      background: url(../assets/ui/interface/controls.png) no-repeat center;
+      background-size: cover;
+    }
 
 /* ---------------------
    GAME BUTTONS

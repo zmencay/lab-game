@@ -13,7 +13,8 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 
 - Selección entre dos personajes jugables con animaciones propias y las mismas mecánicas.
 - Tres niveles con escenarios, enemigos y dificultad progresiva.
-- Movimiento lateral, salto y colisiones.
+- Movimiento lateral, salto y disparos con proyectiles en ambas direcciones.
+- Colisiones de proyectiles con enemigos, eliminaciones y actualización de estadísticas.
 - Sistema de vidas persistentes entre niveles.
 - Registro de enemigos derrotados con estadísticas acumuladas y desglose por nivel.
 - HUD actualizado con miniaturas de enemigos y contador de derrotas del nivel activo.
@@ -71,14 +72,18 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 |---|---|
 | `←` | Moverse hacia la izquierda |
 | `→` | Moverse hacia la derecha |
-| `Espacio` | Saltar |
+| `↑` | Saltar |
+| `Espacio` | Disparar un proyectil en la dirección del personaje |
 
-Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticamente y puede activarse mediante `Espacio` o `Enter`. Al interactuar con el botón de sonido o continuar la partida, el foco vuelve al Canvas.
+La franja inferior del navegador muestra una guía gráfica de los controles actuales: `←`, `→`, `↑` para moverse y saltar, y `Espacio` para disparar.
+
+Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticamente y puede activarse mediante `Espacio` o `Enter`. Al interactuar con el botón de sonido o continuar la partida, el foco vuelve al Canvas. Durante la partida, se evita el comportamiento predeterminado de `Espacio` para que funcione como tecla de disparo.
 
 ### Objetivo
 
 - Recoge **10 huellas doradas** para completar cada nivel.
-- Esquiva a los enemigos o derrótalos saltando sobre ellos.
+- Esquiva a los enemigos o derrótalos saltando sobre ellos o disparándoles.
+- Pulsa `Espacio` para lanzar un proyectil; puedes disparar durante el movimiento o el salto. Cada pulsación genera un único disparo.
 - Consulta en el HUD cuántos enemigos del nivel actual has derrotado.
 - Al completar los tres niveles, consulta en THE END las derrotas de cada tipo de enemigo y el total acumulado.
 - Consulta también el tiempo empleado en cada nivel y el tiempo total de la aventura. Las pantallas de transición no se incluyen en la medición.
@@ -107,10 +112,11 @@ El videojuego utiliza una arquitectura basada en programación orientada a objet
 
 | Clase | Responsabilidad |
 |---|---|
-| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones, el registro de enemigos derrotados, la medición de tiempos y las transiciones entre estados. |
+| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, los proyectiles, las colisiones, el registro de enemigos derrotados, la medición de tiempos y las transiciones entre estados. |
 | `Player` | Gestiona el movimiento del personaje seleccionado, los saltos, las animaciones y los estados de invulnerabilidad. |
 | `Enemy` | Controla el movimiento, las animaciones y el estado de los enemigos de cada nivel. |
 | `Coin` | Representa los coleccionables y gestiona su movimiento y animación. |
+| `Projectile` | Representa los disparos, actualiza su movimiento horizontal y renderiza el recurso gráfico según su dirección. |
 | `Scenary` | Renderiza las capas de los escenarios y gestiona su desplazamiento para crear el efecto parallax. |
 | `AudioManager` | Centraliza la reproducción de música, efectos de sonido y controles de audio. |
 
@@ -142,6 +148,7 @@ game/
 │   │   ├── enemy.js
 │   │   ├── game.js
 │   │   ├── player.js
+│   │   ├── projectile.js
 │   │   └── scenary.js
 │   └── utils/
 │       └── image-loader.js
@@ -180,13 +187,21 @@ La clase `Scenary` gestiona su representación y repetición horizontal, creando
 
 Las interacciones entre el protagonista, los enemigos y los coleccionables se gestionan mediante comprobaciones de colisión.
 
-El resultado depende del tipo de interacción: recoger una huella, recibir daño o derrotar a un enemigo saltando sobre él.
+El resultado depende del tipo de interacción: recoger una huella, recibir daño o derrotar a un enemigo saltando sobre él o alcanzándolo con un proyectil.
 
 El sistema también contempla periodos de invulnerabilidad tras recibir daño y la persistencia de las vidas entre niveles.
 
+### Sistema de disparos
+
+Ambos personajes pueden disparar con la tecla `Espacio`, tanto en el suelo como durante un salto. Cada pulsación genera un único proyectil que avanza horizontalmente en la dirección hacia la que mira el personaje. La imagen del proyectil se refleja al desplazarse hacia la izquierda y se comparte entre las instancias mediante `loadImage()`.
+
+La clase `Projectile` se ocupa de sus dimensiones, posición, velocidad, movimiento y representación. `Game` gestiona los proyectiles activos, los elimina cuando abandonan el Canvas o impactan contra un enemigo vivo y reutiliza `enemy.die()` para activar la animación de derrota. Cada impacto elimina, como máximo, a un enemigo y se contabiliza en las estadísticas existentes.
+
+Las dimensiones y la velocidad se configuran en `constants.js`. Al iniciar un nuevo nivel, los proyectiles pendientes se descartan junto con las demás entidades del nivel anterior.
+
 ### Estadísticas de enemigos derrotados
 
-La clase `Game` registra cada enemigo derrotado mediante un salto, incrementando tanto el total acumulado de la partida como el contador correspondiente al nivel activo. Los enemigos esquivados o los golpes recibidos no suman derrotas.
+La clase `Game` registra cada enemigo derrotado mediante un salto o el impacto de un proyectil, incrementando tanto el total acumulado de la partida como el contador correspondiente al nivel activo. Los enemigos esquivados o los golpes recibidos no suman derrotas.
 
 Las estadísticas se almacenan en `defeatedEnemies`, con un valor `total` y un desglose `byLevel`. Se inicializan al crear la partida y se conservan al cambiar de nivel, ya que `setupLevel()` no las reinicia.
 
@@ -212,7 +227,7 @@ El método `formatTime()` convierte los milisegundos a `MM:SS` para su presentac
 
 El Canvas utiliza `tabindex="-1"` para poder recibir el foco mediante JavaScript sin incorporarse al recorrido secuencial con Tab. Tras activar el control de sonido, el foco vuelve al Canvas para evitar que la barra espaciadora vuelva a accionar el botón. Al mostrar la pantalla de nivel completado, el botón «Siguiente nivel» recibe el foco; tras activarlo, se devuelve al Canvas.
 
-La interfaz HTML agrupa el Canvas y sus botones dentro de `.game-frame`, un contenedor de proporción 16:9. Los botones utilizan posiciones y dimensiones relativas a ese contenedor para conservar su ubicación y escala cuando cambia el ancho disponible. El Canvas mantiene su resolución interna de 1280 × 720; la adaptación visual corresponde a un **responsive MVP**, orientado principalmente a escritorio y teclado, sin controles táctiles ni ajuste específico a todas las alturas de ventana. Se conservan los elementos decorativos del fondo mediante los pseudoelementos existentes.
+La interfaz HTML agrupa el Canvas y sus botones dentro de `.game-frame`, un contenedor de proporción 16:9. Los botones utilizan posiciones y dimensiones relativas a ese contenedor para conservar su ubicación y escala cuando cambia el ancho disponible. La guía gráfica inferior de controles se muestra mediante el pseudoelemento `.game-frame::before`, reutilizando el recurso `assets/ui/interface/controls.png` sin elementos HTML adicionales. El Canvas mantiene su resolución interna de 1280 × 720; la adaptación visual corresponde a un **responsive MVP**, orientado principalmente a escritorio y teclado, sin controles táctiles ni ajuste específico a todas las alturas de ventana. Se conservan los elementos decorativos del fondo mediante los pseudoelementos existentes.
 
 Los archivos HTML y CSS mantienen una organización por responsabilidades y comentarios de estructura y estilos, sin introducir JSDoc en estos lenguajes.
 
@@ -246,7 +261,7 @@ Los escenarios se componen de diferentes capas gráficas preparadas para su desp
 
 ### Personajes y animaciones
 
-Los dos personajes jugables, los enemigos y los coleccionables cuentan con recursos gráficos adaptados a sus diferentes estados y movimientos.
+Los dos personajes jugables, los enemigos, los coleccionables y los proyectiles cuentan con recursos gráficos adaptados a sus funciones, estados o movimientos.
 
 Las animaciones se organizan mediante spritesheets, integrados posteriormente en el sistema de renderizado del videojuego.
 
@@ -261,6 +276,7 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 - Pantallas de nivel completado, Game Over y final de partida.
 - Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados, tiempos por nivel y totales de derrotas y duración.
 - Botones y controles gráficos con gestión de foco y ajuste proporcional al área del juego.
+- Guía visual inferior con las teclas de movimiento, salto y disparo actualizadas.
 
 El diseño de estos elementos busca mantener una experiencia visual consistente a lo largo de toda la aventura.
 
@@ -310,7 +326,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.4.1`
+**Versión actual:** `3.5.0`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 

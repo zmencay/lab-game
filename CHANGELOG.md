@@ -6,6 +6,34 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.5.0] — Sistema de disparos e impactos
+
+### Added
+- Incorporación de la mecánica de disparo para ambos personajes mediante la barra espaciadora, con un proyectil por pulsación.
+- Creación de la clase `Projectile` para gestionar posición, dimensiones, movimiento horizontal y representación gráfica.
+- Integración de un recurso gráfico de proyectil de 100 × 67 px, con orientación visual según el sentido de disparo.
+- Detección de colisiones rectangulares entre proyectiles y enemigos activos; cada impacto elimina el proyectil y derrota al enemigo mediante `enemy.die()`.
+- Incorporación de una guía gráfica de controles en la zona inferior de la interfaz.
+
+### Changed
+- Redistribución de los controles: flechas izquierda/derecha para moverse, flecha arriba para saltar y barra espaciadora para disparar.
+- Ajuste de las coordenadas de salida del proyectil según la orientación del personaje.
+- Integración de los proyectiles en los métodos `move()`, `draw()` y `checkBounds()` de `Game`; limpieza de la colección al iniciar cada nivel.
+- Reutilización del sonido de derrota y de `defeatedEnemies` para contabilizar tanto los enemigos eliminados por salto como los eliminados mediante proyectiles.
+- Carga única del recurso gráfico del proyectil mediante `loadImage()` y reutilización entre instancias.
+- Prevención del comportamiento predeterminado de la barra espaciadora durante la partida y devolución del foco al Canvas al seleccionar personaje.
+
+### Documentation
+- Actualización de comentarios y JSDoc para reflejar el movimiento, el dibujo y las colisiones de proyectiles.
+- Actualización del README con la nueva mecánica, el esquema definitivo de teclado, la arquitectura y la guía visual de controles.
+
+### Validation
+- Verificación de disparos en ambas direcciones, en reposo, durante el movimiento y durante el salto, con ambos personajes.
+- Comprobación de un disparo por pulsación, de proyectiles simultáneos y de su eliminación al impactar o abandonar el Canvas.
+- Validación de la animación de muerte, el sonido y las estadísticas tras impactar, sin contabilizar dos veces a un enemigo derrotado.
+- Comprobación del reinicio de proyectiles entre niveles y de la continuidad de las mecánicas de salto y colisión existentes.
+- Pruebas de regresión funcionales realizadas correctamente.
+
 ## [3.4.1] — Corrección de bugs y mejoras de interfaz
 
 ### Fixed
