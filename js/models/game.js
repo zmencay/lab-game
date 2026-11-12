@@ -6,8 +6,9 @@
 class Game {
 
   /**
-   * Initializes the canvas, game state, audio resources,
-   * player, interface assets, event listeners, and first level.
+   * Initializes the canvas, game state, statistics, timers,
+   * audio resources, player, interface assets, event listeners,
+   * and first level.
    *
    * @param {string} canvasId - ID of the game canvas element.
    * @param {HTMLElement} initBtn - Button used to start the game.
@@ -34,6 +35,13 @@ class Game {
         3: 0
       }
     }
+    // Store elapsed time per level in milliseconds.
+    this.levelTimes = {
+      1: 0,
+      2: 0,
+      3: 0
+    }
+    this.levelStartTime = null
 
     this.drawIntervalId = null
     this.coinsTimeoutId = null
@@ -130,7 +138,8 @@ class Game {
   /**
    * Starts the game loop if no loop is currently running.
    * Updates and renders the game, checks collisions,
-   * and handles level completion or Game Over.
+   * records level completion times, and handles level
+   * progression or Game Over.
    *
    * Displays the welcome screen until the player starts the game.
    */
@@ -150,6 +159,9 @@ class Game {
           // Level completion takes priority over Game Over
           // when both conditions occur in the same update.
           if (this.checkNextLevel()) {
+            this.levelTimes[this.level] = performance.now() - this.levelStartTime
+            this.levelStartTime = null
+
             this.stop()
 
             if (this.level < MAX_LEVEL) {
@@ -265,8 +277,13 @@ class Game {
 
     this.nextBtn.addEventListener('click', () => {
       this.nextBtn.classList.add("hidden")
+      
       this.level++
       this.setupLevel()
+
+      // Start timing the new level, excluding transition screens.
+      this.levelStartTime = performance.now()
+      
       this.start()
     })
 
@@ -285,7 +302,7 @@ class Game {
       }
     })
 
-    // Keyup input is always forwarded to release movement controls.
+    // Keyup input is accepted only during active gameplay.
     addEventListener('keyup', (event) => {
       if (this.drawIntervalId !== null && this.isStartedClicked) {
         this.player.onKeyEvent(event)
@@ -550,10 +567,18 @@ class Game {
 
   /**
    * Handles the Game Over state.
-   * Plays the corresponding sound, stops background music,
-   * renders the final screen, and displays the restart button.
+   * Resets all recorded level times, plays the corresponding
+   * sound, stops background music, renders the final screen,
+   * and displays the restart button.
    */
   gameOver() {
+    this.levelTimes = {
+      1: 0,
+      2: 0,
+      3: 0
+    }
+    this.levelStartTime = null
+
     this.audioManager.play('gameOver')
     this.audioManager.pause('music')
     this.drawGameOver()
@@ -650,40 +675,85 @@ class Game {
       const icon = this.enemyHudIcons[level]
       const count = stats.byLevel[level]
 
-      const x = 310 + (level - 1) * 235
+      const x = 265 + (level - 1) * 200
 
       if (icon && icon.isReady) {
-        this.ctx.drawImage(icon, x, 400, 80, 56)
+        this.ctx.drawImage(icon, x, 320, 80, 56)
       }
 
       this.ctx.lineWidth = 1
       this.ctx.strokeStyle = "black"
-      this.ctx.font = "60px impact"
-      this.ctx.fillStyle = "white"
+      this.ctx.font = "38px impact"
+      this.ctx.fillStyle = "#2b0353"
       this.ctx.textAlign = "right"
-      this.ctx.fillText(`${count}`, x + 180, 450)
-      this.ctx.strokeText(`${count}`, x + 180, 450)
+      this.ctx.fillText(`${count}`, x + 147, 363)
+      this.ctx.strokeText(`${count}`, x + 147, 363)
     }
 
     this.ctx.lineWidth = 1
-    this.ctx.strokeStyle = "black"
-    this.ctx.font = "60px impact"
-    this.ctx.fillStyle = "white"
-    this.ctx.textAlign = "right"
-    this.ctx.fillText(`${stats.total}`, 594, 568)
-    this.ctx.strokeText(`${stats.total}`, 594, 568)
+    this.ctx.strokeStyle = "white"
+    this.ctx.font = "42px impact"
+    this.ctx.fillStyle = "#2b0353"
+    this.ctx.textAlign = "center"
+    this.ctx.fillText(`${stats.total}`, 940, 375)
+    this.ctx.strokeText(`${stats.total}`, 940, 375)
+  }
+
+  /**
+   * Converts milliseconds into MM:SS format.
+   *
+   * @param {number} milliseconds - Elapsed time in milliseconds.
+   * @returns {string} Formatted time.
+   */
+  formatTime(milliseconds) {
+    const totalSeconds = Math.floor(milliseconds / 1000)
+    const minutes = Math.floor(totalSeconds / 60)
+    const seconds = totalSeconds % 60
+
+    return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+  }
+
+  /**
+   * Renders the final level times and total game time.
+   */
+  drawFinalTimeStats() {
+    const totalTime = Object.values(this.levelTimes)
+      .reduce((total, time) => total + time, 0)
+
+    for (let level = 1; level <= MAX_LEVEL; level++) {
+      const time = this.formatTime(this.levelTimes[level])
+      const x =  325 + (level - 1) * 200
+
+      this.ctx.lineWidth = 1
+      this.ctx.strokeStyle = "black"
+      this.ctx.font = "30px impact"
+      this.ctx.fillStyle = "#2b0353"
+      this.ctx.textAlign = "left"
+
+      this.ctx.fillText(`${time}`, x, 522)
+      this.ctx.strokeText(`${time}`, x, 522)
+    }
+
+    this.ctx.lineWidth = 1
+    this.ctx.strokeStyle = "white"
+    this.ctx.font = "42px impact"
+    this.ctx.fillStyle = "#2b0353"
+    this.ctx.textAlign = "center"
+    this.ctx.fillText(`${this.formatTime(totalTime)}`, 940, 532)
+    this.ctx.strokeText(`${this.formatTime(totalTime)}`, 940, 532)
   }
 
   /**
    * Handles successful completion of the final level.
    * Stops background music, plays the victory sound,
-   * and renders the final screen.
+   * and renders the final screen and statistics.
    */
   gameCompleted() {
     this.audioManager.pause('music')
     this.audioManager.play('victory')
     this.drawGameCompleted()
     this.drawFinalEnemyStats()
+    this.drawFinalTimeStats()
   }
   // -----------------------
 
@@ -704,7 +774,8 @@ class Game {
   // PLAYER SELECTION
   // -----------------------
   /**
-   * Stores the selected character and starts the game.
+   * Stores the selected character, initializes the player,
+   * and starts the first level timer.
    *
    * @param {string} playerId - Selected character identifier.
    */
@@ -717,6 +788,7 @@ class Game {
 
     this.isSelectingPlayer = false
     this.isStartedClicked = true
+    this.levelStartTime = performance.now()
 
     this.player1Btn.classList.add('hidden')
     this.player2Btn.classList.add('hidden')

@@ -46,8 +46,10 @@
   const PLAYER_SPRITE_COLS = 6
   const PLAYER_SPRITE_ROWS = 2
 
-  // Damage feedback and invulnerability durations in milliseconds
+  // Player animation frequency
   const PLAYER_ANIMATION_FREQ = 4
+
+  // Damage feedback and invulnerability durations in milliseconds
   const PLAYER_BLINK_INTERVAL = 150
   const PLAYER_INVULNERABILITY_DURATION = 3000
 

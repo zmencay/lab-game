@@ -18,6 +18,7 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 - Registro de enemigos derrotados con estadísticas acumuladas y desglose por nivel.
 - HUD actualizado con miniaturas de enemigos y contador de derrotas del nivel activo.
 - Estadísticas finales de enemigos derrotados por tipo y total acumulado en THE END.
+- Registro de tiempos por nivel y tiempo total de la aventura, mostrados al completar la partida.
 - Coleccionables y progresión por objetivos.
 - Animaciones de personajes y enemigos mediante spritesheets.
 - Escenarios multicapa con efecto parallax.
@@ -76,6 +77,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 - Esquiva a los enemigos o derrótalos saltando sobre ellos.
 - Consulta en el HUD cuántos enemigos del nivel actual has derrotado.
 - Al completar los tres niveles, consulta en THE END las derrotas de cada tipo de enemigo y el total acumulado.
+- Consulta también el tiempo empleado en cada nivel y el tiempo total de la aventura. Las pantallas de transición no se incluyen en la medición.
 - Dispones de **3 corazones** para completar toda la aventura.
 - Cada golpe recibido resta un corazón y proporciona unos segundos de invulnerabilidad.
 - Los corazones restantes se conservan al avanzar al siguiente nivel.
@@ -91,7 +93,7 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 
 Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores. La miniatura del HUD y el contador de derrotas se actualizan según el enemigo de cada nivel.
 
-Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados durante la partida.
+Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados y los tiempos registrados durante la partida.
 
 ## Arquitectura y organización del código
 
@@ -101,7 +103,7 @@ El videojuego utiliza una arquitectura basada en programación orientada a objet
 
 | Clase | Responsabilidad |
 |---|---|
-| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones, el registro de enemigos derrotados y las transiciones entre estados. |
+| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, las colisiones, el registro de enemigos derrotados, la medición de tiempos y las transiciones entre estados. |
 | `Player` | Gestiona el movimiento del personaje seleccionado, los saltos, las animaciones y los estados de invulnerabilidad. |
 | `Enemy` | Controla el movimiento, las animaciones y el estado de los enemigos de cada nivel. |
 | `Coin` | Representa los coleccionables y gestiona su movimiento y animación. |
@@ -192,7 +194,15 @@ No se utiliza `localStorage`: estas estadísticas pertenecen a la partida en cur
 
 Cuando se completa el tercer nivel, `gameCompleted()` muestra la pantalla THE END. El método `drawFinalEnemyStats()` dibuja sobre ella las miniaturas de los tres enemigos, sus respectivos valores de `defeatedEnemies.byLevel` y el total de `defeatedEnemies.total`.
 
-Las miniaturas se reutilizan desde `enemyHudIcons`, sin duplicar la carga de imágenes ni alterar la contabilización de derrotas. Las estadísticas se representan con los resultados de la partida que acaba de terminar. El registro de tiempos no forma parte de esta versión.
+Las miniaturas se reutilizan desde `enemyHudIcons`, sin duplicar la carga de imágenes ni alterar la contabilización de derrotas. Las estadísticas se representan con los resultados de la partida que acaba de terminar. La misma pantalla también muestra los tiempos por nivel y el total de la aventura.
+
+### Registro de tiempos por nivel
+
+La clase `Game` mide la duración de cada nivel mediante `performance.now()`. El cronómetro del primer nivel comienza al seleccionar personaje y los siguientes se inician al pulsar el botón de continuación, por lo que el tiempo de las pantallas de transición queda excluido.
+
+Al recoger la décima huella, el tiempo transcurrido se guarda en milisegundos dentro de `levelTimes`, con un valor independiente para cada nivel. Si la partida termina en Game Over, se descartan todos los tiempos registrados, incluso los de niveles anteriores.
+
+El método `formatTime()` convierte los milisegundos a `MM:SS` para su presentación. Al completar los tres niveles, `drawFinalTimeStats()` muestra los tiempos individuales y el total en THE END. El tiempo total se calcula sumando los milisegundos originales y formateando el resultado, sin mantener un contador adicional ni utilizar `localStorage`.
 
 ### Gestión centralizada de recursos
 
@@ -237,7 +247,7 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 - HUD actualizado con indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
 - Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
 - Pantallas de nivel completado, Game Over y final de partida.
-- Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados y total acumulado.
+- Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados, tiempos por nivel y totales de derrotas y duración.
 - Botones y controles gráficos.
 
 El diseño de estos elementos busca mantener una experiencia visual consistente a lo largo de toda la aventura.
@@ -288,7 +298,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.3.0`
+**Versión actual:** `3.4.0`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 

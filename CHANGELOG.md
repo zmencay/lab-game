@@ -6,6 +6,30 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.4.0] — Tiempos por nivel y tiempo total en THE END
+
+### Added
+- Registro del tiempo transcurrido en cada nivel mediante `performance.now()`, almacenado en milisegundos en `levelTimes`.
+- Inicio independiente del cronómetro al seleccionar personaje o avanzar al siguiente nivel, sin contabilizar las pantallas de transición.
+- Incorporación de `formatTime()` para mostrar los tiempos en formato `MM:SS`.
+- Incorporación de `drawFinalTimeStats()` para representar los tiempos de los tres niveles y el tiempo total en THE END.
+
+### Changed
+- Cálculo del tiempo total a partir de la suma de los tiempos originales de los niveles, antes de formatearlos.
+- Reinicio de todos los tiempos registrados al producirse Game Over.
+- Actualización del recurso gráfico de THE END para presentar las estadísticas de tiempo junto a las de enemigos derrotados.
+- Actualización del README para documentar el registro de tiempos y la versión `3.4.0`.
+
+### Documentation
+- Actualización de comentarios y JSDoc de `Game` para reflejar la gestión de cronómetros, el registro de tiempos y su reinicio en Game Over.
+- Ajuste de comentarios sobre los controles de teclado y la configuración de animación del jugador.
+
+### Validation
+- Verificación de los tiempos individuales y del cálculo del tiempo total al completar los tres niveles.
+- Comprobación de que las pantallas de transición no añaden tiempo y Game Over reinicia los registros.
+- Validación del renderizado de tiempos y estadísticas de enemigos en THE END.
+- Pruebas de regresión completadas correctamente.
+
 ## [3.3.0] — Estadísticas de enemigos en THE END
 
 ### Added
