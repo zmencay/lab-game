@@ -17,8 +17,9 @@ class Game {
    * @param {HTMLElement} nextBtn - Button used to advance to the next level.
    * @param {HTMLElement} player1Btn - Button used to select player 1.
    * @param {HTMLElement} player2Btn - Button used to select player 2.
+   * @param {HTMLElement} inicioBtn - Button used to go to home.
    */
-  constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn, player1Btn, player2Btn) {
+  constructor(canvasId, initBtn, reloadBtn, soundBtn, nextBtn, player1Btn, player2Btn, inicioBtn) {
     this.canvas = document.getElementById(canvasId)
     this.canvas.width = CANVAS_W
     this.canvas.height = CANVAS_H
@@ -55,6 +56,7 @@ class Game {
     this.nextBtn = nextBtn
     this.player1Btn = player1Btn
     this.player2Btn = player2Btn
+    this.inicioBtn = inicioBtn
 
     // -------------------------------
     // AUDIO MANAGER
@@ -276,6 +278,10 @@ class Game {
     })
 
     this.reloadBtn.addEventListener('click', () => {
+      window.location.reload()
+    })
+
+    this.inicioBtn.addEventListener('click', () => {
       window.location.reload()
     })
 
@@ -816,7 +822,8 @@ class Game {
   /**
    * Handles successful completion of the final level.
    * Stops background music, plays the victory sound,
-   * and renders the final screen and statistics.
+   * renders the final screen and statistics,
+   * and displays the button to return to the welcome screen.
    */
   gameCompleted() {
     this.audioManager.pause('music')
@@ -824,6 +831,9 @@ class Game {
     this.drawGameCompleted()
     this.drawFinalEnemyStats()
     this.drawFinalTimeStats()
+
+    this.inicioBtn.classList.remove("hidden")
+    this.inicioBtn.focus()
   }
   // -----------------------
 

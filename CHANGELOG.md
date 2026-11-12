@@ -6,6 +6,30 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.5.1] — Correcciones finales de interfaz y navegación
+
+### Added
+- Incorporación del botón «Inicio» en la pantalla THE END, visible únicamente al completar los tres niveles.
+- Regreso a la pantalla de bienvenida mediante `window.location.reload()`, reutilizando el mecanismo de reinicio existente.
+
+### Fixed
+- Corrección del recurso gráfico del botón «Reintentar» para eliminar los márgenes transparentes no deseados.
+- Ajuste de las dimensiones y proporciones del botón «Reintentar» en CSS para adaptarlo al nuevo PNG.
+
+### Changed
+- Incorporación de `inicioBtn` en `index.html`, obtención del elemento en `index.js` y conexión con `Game`.
+- Gestión del foco del botón «Inicio» al completar la partida, manteniendo la navegación mediante teclado.
+- Actualización del idioma principal del documento HTML a `lang="es"`.
+
+### Documentation
+- Actualización del README para reflejar la navegación desde THE END y la versión `3.5.1`.
+- Actualización del JSDoc de `Game` para documentar la nueva acción de regreso al inicio.
+
+### Validation
+- Verificación del botón «Reintentar» tras el ajuste de imagen y CSS.
+- Comprobación de la visibilidad del botón «Inicio» únicamente al completar la aventura y de su funcionamiento al activarlo.
+- Pruebas de regresión realizadas correctamente, sin alteraciones de las mecánicas del juego.
+
 ## [3.5.0] — Sistema de disparos e impactos
 
 ### Added

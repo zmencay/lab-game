@@ -155,9 +155,10 @@ body {
 
   .btn.reload {
     /* box-model */
-    width: 23.047%;
-    aspect-ratio: 295 / 95;
+    width: 21.959%;
+    aspect-ratio: 281 / 83;
     height: auto;
+    border-radius: 35px;
 
     /* presentation */
     background: url(../assets/ui/window/reloadBtn.png) no-repeat center / contain;
@@ -174,6 +175,20 @@ body {
 
     /* presentation */
     background: url(../assets/ui/window/nextBtn.png) no-repeat center / contain;
+  }
+
+  .btn.inicio {
+    /* layout */
+    top: 81%;
+
+    /* box-model */
+    width: 21.959%;
+    aspect-ratio: 281 / 80;
+    height: auto;
+    border-radius: 35px;
+
+    /* presentation */
+    background: url(../assets/ui/window/inicioBtn.png) no-repeat center / contain;
   }
 
   .btn.sound {

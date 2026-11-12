@@ -24,7 +24,7 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 - Animaciones de personajes y enemigos mediante spritesheets.
 - Escenarios multicapa con efecto parallax.
 - Efectos de sonido, música y control de audio.
-- Pantallas de inicio, transición, victoria y Game Over.
+- Pantallas de inicio, transición, victoria y Game Over, con opción de regresar al inicio al completar la aventura.
 - Retrato del personaje seleccionado en el HUD y navegación mejorada mediante el foco de los controles.
 - Interfaz de botones con escalado proporcional respecto al Canvas (responsive MVP).
 
@@ -90,7 +90,8 @@ Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticam
 - Dispones de **3 corazones** para completar toda la aventura.
 - Cada golpe recibido resta un corazón y proporciona unos segundos de invulnerabilidad.
 - Los corazones restantes se conservan al avanzar al siguiente nivel.
-- Si pierdes todos los corazones, la partida termina y tendrás que comenzar de nuevo.
+- Si pierdes todos los corazones, la partida termina y tendrás que comenzar de nuevo mediante «Reintentar».
+- Al completar los tres niveles, puedes seleccionar «Inicio» para regresar a la bienvenida y comenzar una nueva partida.
 
 ### Niveles
 
@@ -102,7 +103,7 @@ Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticam
 
 Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores. La miniatura del HUD y el contador de derrotas se actualizan según el enemigo de cada nivel.
 
-Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados y los tiempos registrados durante la partida.
+Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados y los tiempos registrados durante la partida. Desde esta pantalla, el botón «Inicio» permite regresar a la bienvenida.
 
 ## Arquitectura y organización del código
 
@@ -165,7 +166,7 @@ Durante el desarrollo del videojuego se han aplicado diferentes soluciones para 
 
 La clase `Game` centraliza el ciclo principal de ejecución, encargado de actualizar y dibujar los elementos, generar enemigos y coleccionables, comprobar colisiones y gestionar las transiciones entre niveles.
 
-El juego contempla diferentes estados, como la pantalla de inicio, la selección de personaje, la partida activa, los niveles completados, Game Over y el final de la aventura.
+El juego contempla diferentes estados, como la pantalla de inicio, la selección de personaje, la partida activa, los niveles completados, Game Over y el final de la aventura. Desde THE END puede regresarse a la bienvenida mediante el botón «Inicio», que recarga la página y reinicia el estado de la partida.
 
 ### Selección y reutilización de personajes
 
@@ -225,7 +226,7 @@ El método `formatTime()` convierte los milisegundos a `MM:SS` para su presentac
 
 ### Foco de controles y adaptación responsive
 
-El Canvas utiliza `tabindex="-1"` para poder recibir el foco mediante JavaScript sin incorporarse al recorrido secuencial con Tab. Tras activar el control de sonido, el foco vuelve al Canvas para evitar que la barra espaciadora vuelva a accionar el botón. Al mostrar la pantalla de nivel completado, el botón «Siguiente nivel» recibe el foco; tras activarlo, se devuelve al Canvas.
+El Canvas utiliza `tabindex="-1"` para poder recibir el foco mediante JavaScript sin incorporarse al recorrido secuencial con Tab. Tras activar el control de sonido, el foco vuelve al Canvas para evitar que la barra espaciadora vuelva a accionar el botón. Al mostrar la pantalla de nivel completado, el botón «Siguiente nivel» recibe el foco; tras activarlo, se devuelve al Canvas. Al completar la aventura, el botón «Inicio» recibe el foco para facilitar su activación mediante teclado.
 
 La interfaz HTML agrupa el Canvas y sus botones dentro de `.game-frame`, un contenedor de proporción 16:9. Los botones utilizan posiciones y dimensiones relativas a ese contenedor para conservar su ubicación y escala cuando cambia el ancho disponible. La guía gráfica inferior de controles se muestra mediante el pseudoelemento `.game-frame::before`, reutilizando el recurso `assets/ui/interface/controls.png` sin elementos HTML adicionales. El Canvas mantiene su resolución interna de 1280 × 720; la adaptación visual corresponde a un **responsive MVP**, orientado principalmente a escritorio y teclado, sin controles táctiles ni ajuste específico a todas las alturas de ventana. Se conservan los elementos decorativos del fondo mediante los pseudoelementos existentes.
 
@@ -273,7 +274,7 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 - Pantalla de selección entre los dos personajes jugables.
 - HUD actualizado con retrato dinámico del personaje seleccionado, indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
 - Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
-- Pantallas de nivel completado, Game Over y final de partida.
+- Pantallas de nivel completado, Game Over y final de partida; botón «Reintentar» con recurso gráfico ajustado y botón «Inicio» en THE END.
 - Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados, tiempos por nivel y totales de derrotas y duración.
 - Botones y controles gráficos con gestión de foco y ajuste proporcional al área del juego.
 - Guía visual inferior con las teclas de movimiento, salto y disparo actualizadas.
@@ -326,7 +327,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.5.0`
+**Versión actual:** `3.5.1`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 
