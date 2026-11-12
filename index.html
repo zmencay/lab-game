@@ -9,18 +9,25 @@
 </head>
 
 <body>
+  <!-- Game interface and decorative background -->
   <div class="game-bgn">
     <div id="canvas-container">
-      <button id="soundBtn" class="btn sound active" type="button">Sound</button>
-      <button id="initBtn" class="btn start" type="button">Empezar</button>
-      <button id="reloadBtn" class="btn reload hidden" type="button">Reiniciar</button>
-      <button id="nextBtn" class="btn next hidden" type="button">Siguiente</button>
-      <button id="player1Btn" class="btn player hidden" type="button" data-player="player1">Player 1</button>
-      <button id="player2Btn" class="btn player hidden" type="button" data-player="player2">Player 2</button>
-      <canvas id="lda-game"></canvas>
+      <div class="game-frame">
+        <!-- Game controls: visibility and focus are managed by JavaScript -->
+        <button id="soundBtn" class="btn sound active" type="button">Sound</button>
+        <button id="initBtn" class="btn start" type="button">Empezar</button>
+        <button id="reloadBtn" class="btn reload hidden" type="button">Reiniciar</button>
+        <button id="nextBtn" class="btn next hidden" type="button">Siguiente</button>
+        <button id="player1Btn" class="btn player hidden" type="button" data-player="player1">Player 1</button>
+        <button id="player2Btn" class="btn player hidden" type="button" data-player="player2">Player 2</button>
+
+        <!-- Game canvas: focusable programmatically after button interactions -->
+        <canvas id="lda-game" tabindex="-1"></canvas>
+      </div>
     </div>
   </div>
 
+  <!-- Game scripts: load order preserves class and configuration dependencies -->
   <script src="js/constants.js"></script>
   <script src="js/utils/image-loader.js"></script>
   <script src="js/models/enemy.js"></script>

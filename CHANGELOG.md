@@ -6,6 +6,30 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.4.1] — Corrección de bugs y mejoras de interfaz
+
+### Fixed
+- Corrección del foco del botón de sonido: tras activarlo o silenciarlo, el foco vuelve al Canvas para evitar activaciones involuntarias con la barra espaciadora.
+- Corrección del retrato del HUD para mostrar el personaje seleccionado, tanto en el nivel inicial como después de las transiciones.
+- Asignación automática del foco al botón «Siguiente nivel» al completar un nivel, permitiendo continuar con teclado; devolución del foco al Canvas al reanudar la partida.
+- Corrección del spritesheet del Player 2 para representar adecuadamente la animación de salto, sin modificar su lógica de movimiento.
+
+### Changed
+- Separación del retrato del jugador del fondo del HUD e incorporación de iconos específicos para ambos personajes, seleccionados mediante `PLAYER_CONFIG`.
+- Incorporación de `.game-frame` como referencia de posicionamiento para el Canvas y los botones.
+- Posicionamiento y escalado proporcional de los controles respecto al área del juego como adaptación responsive MVP, sin introducir controles táctiles ni adaptación adicional a la altura.
+- Conservación de los recursos decorativos de la interfaz, incluidos los pseudoelementos de vegetación.
+
+### Documentation
+- Reorganización y documentación de `index.html` y `style.css` siguiendo los bloques y convenciones del proyecto, sin cambios funcionales adicionales.
+- Actualización del README para documentar las correcciones y la versión `3.4.1`.
+
+### Validation
+- Comprobación del foco del botón de sonido, del botón «Siguiente nivel» y del retorno al Canvas.
+- Verificación de los retratos del HUD con ambos personajes y de la animación de salto del Player 2.
+- Validación de la disposición y el escalado responsive MVP de los botones, manteniendo los elementos decorativos.
+- Pruebas de regresión completadas correctamente.
+
 ## [3.4.0] — Tiempos por nivel y tiempo total en THE END
 
 ### Added

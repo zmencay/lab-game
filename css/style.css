@@ -1,151 +1,266 @@
-/* reset styles */
+/* ---------------------
+   RESET
+   --------------------- */
 @import url(reset.css);
 
-/* game styles */
+/* ---------------------
+   PAGE / GAME BACKGROUND
+   --------------------- */
 body {
+  /* box-model */
   height: 100vh;
 
+  /* presentation */
   background: #61CDFD;
   background: linear-gradient(180deg, #1c0e43 0%, #31125d 50%, #5d1a8a 60%, #3b1264 100%);
 }
 
 .game-bgn {
+  /* layout */
   position: relative;
+
+  /* box-model */
   height: 100%;
+
+  /* presentation */
   background: url(../assets/ui/interface/game-pattern.png) repeat center;
   background-size: 740px;
 }
 
-.game-bgn::before,
-.game-bgn::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 100%;
+  /* Decorative vegetation: does not intercept pointer events. */
+  .game-bgn::before,
+  .game-bgn::after {
+    /* layout */
+    content: "";
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+
+    /* box-model */
+    width: 100%;
+  }
+
+  .game-bgn::before {
+    /* layout */
+    top: 0;
+
+    /* box-model */
+    height: 161px;
+
+    /* presentation */
+    background: url(../assets/ui/interface/bgn-game-header.png) no-repeat center top;
+    background-size: contain;
+  }
+
+  .game-bgn::after {
+    /* layout */
+    bottom: 0;
+
+    /* box-model */
+    height: 513px;
+
+    /* presentation */
+    background: url(../assets/ui/interface/bgn-game-footer.png) no-repeat center bottom;
+    background-size: contain;
+  }
+
+/* ---------------------
+   GAME LAYOUT
+   --------------------- */
+#canvas-container {
+  /* layout */
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* box-model */
+  height: 100%;
 }
 
-.game-bgn::before {
-  top: 0;
-  height: 161px;
-  background: url(../assets/ui/interface/bgn-game-header.png) no-repeat center top;
-  background-size: contain;
-}
+  .game-frame {
+    /* layout */
+    position: relative;
 
-.game-bgn::after {
-  bottom: 0;
-  height: 513px;
-  background: url(../assets/ui/interface/bgn-game-footer.png) no-repeat center bottom;
-  background-size: contain;
-}
+    /* box-model */
+    width: min(1280px, calc(100vw - 32px));
+    aspect-ratio: 16 / 9;
+  }
 
+  /* Decorative keyboard-controls guide. */
+  #canvas-container::before {
+    /* layout */
+    content: "";
+    position: absolute;
+    bottom: 0;
+
+    /* box-model */
+    width: 30vw;
+    height: 14vh;
+
+    /* presentation */
+    background: url(../assets/ui/interface/controls.png) no-repeat center;
+    background-size: cover;
+  }
+
+/* ---------------------
+   GAME BUTTONS
+   --------------------- */
 .btn {
+  /* layout */
   position: absolute;
   z-index: 10;
-  top: 66vh;
+  top: 66%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  /* box-model */
   border: 0;
   outline: 0;
+  border-radius: 44px;
+
+  /* typo */
   text-indent: -999999em;
+
+  /* presentation */
   cursor: pointer;
-  border-radius: 30px;
   box-shadow: 0 0 20px rgba(0, 0, 0, .7);
 }
 
   .btn:hover {
+    /* presentation */
     filter: brightness(1.2);
-  } 
+  }
 
   .btn.hidden {
+    /* layout */
     display: none;
   }
 
   .btn.start {
-    background: url(../assets/ui/window/initBtn.png) no-repeat center;
-    width: 275px;
-    height: 82px;
+    /* box-model */
+    width: 21.484%;
+    aspect-ratio: 275 / 82;
+    height: auto;
+    border-radius: 30px;
+
+    /* presentation */
+    background: url(../assets/ui/window/initBtn.png) no-repeat center / contain;
   }
 
   .btn.reload {
-    background: url(../assets/ui/window/reloadBtn.png) no-repeat center;
-    width: 295px;
-    height: 95px;
+    /* box-model */
+    width: 23.047%;
+    aspect-ratio: 295 / 95;
+    height: auto;
+
+    /* presentation */
+    background: url(../assets/ui/window/reloadBtn.png) no-repeat center / contain;
   }
 
   .btn.next {
-    top: 73vh;
-    background: url(../assets/ui/window/nextBtn.png) no-repeat center;
-    width: 412px;
-    height: 95px;
+    /* layout */
+    top: 73%;
+
+    /* box-model */
+    width: 32.188%;
+    aspect-ratio: 412 / 95;
+    height: auto;
+
+    /* presentation */
+    background: url(../assets/ui/window/nextBtn.png) no-repeat center / contain;
   }
 
   .btn.sound {
-    top: 2vh;
-    right: 13vw;
-    width: 60px;
-    height: 60px;
-    border-radius: 0;
+    /* layout */
+    top: 2%;
+    left: auto;
+    right: 2%;
+    transform: none;
+
+    /* box-model */
+    width: 4.688%;
+    aspect-ratio: 1;
+    height: auto;
+    border-radius: 18px;
   }
 
-  .btn.sound.active {
-    background: url(../assets/ui/audio/soundBtn-on.png) no-repeat top right;
-  }
+    .btn.sound.active {
+      /* presentation */
+      background: url(../assets/ui/audio/soundBtn-on.png) no-repeat top right / contain;
+    }
 
-  .btn.sound {
-    background: url(../assets/ui/audio/soundBtn-off.png) no-repeat top right;
-  }
+    .btn.sound {
+      /* presentation */
+      background: url(../assets/ui/audio/soundBtn-off.png) no-repeat top right / contain;
+    }
 
   .btn.player {
-    top: 71vh;
-    width: 253px;
-    height: 70px;
+    /* layout */
+    top: 71%;
+
+    /* box-model */
+    width: 19.766%;
+    aspect-ratio: 253 / 70;
+    height: auto;
   }
 
     #player1Btn {
-      left: 27vw;
+      /* layout */
+      left: 35%;
+      transform: translateX(-50%);
+
+      /* presentation */
       background: url(../assets/player/ui/player1Btn.png) no-repeat center;
     }
+
     #player2Btn {
-      right: 27vw;
+      /* layout */
+      left: 66%;
+      right: auto;
+      transform: translateX(-50%);
+
+      /* presentation */
       background: url(../assets/player/ui/player2Btn.png) no-repeat center;
     }
 
-#canvas-container {
-  position: relative;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#canvas-container::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  width: 30vw;
-  height: 14vh;
-  background: url(../assets/ui/interface/controls.png) no-repeat center;
-  background-size: cover;
-}
-
+/* ---------------------
+   GAME CANVAS
+   --------------------- */
 canvas {
+  /* layout */
+  display: block;
+  overflow: hidden;
+
+  /* box-model */
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
   border-radius: 20px;
   border: 4px solid #44fbfd;
-  overflow: hidden;
+
+  /* presentation */
   background: #61CDFD;
   background: linear-gradient(180deg, rgba(97, 205, 253, 1) 0%, rgba(32, 171, 254, 1) 30%, rgba(8, 158, 254, 1) 40%, rgba(1, 73, 82, 1) 90%);
   box-shadow: 0 0 20px rgba(0, 0, 0, .7);
 }
 
-canvas.level1 {
-  background: #61CDFD;
-  background: linear-gradient(180deg, rgba(97, 205, 253, 1) 0%, rgba(32, 171, 254, 1) 30%, rgba(8, 158, 254, 1) 40%, rgba(1, 73, 82, 1) 90%);
-}
+  canvas.level1 {
+    /* presentation */
+    background: #61CDFD;
+    background: linear-gradient(180deg, rgba(97, 205, 253, 1) 0%, rgba(32, 171, 254, 1) 30%, rgba(8, 158, 254, 1) 40%, rgba(1, 73, 82, 1) 90%);
+  }
 
-canvas.level2 {
-  background: #FCAB3A;
-  background: linear-gradient(180deg, rgb(63, 178, 227) 0%, rgb(32, 132, 254) 50%, rgb(252, 171, 58) 60%);
-}
+  canvas.level2 {
+    /* presentation */
+    background: #FCAB3A;
+    background: linear-gradient(180deg, rgb(63, 178, 227) 0%, rgb(32, 132, 254) 50%, rgb(252, 171, 58) 60%);
+  }
 
-canvas.level3 {
-  background: rgb(17, 24, 76);
-  background: linear-gradient(180deg, rgb(63, 178, 227) 0%, rgb(32, 132, 254) 70%, rgb(17, 24, 76) 80%);
-}
+  canvas.level3 {
+    /* presentation */
+    background: rgb(17, 24, 76);
+    background: linear-gradient(180deg, rgb(63, 178, 227) 0%, rgb(32, 132, 254) 70%, rgb(17, 24, 76) 80%);
+  }

@@ -57,16 +57,22 @@
    * Available playable characters and their sprite assets.
    * Both characters share the same movement and gameplay mechanics.
    *
-  * @type {Object.<string, {right: string, left: string}>}
+   * @type {Object.<string, {
+   *   right: string,
+   *   left: string,
+   *   hudIcon: string
+   * }>}
    */
   const PLAYER_CONFIG = {
     player1: {
       right: './assets/player/sprite-player1-right.png',
-      left: './assets/player/sprite-player1-left.png'
+      left: './assets/player/sprite-player1-left.png',
+      hudIcon: './assets/player/ui/player1-ico.png'
     },
     player2: {
       right: './assets/player/sprite-player2-right.png',
-      left: './assets/player/sprite-player2-left.png'
+      left: './assets/player/sprite-player2-left.png',
+      hudIcon: './assets/player/ui/player2-ico.png'
     }
   }
 

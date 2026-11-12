@@ -201,6 +201,7 @@ class Game {
 
     // Draw the HUD above the game scene.
     this.drawHud()
+    this.drawPlayerHudIcon()
     this.drawHearts()
     this.drawCollectedCoins()
     this.drawLevelStatus()
@@ -273,6 +274,7 @@ class Game {
     this.soundBtn.addEventListener('click', () => {
       this.toggleSound()
       this.soundBtn.classList.toggle('active', !this.audioManager.isMuted)
+      this.canvas.focus()
     })
 
     this.nextBtn.addEventListener('click', () => {
@@ -285,6 +287,8 @@ class Game {
       this.levelStartTime = performance.now()
       
       this.start()
+      
+      this.canvas.focus()
     })
 
     this.player1Btn.addEventListener('click', () => {
@@ -541,6 +545,15 @@ class Game {
     this.ctx.fillText(this.level, 550, 82)
     this.ctx.strokeText(this.level, 550, 82)
   }
+
+  /**
+   * Renders the selected player's portrait in the HUD.
+   */
+  drawPlayerHudIcon() {
+    if (this.playerHudIcon && this.playerHudIcon.isReady) {
+      this.ctx.drawImage(this.playerHudIcon, 5, -3, 142, 142)
+    }
+  }
   // -----------------------
 
   // -----------------------
@@ -648,6 +661,7 @@ class Game {
     this.audioManager.pause('music')
     this.drawNextLevel()
     this.nextBtn.classList.remove("hidden")
+    this.nextBtn.focus()
   }
   // -----------------------
 
@@ -785,7 +799,8 @@ class Game {
     // Create the selected character using its configured sprites.
     this.player = new Player(this.ctx, 20, 20, this.audioManager, playerId)
     this.player.groundTo(this.canvas.height - BG_FLOOR)
-
+    this.playerHudIcon = loadImage(PLAYER_CONFIG[playerId].hudIcon)
+    
     this.isSelectingPlayer = false
     this.isStartedClicked = true
     this.levelStartTime = performance.now()

@@ -24,6 +24,8 @@ El proyecto combina desarrollo frontend, programación orientada a objetos, anim
 - Escenarios multicapa con efecto parallax.
 - Efectos de sonido, música y control de audio.
 - Pantallas de inicio, transición, victoria y Game Over.
+- Retrato del personaje seleccionado en el HUD y navegación mejorada mediante el foco de los controles.
+- Interfaz de botones con escalado proporcional respecto al Canvas (responsive MVP).
 
 ## Demo y capturas
 
@@ -70,6 +72,8 @@ Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar 
 | `←` | Moverse hacia la izquierda |
 | `→` | Moverse hacia la derecha |
 | `Espacio` | Saltar |
+
+Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticamente y puede activarse mediante `Espacio` o `Enter`. Al interactuar con el botón de sonido o continuar la partida, el foco vuelve al Canvas.
 
 ### Objetivo
 
@@ -158,11 +162,11 @@ El juego contempla diferentes estados, como la pantalla de inicio, la selección
 
 ### Selección y reutilización de personajes
 
-`Game` crea la instancia de `Player` cuando se elige un personaje. Las rutas de los sprites de cada opción se definen en `PLAYER_CONFIG`, dentro de `constants.js`, y se pasan al constructor de `Player`. Ambos personajes comparten la lógica de movimiento, salto y colisiones. La misma instancia se reutiliza entre niveles, conservando la elección inicial.
+`Game` crea la instancia de `Player` cuando se elige un personaje. Las rutas de los sprites de cada opción se definen en `PLAYER_CONFIG`, dentro de `constants.js`, y se pasan al constructor de `Player`. Ambos personajes comparten la lógica de movimiento, salto y colisiones. La misma instancia se reutiliza entre niveles, conservando la elección inicial. La propiedad `hudIcon` de `PLAYER_CONFIG` permite cargar el retrato del personaje elegido y mostrarlo sobre el fondo del HUD, sin incorporar el retrato a la imagen base.
 
 ### Animaciones mediante spritesheets
 
-Los personajes, enemigos y coleccionables utilizan spritesheets para representar sus animaciones.
+Los personajes, enemigos y coleccionables utilizan spritesheets para representar sus animaciones. El recurso gráfico del salto del Player 2 se ajustó para representar correctamente esa acción, sin modificar su lógica de movimiento.
 
 La selección de fotogramas se gestiona mediante índices de filas y columnas, mientras que las dimensiones de los spritesheets y las frecuencias de animación se definen en `constants.js`.
 
@@ -204,6 +208,14 @@ Al recoger la décima huella, el tiempo transcurrido se guarda en milisegundos d
 
 El método `formatTime()` convierte los milisegundos a `MM:SS` para su presentación. Al completar los tres niveles, `drawFinalTimeStats()` muestra los tiempos individuales y el total en THE END. El tiempo total se calcula sumando los milisegundos originales y formateando el resultado, sin mantener un contador adicional ni utilizar `localStorage`.
 
+### Foco de controles y adaptación responsive
+
+El Canvas utiliza `tabindex="-1"` para poder recibir el foco mediante JavaScript sin incorporarse al recorrido secuencial con Tab. Tras activar el control de sonido, el foco vuelve al Canvas para evitar que la barra espaciadora vuelva a accionar el botón. Al mostrar la pantalla de nivel completado, el botón «Siguiente nivel» recibe el foco; tras activarlo, se devuelve al Canvas.
+
+La interfaz HTML agrupa el Canvas y sus botones dentro de `.game-frame`, un contenedor de proporción 16:9. Los botones utilizan posiciones y dimensiones relativas a ese contenedor para conservar su ubicación y escala cuando cambia el ancho disponible. El Canvas mantiene su resolución interna de 1280 × 720; la adaptación visual corresponde a un **responsive MVP**, orientado principalmente a escritorio y teclado, sin controles táctiles ni ajuste específico a todas las alturas de ventana. Se conservan los elementos decorativos del fondo mediante los pseudoelementos existentes.
+
+Los archivos HTML y CSS mantienen una organización por responsabilidades y comentarios de estructura y estilos, sin introducir JSDoc en estos lenguajes.
+
 ### Gestión centralizada de recursos
 
 La carga de imágenes se realiza mediante la utilidad `loadImage()`, que unifica su inicialización y permite comprobar cuándo están disponibles para dibujarse.
@@ -244,11 +256,11 @@ La interfaz mantiene la misma identidad visual que los escenarios y personajes, 
 
 - Pantalla de bienvenida y presentación del juego.
 - Pantalla de selección entre los dos personajes jugables.
-- HUD actualizado con indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
+- HUD actualizado con retrato dinámico del personaje seleccionado, indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
 - Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
 - Pantallas de nivel completado, Game Over y final de partida.
 - Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados, tiempos por nivel y totales de derrotas y duración.
-- Botones y controles gráficos.
+- Botones y controles gráficos con gestión de foco y ajuste proporcional al área del juego.
 
 El diseño de estos elementos busca mantener una experiencia visual consistente a lo largo de toda la aventura.
 
@@ -298,7 +310,7 @@ Las propuestas generadas se han evaluado y ajustado en función de los requisito
 
 ### Versión
 
-**Versión actual:** `3.4.0`
+**Versión actual:** `3.4.1`
 
 El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
 
