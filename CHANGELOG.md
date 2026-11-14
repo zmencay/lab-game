@@ -6,6 +6,22 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.6.1] — Ajustes de audio y documentación
+
+### Added
+- Incorporación de un efecto de sonido al lanzar el bumerán, integrado en `AudioManager`.
+
+### Changed
+- Sustitución de la música de fondo del videojuego, conservando el sistema existente de reproducción y control de sonido.
+- Corrección de varios textos del README.
+
+### Fixed
+- Eliminación del borde visual no deseado que aparecía al recibir el foco el Canvas, sin alterar el comportamiento del teclado.
+
+### Validation
+- Verificación del efecto de sonido del bumerán y del funcionamiento de la nueva música.
+- Pruebas de regresión completadas correctamente, sin alteraciones de las mecánicas existentes.
+
 ## [3.6.0] — Manual de juego y experiencia de usuario
 
 ### Added

@@ -70,7 +70,8 @@ class Game {
     this.audioManager.addSound('nextLevel', './assets/audio/next-level.mp3', AUDIO_VOL)
     this.audioManager.addSound('victory', './assets/audio/victory.wav', AUDIO_VOL)
     this.audioManager.addSound('music', './assets/audio/music.mp3', 0.05, true)
-    this.audioManager.addSound( 'jump', './assets/audio/jump.mp3', AUDIO_VOL)
+    this.audioManager.addSound('jump', './assets/audio/jump.mp3', AUDIO_VOL)
+    this.audioManager.addSound('boomerang', './assets/audio/projectile.mp3', AUDIO_VOL)
     // -------------------------------
     
     // -------------------------------
@@ -334,6 +335,7 @@ class Game {
           const y = this.player.y + (this.player.h - PROJECTILE_H) / 1.5
 
           this.projectiles.push(new Projectile(this.ctx, x, y, direction, this.projectileSprite))
+          this.audioManager.play('boomerang')
         }
       }
     })

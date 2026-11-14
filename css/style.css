@@ -696,6 +696,7 @@ canvas {
   background: #61CDFD;
   background: linear-gradient(180deg, rgba(97, 205, 253, 1) 0%, rgba(32, 171, 254, 1) 30%, rgba(8, 158, 254, 1) 40%, rgba(1, 73, 82, 1) 90%);
   box-shadow: 0 0 20px rgba(0, 0, 0, .7);
+  outline: 0;
 }
 
   canvas.level1 {

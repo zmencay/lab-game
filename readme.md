@@ -1,4 +1,5 @@
-# El escudo LDA — Los detectives de mascotas
+# El escudo LDA 
+## Los detectives de mascotas
 
 **Videojuego de plataformas 2D desarrollado con JavaScript vanilla y HTML5 Canvas.**
 
@@ -122,4 +123,4 @@ Abre `index.html` en un navegador compatible. Se recomienda jugar desde un orden
 
 La identidad visual combina diseño, revisión y adaptación de recursos gráficos y sonoros. Se ha utilizado **inteligencia artificial generativa como herramienta de apoyo** en la creación e iteración de algunos de esos recursos, posteriormente evaluados y ajustados para el videojuego.
 
-**Versión:** `v3.6.0` · **[Historial de cambios](CHANGELOG.md)** · **[GitHub](https://github.com/zmencay/lab-game)**
+**Versión:** `v3.6.0` · **[Historial de cambios](CHANGELOG.md)** · **[GitHub](https://github.com/zmencay)**
