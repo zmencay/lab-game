@@ -20,7 +20,7 @@ El proyecto combina desarrollo frontend, programación orientada a objetos (POO)
 
 ## Demo y capturas
 
-**[Jugar online](URL_DE_GITHUB_PAGES)** *(enlace pendiente de publicar en GitHub Pages)*
+**[Jugar online](https://zmencay.github.io/lab-game/)**
 
 | Nivel 1 · Jungla | Nivel 2 · Desierto | Nivel 3 · Montaña nevada |
 |---|---|---|

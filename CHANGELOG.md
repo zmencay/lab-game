@@ -6,6 +6,18 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.6.2] — Optimización de recursos gráficos y audio
+
+### Changed
+- Compresión de imágenes de gran tamaño, manteniendo sus rutas y su integración en el videojuego.
+- Optimización del archivo de música de fondo `music.mp3`, reduciendo su peso aproximado de 14 MB a 350 KB.
+- Reducción del conjunto de imágenes optimizadas de aproximadamente 12 MB a 2,77 MB.
+
+### Validation
+- Comprobación visual de los recursos optimizados y del funcionamiento del juego.
+- Medición inicial de la carga en el entorno local tras la optimización.
+- Pendiente de comparar los tiempos de carga de GitHub Pages en condiciones equivalentes para cuantificar la mejora en producción.
+
 ## [3.6.1] — Ajustes de audio y documentación
 
 ### Added
