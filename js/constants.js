@@ -111,7 +111,7 @@
 
   // Coin animation frequency and horizontal scrolling speed
   const COIN_ANIMATION_FREQ = 5
-  const COIN_VX = BG_VX
+  const COIN_VX = 6
 
   // Coin dimensions and spritesheet layout
   const COIN_W = 55
@@ -122,10 +122,10 @@
   
   // Maximum simultaneous coins and vertical spawn range
   const COINS_MAX_IN_GAME = 10
-  const COIN_MAX_RANDOM_HEIGHT = 220
+  const COIN_MAX_RANDOM_HEIGHT = 260
 
   // Minimum and maximum coin spawn intervals in milliseconds
-  const COIN_SPAWN_MIN_TIME = 1500
+  const COIN_SPAWN_MIN_TIME = 2500
   const COIN_SPAWN_MAX_TIME = 4000
 
 // ---------------------
@@ -148,19 +148,19 @@
    */
   const ENEMY_CONFIG = {
     1: {
-      speed: 3,
+      speed: 8,
       sprite: './assets/enemies/enemy1.png',
       deathSprite: './assets/enemies/enemy1-death.png',
       hudIcon: './assets/ui/hud/enemies/enemy1-ico.png'
     },
     2: {
-      speed: 6,
+      speed: 10,
       sprite: './assets/enemies/enemy2.png',
       deathSprite: './assets/enemies/enemy2-death.png',
       hudIcon: './assets/ui/hud/enemies/enemy2-ico.png'
     },
     3: {
-      speed: 8,
+      speed: 12,
       sprite: './assets/enemies/enemy3.png',
       deathSprite: './assets/enemies/enemy3-death.png',
       hudIcon: './assets/ui/hud/enemies/enemy3-ico.png'

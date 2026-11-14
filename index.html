@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LDA - Los detectives de mascotas</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -21,6 +24,79 @@
         <button id="player1Btn" class="btn player hidden" type="button" data-player="player1">Player 1</button>
         <button id="player2Btn" class="btn player hidden" type="button" data-player="player2">Player 2</button>
         <button id="inicioBtn" class="btn inicio hidden" type="button">Inicio</button>
+        <!-- Game manual: available before starting gameplay -->
+        <button id="manualBtn" class="btn manual-trigger" type="button" commandfor="manualDialog" command="show-modal">Manual del juego</button>
+
+        <dialog id="manualDialog" class="game-manual" aria-labelledby="manualTitle">
+          <header class="game-manual__header">
+            <h2 id="manualTitle" class="game-manual__brand">
+              <img src="./assets/ui/manual/manual-cabecera.png" alt="Manual del juego">
+            </h2>
+            <button class="game-manual__close" type="button" commandfor="manualDialog" command="close" aria-label="Cerrar manual">
+              <img src="./assets/ui/manual/manual-close.png" alt="">
+            </button>
+          </header>
+
+          <div class="game-manual__content">
+            <!-- CONTROLS -->
+            <section class="manual-panel" aria-labelledby="controlsTitle">
+              <h3 id="controlsTitle" class="manual-label">Controles</h3>
+              <div class="manual-controls">
+                <div class="manual-controls__keys">
+                  <img src="./assets/ui/manual/manual-controles.png" alt="Flechas izquierda, derecha y arriba">
+                </div>
+                <p>Moverse (izquierda, derecha y saltar)</p>
+                <div class="manual-controls__keys">
+                  <img src="./assets/ui/manual/manual-controles2.png" alt="Barra espaciadora">
+                </div>
+                <p>Disparar bumerán</p>
+              </div>
+            </section>
+
+            <!-- OBJECTIVE -->
+            <section class="manual-objective" aria-labelledby="objectiveTitle">
+              <img src="./assets/ui/manual/manual-moneda.png" alt="" class="manual-objective__icon">
+              <h3 id="objectiveTitle" class="manual-label">Objetivo</h3>
+              <p>Consigue <strong>10</strong> monedas (huellas) para completar cada nivel.</p>
+            </section>
+
+            <!-- SURVIVAL -->
+            <section class="manual-survival" aria-label="Vidas y protección">
+              <div class="manual-survival__item">
+                <img src="./assets/ui/manual/manual-corazones.png" alt="">
+                <h3 class="manual-label">Vidas</h3>
+                <p>Tienes <strong>3</strong> vidas.</p>
+              </div>
+              <div class="manual-survival__item">
+                <img src="./assets/ui/manual/manual-dano.png" alt="">
+                <h3 class="manual-label">Daño</h3>
+                <p>Pierdes <strong>1</strong> vida si un enemigo te toca.</p>
+              </div>
+              <div class="manual-survival__item">
+                <img src="./assets/ui/manual/manual-invulnerabilidad.png" alt="">
+                <h3 class="manual-label">Invulnerabilidad</h3>
+                <p>Tras un golpe, serás invulnerable durante unos segundos.</p>
+              </div>
+            </section>
+
+            <!-- ENEMIES -->
+            <section class="manual-panel" aria-labelledby="enemiesTitle">
+              <h3 id="enemiesTitle" class="manual-label">Enemigos</h3>
+              <div class="manual-enemies">
+                <div class="manual-enemies__sprites" aria-hidden="true">
+                  <img src="./assets/ui/hud/enemies/enemy1-ico.png" alt="">
+                  <img src="./assets/ui/hud/enemies/enemy2-ico.png" alt="">
+                  <img src="./assets/ui/hud/enemies/enemy3-ico.png" alt="">
+                </div>
+                <div class="manual-enemies__action">
+                  <img src="./assets/ui/projectile.png" alt="">
+                  <p>Elimínalos saltando sobre ellos o disparándoles un bumerán.</p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </dialog>
+
 
         <!-- Game canvas: focusable programmatically after button interactions -->
         <canvas id="lda-game" tabindex="-1"></canvas>

@@ -1,142 +1,91 @@
-# El escudo LDA
-## Los detectives de mascotas
+# El escudo LDA — Los detectives de mascotas
 
 **Videojuego de plataformas 2D desarrollado con JavaScript vanilla y HTML5 Canvas.**
 
-El escudo LDA es un videojuego de plataformas de desplazamiento lateral en el que elegimos entre dos mascotas detectives para recorrer tres escenarios: una jungla, un desierto y una montaña nevada.
+Elige entre dos mascotas detectives y supera tres escenarios de estética pixel art: una jungla, un desierto y una montaña nevada. Recoge **10 huellas doradas por nivel**, esquiva o derrota enemigos y completa la aventura conservando al menos uno de tus tres corazones.
 
-El objetivo es recoger las diez huellas doradas de cada nivel, esquivar o derrotar a los enemigos y completar la aventura conservando al menos uno de los tres corazones disponibles.
+El proyecto combina desarrollo frontend, programación orientada a objetos (POO), animación mediante spritesheets, escenarios parallax y diseño de interfaces.
 
-El proyecto combina desarrollo frontend, programación orientada a objetos, animaciones mediante spritesheets y escenarios con efecto parallax, junto con una identidad visual inspirada en los videojuegos clásicos de estética pixel art.
+## Características principales
 
-### Características principales
-
-- Selección entre dos personajes jugables con animaciones propias y las mismas mecánicas.
-- Tres niveles con escenarios, enemigos y dificultad progresiva.
-- Movimiento lateral, salto y disparos con proyectiles en ambas direcciones.
-- Colisiones de proyectiles con enemigos, eliminaciones y actualización de estadísticas.
-- Sistema de vidas persistentes entre niveles.
-- Registro de enemigos derrotados con estadísticas acumuladas y desglose por nivel.
-- HUD actualizado con miniaturas de enemigos y contador de derrotas del nivel activo.
-- Estadísticas finales de enemigos derrotados por tipo y total acumulado en THE END.
-- Registro de tiempos por nivel y tiempo total de la aventura, mostrados al completar la partida.
-- Coleccionables y progresión por objetivos.
-- Animaciones de personajes y enemigos mediante spritesheets.
-- Escenarios multicapa con efecto parallax.
-- Efectos de sonido, música y control de audio.
-- Pantallas de inicio, transición, victoria y Game Over, con opción de regresar al inicio al completar la aventura.
-- Retrato del personaje seleccionado en el HUD y navegación mejorada mediante el foco de los controles.
-- Interfaz de botones con escalado proporcional respecto al Canvas (responsive MVP).
+- Dos personajes jugables con animaciones propias y las mismas mecánicas.
+- Tres niveles con escenarios y enemigos diferentes, y dificultad progresiva.
+- Movimiento lateral, salto y disparo de proyectiles en ambas direcciones.
+- Tres corazones persistentes entre niveles e invulnerabilidad temporal tras recibir daño.
+- HUD con vidas, huellas, nivel, personaje seleccionado y enemigos derrotados.
+- Pantalla final con estadísticas de enemigos eliminados y tiempos por nivel y total.
+- Música, efectos de sonido y control para silenciarlos.
+- Manual ilustrado integrado en un panel lateral HTML, disponible antes de iniciar la partida.
 
 ## Demo y capturas
 
-### Juega online
+**[Jugar online](URL_DE_GITHUB_PAGES)** *(enlace pendiente de publicar en GitHub Pages)*
 
-El videojuego puede ejecutarse directamente desde el navegador, sin necesidad de instalar dependencias.
-
-**[Jugar a El escudo LDA](URL_DE_GITHUB_PAGES)**
-
-### Capturas del videojuego
-
-Una pequeña muestra de los escenarios y la identidad visual del proyecto.
-
-| Jungla — Nivel 1 | Desierto — Nivel 2 | Montaña nevada — Nivel 3 |
+| Nivel 1 · Jungla | Nivel 2 · Desierto | Nivel 3 · Montaña nevada |
 |---|---|---|
-| ![Nivel 1 - Jungla](./docs/images/level-1.png) | ![Nivel 2 - Desierto](./docs/images/level-2.png) | ![Nivel 3 - Montaña nevada](./docs/images/level-3.png) |
+| ![Jungla](./docs/images/level-1.png) | ![Desierto](./docs/images/level-2.png) | ![Montaña nevada](./docs/images/level-3.png) |
 
-## Tecnologías utilizadas
+## Tecnologías
 
-El videojuego está desarrollado con tecnologías web nativas, sin frameworks ni librerías externas.
-
-| Tecnología | Aplicación en el proyecto |
+| Tecnología | Uso |
 |---|---|
-| **HTML5** | Estructura de la página e integración del videojuego. |
-| **CSS3** | Estilos de la interfaz, distribución de elementos y controles visuales. |
-| **JavaScript (ES6+)** | Lógica del juego, programación orientada a objetos, gestión de eventos y estados. |
-| **Canvas API** | Renderizado 2D de escenarios, personajes, animaciones y elementos del juego. |
-| **HTMLAudioElement (Audio API)** | Reproducción de música y efectos de sonido mediante objetos `Audio`. |
+| **HTML5** | Estructura de la interfaz y manual con `<dialog>`. |
+| **CSS3** | Maquetación, panel lateral, animaciones y adaptación responsive. |
+| **JavaScript (ES6+)** | Lógica del juego, eventos y programación orientada a objetos. |
+| **Canvas API** | Renderizado 2D de escenarios, personajes y animaciones. |
+| **HTMLAudioElement** | Música y efectos sonoros. |
 
-El proyecto utiliza una arquitectura basada en clases, con responsabilidades diferenciadas para la gestión de la partida, los personajes, los enemigos, los escenarios y los recursos multimedia.
+Sin frameworks, dependencias externas de JavaScript ni proceso de compilación.
+
+## Diseño visual y experiencia de usuario
+
+El videojuego utiliza una estética *pixel art* retro de 16 bits, con una identidad gráfica propia y tres escenarios diferenciados: jungla tropical, desierto y montaña nevada.
+
+El diseño comprende personajes y animaciones mediante spritesheets, escenarios con efecto parallax, enemigos, coleccionables, HUD y pantallas de interfaz.
+
+La experiencia de usuario se completa con un manual de juego interactivo, controles visuales y una interfaz adaptable, desarrollados con HTML y CSS fuera del Canvas.
 
 ## Cómo jugar
 
-Elige entre las dos mascotas detectives antes de comenzar la partida y supera los tres niveles de la aventura, recogiendo huellas doradas y evitando los peligros de cada escenario.
-
-### Selección de personaje
-
-Tras la pantalla de bienvenida, elige **Player 1** o **Player 2** para comenzar la aventura. Ambos personajes comparten los mismos controles y mecánicas, pero tienen sprites y animaciones propios. La elección se mantiene durante los tres niveles.
-
-### Controles
+En la bienvenida, pulsa **«Empezar»** y selecciona **Player 1** o **Player 2**. Ambos tienen las mismas habilidades. El botón **«Manual del juego»** está disponible tanto en la bienvenida como en la selección de personaje y abre unas instrucciones ilustradas; deja de mostrarse al comenzar la partida.
 
 | Tecla | Acción |
 |---|---|
-| `←` | Moverse hacia la izquierda |
-| `→` | Moverse hacia la derecha |
+| `←` / `→` | Moverse a izquierda / derecha |
 | `↑` | Saltar |
-| `Espacio` | Disparar un proyectil en la dirección del personaje |
+| `Espacio` | Disparar un proyectil |
 
-La franja inferior del navegador muestra una guía gráfica de los controles actuales: `←`, `→`, `↑` para moverse y saltar, y `Espacio` para disparar.
+Recoge **10 huellas** para superar cada nivel. Puedes evitar a los enemigos o derrotarlos saltando sobre ellos o disparándoles. Dispones de **3 corazones para toda la aventura**; tras recibir daño, obtienes unos segundos de invulnerabilidad.
 
-Al completar un nivel, el botón «Siguiente nivel» recibe el foco automáticamente y puede activarse mediante `Espacio` o `Enter`. Al interactuar con el botón de sonido o continuar la partida, el foco vuelve al Canvas. Durante la partida, se evita el comportamiento predeterminado de `Espacio` para que funcione como tecla de disparo.
+Al superar los tres niveles aparece **THE END**, con el desglose de enemigos derrotados y los tiempos registrados. Si pierdes todos los corazones, puedes volver a intentarlo desde **Game Over**.
 
-### Objetivo
+## Arquitectura
 
-- Recoge **10 huellas doradas** para completar cada nivel.
-- Esquiva a los enemigos o derrótalos saltando sobre ellos o disparándoles.
-- Pulsa `Espacio` para lanzar un proyectil; puedes disparar durante el movimiento o el salto. Cada pulsación genera un único disparo.
-- Consulta en el HUD cuántos enemigos del nivel actual has derrotado.
-- Al completar los tres niveles, consulta en THE END las derrotas de cada tipo de enemigo y el total acumulado.
-- Consulta también el tiempo empleado en cada nivel y el tiempo total de la aventura. Las pantallas de transición no se incluyen en la medición.
-- Dispones de **3 corazones** para completar toda la aventura.
-- Cada golpe recibido resta un corazón y proporciona unos segundos de invulnerabilidad.
-- Los corazones restantes se conservan al avanzar al siguiente nivel.
-- Si pierdes todos los corazones, la partida termina y tendrás que comenzar de nuevo mediante «Reintentar».
-- Al completar los tres niveles, puedes seleccionar «Inicio» para regresar a la bienvenida y comenzar una nueva partida.
+El código sigue una organización orientada a objetos, con responsabilidades separadas:
 
-### Niveles
-
-| Nivel | Escenario | Enemigo |
-|---|---|---|
-| 1 | Jungla tropical | Araña morada |
-| 2 | Desierto | Monstruo verde |
-| 3 | Montaña nevada | Pájaro rojo |
-
-Cada nivel presenta un escenario diferente y enemigos con velocidades progresivamente mayores. La miniatura del HUD y el contador de derrotas se actualizan según el enemigo de cada nivel.
-
-Completa los tres niveles para llegar a THE END, donde se muestra el resumen de enemigos derrotados y los tiempos registrados durante la partida. Desde esta pantalla, el botón «Inicio» permite regresar a la bienvenida.
-
-## Arquitectura y organización del código
-
-El videojuego utiliza una arquitectura basada en programación orientada a objetos (POO), con una separación de responsabilidades entre la lógica de la partida, las entidades del juego, los escenarios y los recursos multimedia.
-
-### Clases principales
-
-| Clase | Responsabilidad |
+| Componente | Responsabilidad principal |
 |---|---|
-| `Game` | Coordina el ciclo principal del juego, la selección de personaje, los niveles, los proyectiles, las colisiones, el registro de enemigos derrotados, la medición de tiempos y las transiciones entre estados. |
-| `Player` | Gestiona el movimiento del personaje seleccionado, los saltos, las animaciones y los estados de invulnerabilidad. |
-| `Enemy` | Controla el movimiento, las animaciones y el estado de los enemigos de cada nivel. |
-| `Coin` | Representa los coleccionables y gestiona su movimiento y animación. |
-| `Projectile` | Representa los disparos, actualiza su movimiento horizontal y renderiza el recurso gráfico según su dirección. |
-| `Scenary` | Renderiza las capas de los escenarios y gestiona su desplazamiento para crear el efecto parallax. |
-| `AudioManager` | Centraliza la reproducción de música, efectos de sonido y controles de audio. |
+| `Game` | Ciclo de juego, estados, niveles, colisiones y estadísticas. |
+| `Player` | Controles, movimiento, animaciones e invulnerabilidad. |
+| `Enemy` | Movimiento y estados de los enemigos. |
+| `Coin` | Coleccionables y animación. |
+| `Projectile` | Desplazamiento y representación de los disparos. |
+| `Scenary` | Capas gráficas y desplazamiento parallax. |
+| `AudioManager` | Música, efectos y control de sonido. |
 
-### Utilidades y configuración
+La configuración se centraliza en `js/constants.js`; `js/utils/image-loader.js` gestiona la carga de imágenes y `js/index.js` inicializa el juego.
 
-- **`image-loader.js`:** proporciona la función `loadImage()`, que centraliza la creación y carga de los recursos gráficos.
-- **`constants.js`:** reúne los valores de configuración del videojuego, como dimensiones, velocidades, spritesheets, controles y parámetros de los niveles.
-- **`index.js`:** inicializa el videojuego y conecta su ejecución con la página HTML.
-
-### Organización de archivos
+### Estructura del proyecto
 
 ```text
-game/
+lab-game/
 ├── assets/
 │   ├── audio/
 │   ├── bgn/
 │   ├── enemies/
 │   ├── player/
 │   └── ui/
+│       └── manual/
 ├── css/
 │   ├── reset.css
 │   └── style.css
@@ -144,194 +93,33 @@ game/
 │   ├── constants.js
 │   ├── index.js
 │   ├── models/
-│   │   ├── audio-manager.js
-│   │   ├── coin.js
-│   │   ├── enemy.js
-│   │   ├── game.js
-│   │   ├── player.js
-│   │   ├── projectile.js
-│   │   └── scenary.js
 │   └── utils/
-│       └── image-loader.js
 └── index.html
 ```
 
-Esta organización permite mantener diferenciadas las responsabilidades de cada componente y facilita la evolución del videojuego sin concentrar toda su lógica en un único archivo.
+### Aspectos técnicos destacados
 
-## Decisiones técnicas destacadas
-
-Durante el desarrollo del videojuego se han aplicado diferentes soluciones para organizar la lógica, gestionar las interacciones y mantener separadas las responsabilidades de sus componentes.
-
-### Ciclo de juego y gestión de estados
-
-La clase `Game` centraliza el ciclo principal de ejecución, encargado de actualizar y dibujar los elementos, generar enemigos y coleccionables, comprobar colisiones y gestionar las transiciones entre niveles.
-
-El juego contempla diferentes estados, como la pantalla de inicio, la selección de personaje, la partida activa, los niveles completados, Game Over y el final de la aventura. Desde THE END puede regresarse a la bienvenida mediante el botón «Inicio», que recarga la página y reinicia el estado de la partida.
-
-### Selección y reutilización de personajes
-
-`Game` crea la instancia de `Player` cuando se elige un personaje. Las rutas de los sprites de cada opción se definen en `PLAYER_CONFIG`, dentro de `constants.js`, y se pasan al constructor de `Player`. Ambos personajes comparten la lógica de movimiento, salto y colisiones. La misma instancia se reutiliza entre niveles, conservando la elección inicial. La propiedad `hudIcon` de `PLAYER_CONFIG` permite cargar el retrato del personaje elegido y mostrarlo sobre el fondo del HUD, sin incorporar el retrato a la imagen base.
-
-### Animaciones mediante spritesheets
-
-Los personajes, enemigos y coleccionables utilizan spritesheets para representar sus animaciones. El recurso gráfico del salto del Player 2 se ajustó para representar correctamente esa acción, sin modificar su lógica de movimiento.
-
-La selección de fotogramas se gestiona mediante índices de filas y columnas, mientras que las dimensiones de los spritesheets y las frecuencias de animación se definen en `constants.js`.
-
-### Escenarios con efecto parallax
-
-Los tres niveles utilizan escenarios formados por varias capas gráficas con diferentes velocidades de desplazamiento.
-
-La clase `Scenary` gestiona su representación y repetición horizontal, creando una sensación de profundidad y continuidad durante el movimiento.
-
-### Colisiones y mecánicas de juego
-
-Las interacciones entre el protagonista, los enemigos y los coleccionables se gestionan mediante comprobaciones de colisión.
-
-El resultado depende del tipo de interacción: recoger una huella, recibir daño o derrotar a un enemigo saltando sobre él o alcanzándolo con un proyectil.
-
-El sistema también contempla periodos de invulnerabilidad tras recibir daño y la persistencia de las vidas entre niveles.
-
-### Sistema de disparos
-
-Ambos personajes pueden disparar con la tecla `Espacio`, tanto en el suelo como durante un salto. Cada pulsación genera un único proyectil que avanza horizontalmente en la dirección hacia la que mira el personaje. La imagen del proyectil se refleja al desplazarse hacia la izquierda y se comparte entre las instancias mediante `loadImage()`.
-
-La clase `Projectile` se ocupa de sus dimensiones, posición, velocidad, movimiento y representación. `Game` gestiona los proyectiles activos, los elimina cuando abandonan el Canvas o impactan contra un enemigo vivo y reutiliza `enemy.die()` para activar la animación de derrota. Cada impacto elimina, como máximo, a un enemigo y se contabiliza en las estadísticas existentes.
-
-Las dimensiones y la velocidad se configuran en `constants.js`. Al iniciar un nuevo nivel, los proyectiles pendientes se descartan junto con las demás entidades del nivel anterior.
-
-### Estadísticas de enemigos derrotados
-
-La clase `Game` registra cada enemigo derrotado mediante un salto o el impacto de un proyectil, incrementando tanto el total acumulado de la partida como el contador correspondiente al nivel activo. Los enemigos esquivados o los golpes recibidos no suman derrotas.
-
-Las estadísticas se almacenan en `defeatedEnemies`, con un valor `total` y un desglose `byLevel`. Se inicializan al crear la partida y se conservan al cambiar de nivel, ya que `setupLevel()` no las reinicia.
-
-El HUD muestra **solo las derrotas del nivel actual**. La miniatura correspondiente se obtiene desde la propiedad `hudIcon` de `ENEMY_CONFIG`, y las imágenes se cargan mediante `loadImage()`. El total global y el desglose por nivel se reutilizan en la pantalla THE END, que presenta las derrotas de los tres tipos de enemigos y el total acumulado. En el HUD únicamente se muestra el contador del nivel activo.
-
-No se utiliza `localStorage`: estas estadísticas pertenecen a la partida en curso y no se conservan al recargar la página.
-
-### Estadísticas en la pantalla final
-
-Cuando se completa el tercer nivel, `gameCompleted()` muestra la pantalla THE END. El método `drawFinalEnemyStats()` dibuja sobre ella las miniaturas de los tres enemigos, sus respectivos valores de `defeatedEnemies.byLevel` y el total de `defeatedEnemies.total`.
-
-Las miniaturas se reutilizan desde `enemyHudIcons`, sin duplicar la carga de imágenes ni alterar la contabilización de derrotas. Las estadísticas se representan con los resultados de la partida que acaba de terminar. La misma pantalla también muestra los tiempos por nivel y el total de la aventura.
-
-### Registro de tiempos por nivel
-
-La clase `Game` mide la duración de cada nivel mediante `performance.now()`. El cronómetro del primer nivel comienza al seleccionar personaje y los siguientes se inician al pulsar el botón de continuación, por lo que el tiempo de las pantallas de transición queda excluido.
-
-Al recoger la décima huella, el tiempo transcurrido se guarda en milisegundos dentro de `levelTimes`, con un valor independiente para cada nivel. Si la partida termina en Game Over, se descartan todos los tiempos registrados, incluso los de niveles anteriores.
-
-El método `formatTime()` convierte los milisegundos a `MM:SS` para su presentación. Al completar los tres niveles, `drawFinalTimeStats()` muestra los tiempos individuales y el total en THE END. El tiempo total se calcula sumando los milisegundos originales y formateando el resultado, sin mantener un contador adicional ni utilizar `localStorage`.
-
-### Foco de controles y adaptación responsive
-
-El Canvas utiliza `tabindex="-1"` para poder recibir el foco mediante JavaScript sin incorporarse al recorrido secuencial con Tab. Tras activar el control de sonido, el foco vuelve al Canvas para evitar que la barra espaciadora vuelva a accionar el botón. Al mostrar la pantalla de nivel completado, el botón «Siguiente nivel» recibe el foco; tras activarlo, se devuelve al Canvas. Al completar la aventura, el botón «Inicio» recibe el foco para facilitar su activación mediante teclado.
-
-La interfaz HTML agrupa el Canvas y sus botones dentro de `.game-frame`, un contenedor de proporción 16:9. Los botones utilizan posiciones y dimensiones relativas a ese contenedor para conservar su ubicación y escala cuando cambia el ancho disponible. La guía gráfica inferior de controles se muestra mediante el pseudoelemento `.game-frame::before`, reutilizando el recurso `assets/ui/interface/controls.png` sin elementos HTML adicionales. El Canvas mantiene su resolución interna de 1280 × 720; la adaptación visual corresponde a un **responsive MVP**, orientado principalmente a escritorio y teclado, sin controles táctiles ni ajuste específico a todas las alturas de ventana. Se conservan los elementos decorativos del fondo mediante los pseudoelementos existentes.
-
-Los archivos HTML y CSS mantienen una organización por responsabilidades y comentarios de estructura y estilos, sin introducir JSDoc en estos lenguajes.
-
-### Gestión centralizada de recursos
-
-La carga de imágenes se realiza mediante la utilidad `loadImage()`, que unifica su inicialización y permite comprobar cuándo están disponibles para dibujarse.
-
-Por su parte, `AudioManager` centraliza la reproducción de música y efectos de sonido, así como su activación y silenciamiento.
-
-### Configuración y reutilización
-
-Los valores de configuración se agrupan en `constants.js`, evitando distribuir parámetros fijos por las distintas clases.
-
-Esta separación permite reutilizar la lógica del juego entre los tres niveles, modificando su configuración, recursos gráficos y características sin duplicar las implementaciones principales.
-
-## Diseño visual y recursos gráficos
-
-La identidad visual del videojuego está inspirada en los clásicos de plataformas 2D, con una estética pixel art retro aplicada a personajes, escenarios, interfaces y animaciones.
-
-El apartado gráfico se ha desarrollado buscando coherencia visual entre los tres niveles y sus diferentes ambientaciones.
-
-### Dirección artística
-
-Cada nivel cuenta con una ambientación propia:
-
-- **Jungla tropical:** vegetación, montañas, cascadas y una laguna, con predominio de tonos verdes y turquesas.
-- **Desierto:** cañones, formaciones rocosas, dunas y vegetación desértica, con una paleta de colores cálidos.
-- **Montaña nevada:** paisajes montañosos, nieve, vegetación alpina y tonos fríos.
-
-Los escenarios se componen de diferentes capas gráficas preparadas para su desplazamiento y repetición horizontal mediante parallax.
-
-### Personajes y animaciones
-
-Los dos personajes jugables, los enemigos, los coleccionables y los proyectiles cuentan con recursos gráficos adaptados a sus funciones, estados o movimientos.
-
-Las animaciones se organizan mediante spritesheets, integrados posteriormente en el sistema de renderizado del videojuego.
-
-### Diseño de interfaz
-
-La interfaz mantiene la misma identidad visual que los escenarios y personajes, incluyendo:
-
-- Pantalla de bienvenida y presentación del juego.
-- Pantalla de selección entre los dos personajes jugables.
-- HUD actualizado con retrato dinámico del personaje seleccionado, indicador de vidas, huellas recogidas, nivel actual y enemigos derrotados del nivel activo.
-- Miniaturas específicas de araña, monstruo y pájaro, integradas dinámicamente en el HUD.
-- Pantallas de nivel completado, Game Over y final de partida; botón «Reintentar» con recurso gráfico ajustado y botón «Inicio» en THE END.
-- Pantalla THE END actualizada con miniaturas, desglose de enemigos eliminados, tiempos por nivel y totales de derrotas y duración.
-- Botones y controles gráficos con gestión de foco y ajuste proporcional al área del juego.
-- Guía visual inferior con las teclas de movimiento, salto y disparo actualizadas.
-
-El diseño de estos elementos busca mantener una experiencia visual consistente a lo largo de toda la aventura.
+- **Spritesheets y parallax:** animaciones de personajes y enemigos y escenarios de varias capas con desplazamientos independientes.
+- **Estados y progresión:** gestión de bienvenida, selección, niveles, Game Over y THE END, con corazones persistentes durante la partida.
+- **Estadísticas:** registro de enemigos derrotados y tiempos por nivel, mostrados al finalizar la aventura.
+- **Interfaz independiente del Canvas:** botones HTML y manual modal nativo con apertura y cierre declarativos, sin añadir JavaScript al motor. Su acceso se controla mediante CSS y los estados existentes de la interfaz.
+- **Adaptación de pantalla:** Canvas de resolución interna 1280 × 720 e interfaz con escalado proporcional, orientada principalmente a escritorio y teclado; no incluye controles táctiles.
 
 ## Instalación y ejecución
 
-El videojuego está desarrollado con tecnologías web nativas y no requiere instalar dependencias ni ejecutar procesos de compilación.
+El juego no requiere instalar dependencias ni compilar el proyecto.
 
-### Jugar online
+```bash
+git clone https://github.com/zmencay/lab-game.git
+cd lab-game
+```
 
-Puedes acceder directamente al videojuego desde la [demo en GitHub Pages](URL_DE_GITHUB_PAGES).
+Abre `index.html` en un navegador compatible. Se recomienda jugar desde un ordenador con teclado.
 
-### Ejecutar en local
+## Autoría y créditos
 
-1. Clona el repositorio:
+**Desarrollo y dirección del proyecto:** Zuriñe Menéndez Cayrols.
 
-   ```bash
-   git clone https://github.com/zmencay/lab-game
-   ```
+La identidad visual combina diseño, revisión y adaptación de recursos gráficos y sonoros. Se ha utilizado **inteligencia artificial generativa como herramienta de apoyo** en la creación e iteración de algunos de esos recursos, posteriormente evaluados y ajustados para el videojuego.
 
-2. Accede a la carpeta del proyecto:
-
-   ```bash
-   cd lab-game
-   ```
-
-3. Abre `index.html` en un navegador web.
-
-El videojuego está diseñado para jugarse mediante teclado, por lo que se recomienda utilizar un ordenador de escritorio o portátil.
-
-## Autoría, herramientas y créditos
-
-**Desarrollo y dirección del proyecto:** Zuriñe Menéndez Cayrols
-
-Videojuego desarrollado como proyecto práctico de desarrollo web, combinando programación orientada a objetos, diseño de interfaces y creación de recursos multimedia.
-
-### Desarrollo y diseño
-
-El desarrollo del videojuego, la definición de sus mecánicas, la arquitectura del código y la integración de los recursos gráficos y sonoros forman parte del trabajo realizado durante el proyecto.
-
-La identidad visual se ha construido mediante un proceso de definición artística, generación de propuestas, revisión y adaptación de recursos para mantener una estética coherente entre los diferentes niveles y elementos de la interfaz.
-
-### Herramientas e inteligencia artificial
-
-Durante el proyecto se ha utilizado inteligencia artificial generativa como herramienta de apoyo para la creación e iteración de recursos gráficos y sonoros.
-
-Las propuestas generadas se han evaluado y ajustado en función de los requisitos visuales, técnicos y funcionales del videojuego.
-
-### Versión
-
-**Versión actual:** `3.5.1`
-
-El historial de evolución y cambios del proyecto se recoge en [CHANGELOG.md](CHANGELOG.md).
-
-### Repositorios
-
-- GitHub: [@zmencay](https://github.com/zmencay)
-<!-- - Portfolio: [zmc DevLab](https://zmcdevlab.com/) -->
+**Versión:** `v3.6.0` · **[Historial de cambios](CHANGELOG.md)** · **[GitHub](https://github.com/zmencay/lab-game)**

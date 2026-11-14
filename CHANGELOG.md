@@ -6,6 +6,27 @@ Este documento recoge las principales funcionalidades, mejoras y refactorizacion
 
 ## [Unreleased]
 
+## [3.6.0] — Manual de juego y experiencia de usuario
+
+### Added
+- Incorporación del botón «Manual del juego», disponible en la bienvenida y durante la selección de personaje.
+- Nuevo panel lateral mediante el elemento HTML nativo `<dialog>`, con secciones de controles, objetivo, vidas, daño, invulnerabilidad y enemigos.
+- Integración de recursos gráficos del manual y reutilización de iconos y sprites existentes.
+
+### Changed
+- Apertura y cierre declarativos con `commandfor` y `command`, sin incorporar JavaScript al sistema del juego.
+- Visibilidad del botón controlada con CSS mediante el combinador de hermanos generales (`~`) y los estados `.hidden` ya existentes; el acceso desaparece al comenzar la partida.
+- Ajuste del panel al lateral derecho, con overlay mediante `::backdrop`, animaciones CSS de entrada y salida, y adaptación responsive.
+- Reorganización y limpieza de los estilos del manual siguiendo los bloques `layout`, `box-model`, `typo` y `presentation`, con selectores descendientes tabulados.
+- Conservación de las mecánicas, el Canvas y las clases JavaScript existentes sin modificaciones.
+
+### Documentation
+- Actualización del README con el acceso al manual, su contenido, los recursos visuales y las decisiones técnicas de integración.
+
+### Validation
+- Diseño e integración visual del manual aprobados.
+- Pruebas de regresión completadas correctamente: apertura, cierre, navegación por teclado, responsive, visibilidad del manual y continuidad de las mecánicas existentes.
+
 ## [3.5.1] — Correcciones finales de interfaz y navegación
 
 ### Added
