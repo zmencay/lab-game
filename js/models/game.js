@@ -154,8 +154,6 @@ class Game {
    */
   start() {
     if (this.drawIntervalId === null) {
-      
-      this.audioManager.play('music', false)
 
       this.drawIntervalId = setInterval(() => {
         if (this.isStartedClicked) {
@@ -276,6 +274,8 @@ class Game {
       this.initBtn.classList.add("hidden")
       this.player1Btn.classList.remove('hidden')
       this.player2Btn.classList.remove('hidden')
+      
+      this.audioManager.play('music', false)
     })
 
     this.reloadBtn.addEventListener('click', () => {
@@ -302,6 +302,7 @@ class Game {
       this.levelStartTime = performance.now()
       
       this.start()
+      this.audioManager.play('music', false)
       
       this.canvas.focus()
     })
