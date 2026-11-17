@@ -20,6 +20,8 @@ El proyecto combina desarrollo frontend, programación orientada a objetos (POO)
 
 ## Demo y capturas
 
+**[Presentación](https://canva.link/zmencay-lab-game)**
+
 **[Jugar online](https://zmencay.github.io/lab-game/)**
 
 | Nivel 1 · Jungla | Nivel 2 · Desierto | Nivel 3 · Montaña nevada |
